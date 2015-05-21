@@ -3,8 +3,8 @@ Annabelle and Mariya's Term 2 Final Project!
 
 
 ####Brief Description: 
-	Useful program that provides you with gadgets that will 
-aid in computation and graphing of various mathematical equations. 
+Useful program that provides you with gadgets that will aid in computation and graphing of 
+various mathematical equations. 
 User will have three options:
 - a standard calculator, 
 - a matrix modifier (to return various functions on user-inputted matrices), 
