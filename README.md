@@ -9,12 +9,11 @@ User will have three options:
 - a standard calculator, 
 - a matrix modifier (to return various functions on user-inputted matrices), 
 - and a visual graphing device.
+
 The goal is to attempt to mimic the key functions of a graphing calculator
-with the addition of new abilities such as computation of matrices
-and tracing through graphs and their paths. 
-Dealing with the various buttons can get tedious with the tiny buttons
-and incomprehensible abbreviations. Our program will make math easier
-and enable you to clearly perceive graphs of not only functions, 
+with the addition of new abilities such as computation of matrices and tracing through graphs and their paths. 
+Dealing with the various buttons can get tedious with the tiny buttons and incomprehensible abbreviations.
+Our program will make math easier and enable you to clearly perceive graphs of not only functions, 
 but parametric and polar equations as well. It will also be easier to 
 input more complex equations, such as piecewise functions or circles/ellipses. 
 In addition, the matrix calculator will go much further with matrices than conventional calculators do,
