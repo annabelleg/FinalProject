@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
 secondApplet s, t;
-int gridRatio = 25;
+int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
 
@@ -24,7 +24,7 @@ void draw() {
   graphGrid(gridRatio);
   fill(255, 0, 0);
   noStroke();
-  testEquation(1,0);
+  testEquation(1, 0);
 }
 
 public class PFrame extends JFrame {
@@ -48,9 +48,18 @@ public class NewFrame extends JFrame {
 }
 public class secondApplet extends PApplet {
   public void setup() {
-    background(255);
+    background(0);
   }
   public void draw() {
+    rectMode(CENTER);
+    fill(255, 0, 0);
+    rect(width/2, height/2, 50, 50);
+    // Changes Scale
+    if (mousePressed) {
+      if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2)-25 && mouseY < (height/2)+25) {
+        gridRatio+= 2;
+      }
+    }
   }
 }
 

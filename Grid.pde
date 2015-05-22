@@ -23,13 +23,9 @@ void graphGrid(int scale) {
 void testEquation(int m, int b) {
   // y = mx + b form
   // gridScale = 25
-  /*for (int x = 1; x <= height/gridRatio; x++) {
-   for (int y = 1; y <= width/gridRatio; y++) {
-   ellipse(25*x, 25*y, 5, 5);
-   }
-   }*/
   for (int x = (-1)*(xCenter); x <= xCenter; x++) {
-    ellipse(x+xCenter, m*x+(b*25)+yCenter, 5, 5);
+    ellipse(x+xCenter, m*x+(b*25)+yCenter, 2, 2);
   }
 }
+
 
