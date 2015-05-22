@@ -1,17 +1,18 @@
 import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
-secondApplet s,t;
+secondApplet s, t;
+int gridRatio = 20;
 boolean toRun = false;
 
 
 void setup() {
-  size(600,578);
-  setLocation(400,300);
+  size(600, 578);
+  setLocation(400, 300);
 }
 
 void draw() {
-  background(255,60,0);
+  background(255);
   fill(255);
   // Creates a new window when mouse clicked.
   if (mousePressed && !toRun) {
@@ -19,11 +20,12 @@ void draw() {
     NewFrame yo = new NewFrame();
     toRun = true;
   }
+  graphGrid(gridRatio);
 }
 
 public class PFrame extends JFrame {
   public PFrame() {
-    setBounds(100,75,400,300);
+    setBounds(100, 75, 400, 300);
     s = new secondApplet();
     add(s);
     s.init();
@@ -33,7 +35,7 @@ public class PFrame extends JFrame {
 
 public class NewFrame extends JFrame {
   public NewFrame() {
-    setBounds(100,375,400,300);
+    setBounds(100, 375, 400, 300);
     t = new secondApplet();
     add(t);
     t.init();
