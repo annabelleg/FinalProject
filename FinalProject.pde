@@ -2,8 +2,9 @@ import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
 secondApplet s, t;
-int gridRatio = 20;
+int gridRatio = 25;
 boolean toRun = false;
+int xCenter, yCenter;
 
 
 void setup() {
@@ -21,6 +22,9 @@ void draw() {
     toRun = true;
   }
   graphGrid(gridRatio);
+  fill(255, 0, 0);
+  noStroke();
+  testEquation(1,0);
 }
 
 public class PFrame extends JFrame {
