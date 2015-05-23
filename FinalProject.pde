@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
-secondApplet s, t;
+secondApplet s,t;
 int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
@@ -46,17 +46,19 @@ public class NewFrame extends JFrame {
     show();
   }
 }
+
 public class secondApplet extends PApplet {
   public void setup() {
     background(0);
   }
+  // Using t. ensures it only applies to window t
   public void draw() {
-    rectMode(CENTER);
-    fill(255, 0, 0);
-    rect(width/2, height/2, 50, 50);
+    t.rectMode(CENTER);
+    t.fill(255, 0, 0);
+    t.rect(width/2, height/2, 50, 50);
     // Changes Scale
-    if (mousePressed) {
-      if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2)-25 && mouseY < (height/2)+25) {
+    if (t.mousePressed) {
+      if (t.mouseX > (t.width/2)-25 && t.mouseX < (t.width/2)+25 && t.mouseY > (t.height/2)-25 && t.mouseY < (t.height/2)+25) {
         gridRatio+= 2;
       }
     }
