@@ -46,3 +46,15 @@ Interpreting user input of equations
 2. Interfaces to display output
 3. Ways to take user input
 4. Perfection 
+
+####Development Log:
+- before 5/22/15
+  - figured out how to open new windows (!!)
+  - basic graph functionality: creating graph layout, zooming in on origin
+- 5/25/15
+  - created "homepage" and "matrixStuff" branches
+  - began working on algorithms for matrix stuff
+  - created basic homepage that will eventually have buttons that lead to the different calculators
+- 5/26/15
+  - created "Graphing" branch
+  - graph now zooms in AND out!
