@@ -27,51 +27,36 @@ public class Matrix{
 	return ans;
     }
     
-   
-   
-   
     public void REF(){
         exchange();
-	/*	int r=0;
-		int leading1col = 0;
-		while (r < rows){
-		int c = 0;
-		//DILATION
-		while (c < cols && data[r][c] == 0.0){
-		c++;
-		leading1col++;
-		}
-		if (c == 0 || (data[r][c] != 1.0 && data[r][c-1] == 0.0)){
-		double val = 1/data[r][c];
-		for (int i = c; i < cols; i++){
-		data[r][i] = data[r][i]*val;
-		}
-		}
-		//SHEARING
-		int tempr = 0;
-		while (tempr < rows){
+	dilation();
+	
+	/*
+	    //SHEARING
+	    int tempr = 0;
+	    while (tempr < rows){
 		if (tempr == r){
-		tempr++;
+		    tempr++;
 		}
 		if (tempr < rows){
-		if (data[tempr][leading1col] != 0.0){
-		double shearval = data[r][leading1col];
-		for (int i = 0; i < cols; i++){
-		data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
+		    if (data[tempr][leading1col] != 0.0){
+			double shearval = data[r][leading1col];
+			for (int i = 0; i < cols; i++){
+			    data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
+			}
+		    }else if(data[tempr][leading1col] == 0.0){
+			tempr++;
+		    }
 		}
-		}else if(data[tempr][leading1col] == 0.0){
 		tempr++;
-		}
-		}
-		tempr++;
-		}
-		r++;
-		}
-	*/
+	    }
+	    r++;
+	}
+	
+    }*/
     }
-
     public void exchange(){
-	for (int r = 0;r < rows-1; r++){
+	for (int r = 0;r < rows; r++){
 	    int k = 1;
 	    while (k < rows-r){
 		if (findLeadingEntry(r) > findLeadingEntry(r+k)){
@@ -96,7 +81,21 @@ public class Matrix{
 	}
     }
     
-
+    public void dilation(){
+    	int r=0;
+	while (r < rows){
+	    int c = findLeadingEntry(r);
+	    if (c > 0){
+		if (c == 0 || (data[r][c] != 1.0 && data[r][c-1] == 0.0)){
+		    double val = 1/data[r][c];
+		    for (int i = c; i < cols; i++){
+			data[r][i] = data[r][i]*val;
+		    }
+		}
+	    }
+	    r++;
+	}
+    }
     public static void main(String[]args){
 	Matrix m = new Matrix(3,4);
 	//	m.enterData();
