@@ -53,12 +53,12 @@ public class secondApplet extends PApplet {
   }
   // Using t. ensures it only applies to window t
   public void draw() {
-    t.rectMode(CENTER);
-    t.fill(255, 0, 0);
-    t.rect(width/2, height/2, 50, 50);
+    rectMode(CENTER);
+    fill(255, 0, 0);
+    rect(width/2, height/2, 50, 50);
     // Changes Scale
-    if (t.mousePressed) {
-      if (t.mouseX > (t.width/2)-25 && t.mouseX < (t.width/2)+25 && t.mouseY > (t.height/2)-25 && t.mouseY < (t.height/2)+25) {
+    if (mousePressed) {
+      if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2)-25 && mouseY < (height/2)+25) {
         gridRatio+= 2;
       }
     }
