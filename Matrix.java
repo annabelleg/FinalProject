@@ -65,32 +65,28 @@ public class Matrix{
 		}
 		tempr++;
 		}
-
 		r++;
 		}
 	*/
     }
 
     public void exchange(){
-	int leading1col = 0;
-	int nextL1C = 0;
 	for (int r = 0;r < rows-1; r++){
-	    for (int c = 0; c < cols-1; c++){
-		
-		if (data[r][c] == 0.0 && data[r][c+1] != 0.0){
-		    leading1col = c+1;
+	    int k = 1;
+	    while (k < rows-r){
+		if (findLeadingEntry(r) > findLeadingEntry(r+k)){
+		    switchRows(r,r+k);
 		}
-		if (data[r+1][c] == 0.0 && data[r+1][c+1] != 0.0){
-		    nextL1C = c+1;
-		}
+		k++;
 	    }
-	    if (nextL1C > leading1col){
-		switchRows(r,r+1);
-	    }
-	    // r++;
-	    leading1col = nextL1C;
-	    nextL1C = 0;
 	}
+    }
+    public int findLeadingEntry(int row){
+	for (int c = 0; c < cols; c++){
+	    if (data[row][c] != 0.0)
+		return c;
+	}
+	return -1;
     }
     public void switchRows(int a, int b){
 	for (int c = 0; c < cols; c++){
