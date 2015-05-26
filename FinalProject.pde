@@ -1,7 +1,8 @@
 import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
-secondApplet s,t;
+secondApplet s;
+thirdApplet t;
 int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
@@ -40,7 +41,7 @@ public class PFrame extends JFrame {
 public class NewFrame extends JFrame {
   public NewFrame() {
     setBounds(100, 375, 400, 300);
-    t = new secondApplet();
+    t = new thirdApplet();
     add(t);
     t.init();
     show();
@@ -62,6 +63,14 @@ public class secondApplet extends PApplet {
         gridRatio+= 2;
       }
     }
+  }
+}
+public class thirdApplet extends PApplet {
+  public void setup() {
+    background(0);
+  }
+
+  public void draw() {
   }
 }
 
