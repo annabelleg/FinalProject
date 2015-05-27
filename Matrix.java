@@ -29,31 +29,9 @@ public class Matrix{
     
     public void REF(){
         exchange();
-	dilation();
+	dilateAndShear();
 	
-	/*
-	    //SHEARING
-	    int tempr = 0;
-	    while (tempr < rows){
-		if (tempr == r){
-		    tempr++;
-		}
-		if (tempr < rows){
-		    if (data[tempr][leading1col] != 0.0){
-			double shearval = data[r][leading1col];
-			for (int i = 0; i < cols; i++){
-			    data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
-			}
-		    }else if(data[tempr][leading1col] == 0.0){
-			tempr++;
-		    }
-		}
-		tempr++;
-	    }
-	    r++;
-	}
-	
-    }*/
+
     }
     public void exchange(){
 	for (int r = 0;r < rows; r++){
@@ -81,20 +59,49 @@ public class Matrix{
 	}
     }
     
-    public void dilation(){
+    public void dilateAndShear(){
     	int r=0;
 	while (r < rows){
 	    int c = findLeadingEntry(r);
-	    if (c > 0){
-		if (c == 0 || (data[r][c] != 1.0 && data[r][c-1] == 0.0)){
-		    double val = 1/data[r][c];
-		    for (int i = c; i < cols; i++){
-			data[r][i] = data[r][i]*val;
-		    }
-		}
+	    if (c >= 0){
+		dilate(r,c);
 	    }
 	    r++;
 	}
+    }
+    public void dilate(int r, int c){
+	if (data[r][c] != 1.0){
+	    double val = 1/data[r][c];
+	    for (int i = c; i < cols; i++){
+		data[r][i] = data[r][i]*val;
+	    }
+	}
+    }
+
+    public void shear(){
+		/*
+	    //SHEARING
+	    int tempr = 0;
+	    while (tempr < rows){
+		if (tempr == r){
+		    tempr++;
+		}
+		if (tempr < rows){
+		    if (data[tempr][leading1col] != 0.0){
+			double shearval = data[r][leading1col];
+			for (int i = 0; i < cols; i++){
+			    data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
+			}
+		    }else if(data[tempr][leading1col] == 0.0){
+			tempr++;
+		    }
+		}
+		tempr++;
+	    }
+	    r++;
+	}
+	
+    }*/
     }
     public static void main(String[]args){
 	Matrix m = new Matrix(3,4);
