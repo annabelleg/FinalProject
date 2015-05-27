@@ -58,3 +58,4 @@ Interpreting user input of equations
 - 5/26/15
   - created "Graphing" branch
   - graph now zooms in AND out!
+  - reduced echelon form now completely works (in java)
