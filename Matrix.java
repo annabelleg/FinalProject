@@ -65,6 +65,7 @@ public class Matrix{
 	    int c = findLeadingEntry(r);
 	    if (c >= 0){
 		dilate(r,c);
+		shear(r,c);
 	    }
 	    r++;
 	}
@@ -78,33 +79,22 @@ public class Matrix{
 	}
     }
 
-    public void shear(){
-		/*
-	    //SHEARING
-	    int tempr = 0;
-	    while (tempr < rows){
-		if (tempr == r){
-		    tempr++;
+    public void shear(int r, int c){
+	int tempr = 0;
+        while (tempr < rows){
+	    if (tempr != r){
+		double shearval = data[tempr][c];
+		int startval = findLeadingEntry(tempr);
+		for (int i = startval; i < cols; i++){
+		    data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
 		}
-		if (tempr < rows){
-		    if (data[tempr][leading1col] != 0.0){
-			double shearval = data[r][leading1col];
-			for (int i = 0; i < cols; i++){
-			    data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
-			}
-		    }else if(data[tempr][leading1col] == 0.0){
-			tempr++;
-		    }
-		}
-		tempr++;
 	    }
-	    r++;
+	    tempr++;
 	}
-	
-    }*/
     }
+	
     public static void main(String[]args){
-	Matrix m = new Matrix(3,4);
+	Matrix m = new Matrix(4,4);
 	//	m.enterData();
 	System.out.println(m.displayMatrix());
 	m.REF();
