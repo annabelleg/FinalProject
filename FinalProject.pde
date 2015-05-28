@@ -8,18 +8,16 @@ boolean toRun = false;
 void setup() {
   size(600, 578);
   setLocation(400, 300);
+  Matrix m = new Matrix(3, 4);
 }
 
 void draw() {
+  printCounter();
   //background(255, 60, 0);
   stroke(225);
   fill(255);
-  // Creates a new window when mouse clicked.
   if (!toRun) {
-    /* PFrame f = new PFrame();
-     NewFrame yo = new NewFrame();
-     toRun = true;*/
-    Matrix m = new Matrix(3, 4);
+    
     m.displayMatrix();
     toRun = true;
   }
@@ -28,12 +26,13 @@ void draw() {
   fill(0);
   textAlign(CENTER);
   text("Compute\nReduced Echelon Form", width/3 + 100, height - height/4 + 30);
-  if (mousePressed && mouseX > (width/3) && mouseX < (2*width/3) && mouseY < (height-height/4) && mouseY < (height - height/8) {
-    
-    background(255);
-    m.REF();
-    m.displayMatrix();
-  }
+  if (toRun && mousePressed && mouseX > (width/3) && mouseX < (2*width/3) && mouseY < (height-height/4) && mouseY < (height - height/8) {
+   
+   //background(255);
+   m.REF();
+   m.displayREF();
+   toRun = false;
+   }
 }
 
 
