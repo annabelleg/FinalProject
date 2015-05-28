@@ -59,3 +59,8 @@ Interpreting user input of equations
   - created "Graphing" branch
   - graph now zooms in AND out!
   - reduced echelon form now completely works (in java)
+- 5/27/15
+  - added typing stuff to Graphing (user can input equations)
+  - attempted to make textboxes and stuff
+  - transferred matrix stuff from java to processing
+  - working on displaying matrices
