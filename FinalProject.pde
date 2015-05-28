@@ -1,32 +1,45 @@
 import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
-secondApplet s,t;
+secondApplet s, t;
 boolean toRun = false;
 
 
 void setup() {
-  size(600,578);
-  setLocation(400,300);
+  size(600, 578);
+  setLocation(400, 300);
 }
 
 void draw() {
-  background(255,60,0);
+  //background(255, 60, 0);
+  stroke(225);
   fill(255);
   // Creates a new window when mouse clicked.
-  if (mousePressed && !toRun) {
-   /* PFrame f = new PFrame();
-    NewFrame yo = new NewFrame();
-    toRun = true;*/
-    Matrix m = new Matrix(3,4);
+  if (!toRun) {
+    /* PFrame f = new PFrame();
+     NewFrame yo = new NewFrame();
+     toRun = true;*/
+    Matrix m = new Matrix(3, 4);
     m.displayMatrix();
-  //  toRun = true;
+    toRun = true;
+  }
+  fill(225);
+  rect(width/3, height - height/4, width/3, height/8);
+  fill(0);
+  textAlign(CENTER);
+  text("Compute\nReduced Echelon Form", width/3 + 100, height - height/4 + 30);
+  if (mousePressed && mouseX > (width/3) && mouseX < (2*width/3) && mouseY < (height-height/4) && mouseY < (height - height/8) {
+    
+    background(255);
+    m.REF();
+    m.displayMatrix();
   }
 }
 
+
 public class PFrame extends JFrame {
   public PFrame() {
-    setBounds(100,75,400,300);
+    setBounds(100, 75, 400, 300);
     s = new secondApplet();
     add(s);
     s.init();
@@ -36,7 +49,7 @@ public class PFrame extends JFrame {
 
 public class NewFrame extends JFrame {
   public NewFrame() {
-    setBounds(100,375,400,300);
+    setBounds(100, 375, 400, 300);
     t = new secondApplet();
     add(t);
     t.init();
