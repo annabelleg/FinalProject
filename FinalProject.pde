@@ -11,14 +11,13 @@ boolean typeMode = true;
 TextBox current;
 PFont p;
 boolean settingsWindowOpen = false;
-boolean randomShit = false;
 
 
 void setup() {
   size(600, 578);
   setLocation(400, 300);
   current = new TextBox(50, 50);
-  open("/Users/galmarkul/Github/FinalProject/homepage.pde");
+  // open("/Users/galmarkul/Github/FinalProject/Homepage/homepage.pde");
 }
 
 void draw() {
@@ -31,7 +30,6 @@ void draw() {
     testEquation(1, 0);
   }
   settingsButton();
-
 }
 
 public class PFrame extends JFrame {
@@ -56,7 +54,7 @@ public class NewFrame extends JFrame {
 
 public class secondApplet extends PApplet {
   public void setup() {
-    background(0);
+    background(#E8B4FF);
   }
   // Using t. ensures it only applies to window t
   public void draw() {
@@ -69,12 +67,16 @@ public class secondApplet extends PApplet {
         gridRatio+= 2;
       }
     }
+    p = loadFont("ACaslonPro-Semibold-48.vlw");
+    textFont(p, 24);                
+    fill(255, 0, 0);                    
+    text("Graph Settings", 0, 30);
   }
 }
 public class thirdApplet extends PApplet {
-  
+
   public void setup() {
-    background(0);
+    background(10, 10, 10);
   }
 
   public void draw() {

@@ -34,13 +34,17 @@ void settingsButton() {
   rect(30, 10, 60, 20);
   p = createFont("Arial", 15, true);
   textFont(p, 15);                
-  fill(255);                    
-  text("Settings", 0, 15);
+  fill(255); 
+  if (!settingsWindowOpen) {    
+    text("Settings", 0, 15);
+  } else {
+    text("Close", 0, 15);
+  }
   if (mousePressed) {
     if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
       if (!settingsWindowOpen) {
         PFrame f = new PFrame();
-        NewFrame yo = new NewFrame();
+       // NewFrame yo = new NewFrame();
         settingsWindowOpen = true;
       }
     }
