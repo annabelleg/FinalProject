@@ -19,8 +19,8 @@ public class Matrix {
   void displayMatrix() {
     textSize(15);
     fill(0, 0, 0, 100);
-    int rectW = width/2 - cols*25;
-    int rectH = height/2 - rows*25;
+    int rectW = cols*20;
+    int rectH = rows*50;
     rect(rectW, rectH, cols*50, rows*50);
     fill(225);
     for (int r = 0; r < rows; r++) {
@@ -29,7 +29,19 @@ public class Matrix {
       }
     }
   }
-
+ void displayREF() {
+    textSize(15);
+    fill(0, 0, 0, 100);
+    int rectW = cols*80 ;
+    int rectH = rows*50;
+    rect(rectW, rectH, cols*50, rows*50);
+    fill(225);
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        text(String.valueOf(data[r][c]).substring(0,3), rectW+ c*50 + 25, rectH + r*50 + 25);
+      }
+    }
+  }
   public void REF() {
     exchange();
     dilateAndShear();
