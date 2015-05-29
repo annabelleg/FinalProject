@@ -1,11 +1,13 @@
 public class Matrix {
   double[][] data;
+  int[][][] coords;
   int rows, cols;
 
   public  Matrix(int r, int c) {
     rows = r; 
     cols = c;
     data = new double[r][c];
+    coords = new int[r][c][2];
     enterData();
   }
   public void enterData() {
@@ -25,7 +27,9 @@ public class Matrix {
     fill(225);
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        text(""+data[r][c], rectW+ c*50 +15, rectH + r*50 + 25);
+        text(String.valueOf(data[r][c]).substring(0,3), rectW+ c*50 +15, rectH + r*50 + 25);
+        coords[r][c][0] = rectW+ c*50 +15;
+        coords[r][c][1] = rectH + r*50 + 25;
       }
     }
   }
@@ -42,6 +46,7 @@ public class Matrix {
       }
     }
   }
+ 
   public void REF() {
     exchange();
     dilateAndShear();
