@@ -44,10 +44,29 @@ void settingsButton() {
     if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
       if (!settingsWindowOpen) {
         PFrame f = new PFrame();
-       // NewFrame yo = new NewFrame();
         settingsWindowOpen = true;
       }
     }
   }
 }
+
+void inputWindow() {
+    rectMode(CENTER);
+    fill(0);
+    rect(30, 30, 60, 20);
+    p = createFont("Georgia", 15, true);
+    textFont(p, 15);                
+    fill(255); 
+    if (!inputWindowOpen) {    
+      text("Input", 0, 35);
+    } else {
+      text("Close", 0, 35);
+    }
+    if (mousePressed) {
+      if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
+        NewFrame yo = new NewFrame();
+        inputWindowOpen = true;
+      }
+    }
+  }
 

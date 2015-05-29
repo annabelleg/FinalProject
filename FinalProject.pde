@@ -11,6 +11,7 @@ boolean typeMode = true;
 TextBox current;
 PFont p;
 boolean settingsWindowOpen = false;
+boolean inputWindowOpen = false;
 
 
 void setup() {
@@ -30,6 +31,7 @@ void draw() {
     testEquation(1, 0);
   }
   settingsButton();
+  //inputWindow();
 }
 
 public class PFrame extends JFrame {
@@ -53,10 +55,10 @@ public class NewFrame extends JFrame {
 }
 
 public class secondApplet extends PApplet {
+
   public void setup() {
     background(#E8B4FF);
   }
-  // Using t. ensures it only applies to window t
   public void draw() {
     rectMode(CENTER);
     fill(255, 0, 0);
@@ -67,16 +69,17 @@ public class secondApplet extends PApplet {
         gridRatio+= 2;
       }
     }
-    p = loadFont("ACaslonPro-Semibold-48.vlw");
+    p = createFont("Georgia", 24);
     textFont(p, 24);                
-    fill(255, 0, 0);                    
-    text("Graph Settings", 0, 30);
+    fill(255);                  
+    text("Graph Settings", 0, 25);
   }
 }
+
 public class thirdApplet extends PApplet {
 
   public void setup() {
-    background(10, 10, 10);
+    background(255);
   }
 
   public void draw() {
@@ -99,11 +102,11 @@ public class thirdApplet extends PApplet {
       if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2+50)-25 && mouseY < (height/2+50)+25) {
         drawEquation = true;
       }
-    }
+    }/*
     p = createFont("Arial", 24, true);
-    textFont(p, 24);                
-    fill(255, 0, 0);                    
-    text(current.input, current.xCor, current.yCor);
+     textFont(p, 24);                
+     fill(255, 0, 0);                    
+     text(current.input, current.xCor, current.yCor);*/
   }
 }
 
