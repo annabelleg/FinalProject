@@ -28,4 +28,22 @@ void testEquation(int m, int b) {
   }
 }
 
+void settingsButton() {
+  rectMode(CENTER);
+  fill(0);
+  rect(30, 10, 60, 20);
+  p = createFont("Arial", 15, true);
+  textFont(p, 15);                
+  fill(255);                    
+  text("Settings", 0, 15);
+  if (mousePressed) {
+    if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
+      if (!settingsWindowOpen) {
+        PFrame f = new PFrame();
+        NewFrame yo = new NewFrame();
+        settingsWindowOpen = true;
+      }
+    }
+  }
+}
 
