@@ -1,8 +1,8 @@
 import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
-secondApplet s;
-thirdApplet t;
+settingsApplet s;
+EquationApplet t;
 int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
@@ -18,7 +18,6 @@ void setup() {
   size(600, 578);
   setLocation(400, 300);
   current = new TextBox(50, 50);
-  // open("/Users/galmarkul/Github/FinalProject/Homepage/homepage.pde");
 }
 
 void draw() {
@@ -30,14 +29,14 @@ void draw() {
     noStroke();
     testEquation(1, 0);
   }
-  settingsButton();
-  //inputWindow();
+  settingsWindow();
+  inputWindow();
 }
 
 public class PFrame extends JFrame {
   public PFrame() {
     setBounds(100, 75, 400, 300);
-    s = new secondApplet();
+    s = new settingsApplet();
     add(s);
     s.init();
     show();
@@ -47,66 +46,10 @@ public class PFrame extends JFrame {
 public class NewFrame extends JFrame {
   public NewFrame() {
     setBounds(100, 375, 400, 300);
-    t = new thirdApplet();
+    t = new EquationApplet();
     add(t);
     t.init();
     show();
-  }
-}
-
-public class secondApplet extends PApplet {
-
-  public void setup() {
-    background(#E8B4FF);
-  }
-  public void draw() {
-    rectMode(CENTER);
-    fill(255, 0, 0);
-    rect(width/2, height/2, 50, 50);
-    // Changes Scale
-    if (mousePressed) {
-      if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2)-25 && mouseY < (height/2)+25) {
-        gridRatio+= 2;
-      }
-    }
-    p = createFont("Georgia", 24);
-    textFont(p, 24);                
-    fill(255);                  
-    text("Graph Settings", 0, 25);
-  }
-}
-
-public class thirdApplet extends PApplet {
-
-  public void setup() {
-    background(255);
-  }
-
-  public void draw() {
-    rectMode(CENTER);
-    fill(0, 255, 0);
-    rect(width/2, height/2, 50, 50);
-    // Changes Scale
-    if (mousePressed) {
-      if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2)-25 && mouseY < (height/2)+25) {
-        if (gridRatio > 2) {
-          gridRatio-= 2;
-        }
-      }
-    }
-    rectMode(CENTER);
-    fill(0, 0, 255);
-    rect(width/2, height/2+50, 50, 50);
-    // Changes Scale
-    if (mousePressed) {
-      if (mouseX > (width/2)-25 && mouseX < (width/2)+25 && mouseY > (height/2+50)-25 && mouseY < (height/2+50)+25) {
-        drawEquation = true;
-      }
-    }/*
-    p = createFont("Arial", 24, true);
-     textFont(p, 24);                
-     fill(255, 0, 0);                    
-     text(current.input, current.xCor, current.yCor);*/
   }
 }
 

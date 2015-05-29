@@ -1,4 +1,4 @@
-int b1x, b1y;
+  int b1x, b1y;
 int b2x, b2y;
 int b3x, b3y;
 int buttonLength = 130;
