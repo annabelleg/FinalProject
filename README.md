@@ -64,3 +64,20 @@ Interpreting user input of equations
   - attempted to make textboxes and stuff
   - transferred matrix stuff from java to processing
   - working on displaying matrices
+- 5/28/15
+  - continued working on matrix display
+  - added way to open one file when you run another (but it doesn't run the newly opened file)
+  - made settings menu for graph
+  
+  
+
+
+#### THINGS TO DO
+- complete matrix display + user input stuff
+- complete user input of graph equations
+- entire expression calculator
+- more matrix functions (inverse, determinant etc)
+
+#### THINGS ALREADY DONE
+- display graph, zoom in and out
+- basic display of matrix
