@@ -65,7 +65,7 @@ Interpreting user input of equations
   - transferred matrix stuff from java to processing
   - working on displaying matrices
 - 5/28/15
-  - continued working on matrix display
+  - fixed matrix display, ref stuff all works now (except for truncating numbers)
   - added way to open one file when you run another (but it doesn't run the newly opened file)
   - made settings menu for graph
   
