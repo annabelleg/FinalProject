@@ -2,39 +2,43 @@ import javax.swing.JFrame;
 PFrame f;
 NewFrame yo;
 secondApplet s, t;
-boolean toRun = false;
+boolean toShowMatrix = false;
+boolean toShowREF = false;
+Matrix m;
 
 
 void setup() {
   size(600, 578);
   setLocation(400, 300);
-  Matrix m = new Matrix(3, 4);
 }
 
 void draw() {
-  printCounter();
+  m = new Matrix(3, 4);
   //background(255, 60, 0);
   stroke(225);
   fill(255);
-  if (!toRun) {
-    
+  if (!toShowMatrix) {
     m.displayMatrix();
-    toRun = true;
+    toShowMatrix = true;
   }
   fill(225);
   rect(width/3, height - height/4, width/3, height/8);
   fill(0);
   textAlign(CENTER);
   text("Compute\nReduced Echelon Form", width/3 + 100, height - height/4 + 30);
-  if (toRun && mousePressed && mouseX > (width/3) && mouseX < (2*width/3) && mouseY < (height-height/4) && mouseY < (height - height/8) {
-   
-   //background(255);
-   m.REF();
-   m.displayREF();
-   toRun = false;
-   }
 }
 
+
+void showREF(){
+  m.REF();
+  m.displayREF();
+  toShowREF = true;
+}
+void mouseClicked(){
+  if (!toShowREF && mouseX > (width/3) && mouseX < (2*width/3) && mouseY > (height-height/4) && mouseY < (height - height/8)){
+    showREF();
+  }
+}
 
 public class PFrame extends JFrame {
   public PFrame() {
