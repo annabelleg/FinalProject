@@ -29,7 +29,7 @@ void draw() {
   fill(255);
   graphGrid(gridRatio);
   if (!done) {
-    testEq = new LinearEquation("y=x+2");
+    testEq = new LinearEquation("y=1/2x");
     print(testEq.giveEquation());
     print("\n" + testEq.findY());
     print("\n" + testEq.hasFraction);

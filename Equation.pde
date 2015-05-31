@@ -12,7 +12,6 @@ public abstract class Equation {
     equation = eq;
     equation_ = new String[equation.length()];
     fillEq();
-    data = new ArrayList<Coordinate>();
   }
 
   void fillEq() {
@@ -59,7 +58,6 @@ public abstract class Equation {
       this.x = x; 
       this.y = y;
     }
-    
   }
   
 }

@@ -44,7 +44,7 @@ public class LinearEquation extends Equation {
   }
 
   float findY() {
-    return 3.4
+    return m;
   }
 
   float getM() {
@@ -53,20 +53,17 @@ public class LinearEquation extends Equation {
   float getB() {
     return b;
   }
+
+  void makeData() {
+  }
   
-  void makeData(){
-    
-  }
-
-
-
   void testEquation() {
-    // y = mx + b form
-    for (int x = (-1)*(xCenter); x <= xCenter; x++) {
-      ellipse(x+xCenter, yCenter-(m*x+(b*gridRatio)), 2, 2);
-      Coordinate c = new Coordinate(x, (m*x)+b);
-      data.add(c);
-    }
+  // y = mx + b form
+  // gridScale = 25
+  for (int x = (-1)*(xCenter); x <= xCenter; x++) {
+    ellipse(x+xCenter, m*x+(b*25)+yCenter, 2, 2);
   }
+  
+}
 }
 
