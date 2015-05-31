@@ -119,4 +119,21 @@ public class Matrix {
     }
   }
 }
-
+/*
+fill(225);
+  rect(width/3, height - height/4, width/3, height/8);
+  fill(0);
+  textAlign(CENTER);
+  text("Compute\nReduced Echelon Form", width/3 + 100, height - height/4 + 30);
+  
+  void showREF(){
+  m.REF();
+  m.displayREF();
+  toShowREF = true;
+}
+void mouseClicked(){
+  if (!toShowREF && mouseX > (width/3) && mouseX < (2*width/3) && mouseY > (height-height/4) && mouseY < (height - height/8)){
+    showREF();
+  }
+}
+  */
