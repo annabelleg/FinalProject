@@ -9,13 +9,13 @@ int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
 boolean drawEquation = false;
-boolean typeMode = false;
+boolean typeMode = true;
 TextBox current;
 PFont p;
 boolean settingsWindowOpen = false;
 boolean inputWindowOpen = false;
 boolean done = false;
-Equation testEq;
+LinearEquation testEq;
 
 
 void setup() {
@@ -36,11 +36,13 @@ void draw() {
   settingsWindow();
   inputWindow();
   if (!done) {
-    testEq = new LinearEquation("y=2/3x+1");
+    testEq = new LinearEquation("y=x");
     print(testEq.giveEquation());
     print("\n" + testEq.findY());
     print("\n" + testEq.hasFraction);
     print("\n" + testEq.indexBar);
+    print("\nM: " + testEq.getM());
+    print("\nB: " + testEq.getB());
     done = true;
   }
 }
