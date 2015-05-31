@@ -16,12 +16,16 @@ boolean settingsWindowOpen = false;
 boolean inputWindowOpen = false;
 boolean done = false;
 LinearEquation testEq;
+float xMin, xMax, step;
 
 
 void setup() {
   size(600, 578);
   setLocation(400, 300);
   current = new TextBox(50, 50);
+  xMin = (-1)*xCenter;
+  xMax = xCenter;
+  step = 1;
 }
 
 void draw() {
@@ -29,7 +33,7 @@ void draw() {
   fill(255);
   graphGrid(gridRatio);
   if (!done) {
-    testEq = new LinearEquation("y=1/2x");
+    testEq = new LinearEquation("y=x+2");
     print(testEq.giveEquation());
     print("\n" + testEq.findY());
     print("\n" + testEq.hasFraction);
