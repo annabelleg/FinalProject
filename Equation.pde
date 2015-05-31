@@ -12,6 +12,7 @@ public abstract class Equation {
     equation = eq;
     equation_ = new String[equation.length()];
     fillEq();
+    data = new ArrayList<Coordinate>();
   }
 
   void fillEq() {

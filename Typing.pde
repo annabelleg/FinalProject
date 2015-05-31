@@ -15,7 +15,7 @@ char[] operations = {
 
 public class TextBox {
 
-  String input;
+  String input = "";
   int xCor, yCor; //center points
 
   TextBox(int x, int y) {

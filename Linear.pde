@@ -56,14 +56,15 @@ public class LinearEquation extends Equation {
 
   void makeData() {
   }
-  
-  void testEquation() {
-  // y = mx + b form
-  // gridScale = 25
-  for (int x = (-1)*(xCenter); x <= xCenter; x++) {
-    ellipse(x+xCenter, m*x+(b*25)+yCenter, 2, 2);
+
+  void testEquation(int colorNum) {
+    // y = mx + b form
+    for (int x = (-1)*(xCenter); x <= xCenter+100; x++) {
+      fill(colorNum);
+      ellipse(x+xCenter, yCenter-(m*x+(b*gridRatio)), 2, 2);
+      Coordinate c = new Coordinate(x, (m*x)+b);
+      data.add(c);
+    }
   }
-  
-}
 }
 

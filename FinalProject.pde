@@ -9,13 +9,15 @@ int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
 boolean drawEquation = false;
-boolean typeMode = true;
+boolean typeMode = false;
 TextBox current;
 PFont p;
 boolean settingsWindowOpen = false;
 boolean inputWindowOpen = false;
 boolean done = false;
-LinearEquation testEq;
+boolean equationIn = false;
+LinearEquation testEq,testEqu;
+//String theEquation = "";
 
 
 void setup() {
@@ -30,6 +32,7 @@ void draw() {
   graphGrid(gridRatio);
   if (!done) {
     testEq = new LinearEquation("y=1/2x");
+    testEqu = new LinearEquation("y=2x+1");
     print(testEq.giveEquation());
     print("\n" + testEq.findY());
     print("\n" + testEq.hasFraction);
@@ -41,10 +44,12 @@ void draw() {
   if (drawEquation) {
     fill(255, 0, 0);
     noStroke();
-    testEq.testEquation();
+    testEq.testEquation(#F03AB3);
+    testEqu.testEquation(#4BBCF7);
   }
   settingsWindow();
   inputWindow();
+  // theEquation = t.typing.input;
 }
 
 public class PFrame extends JFrame {
