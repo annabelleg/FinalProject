@@ -36,9 +36,11 @@ void draw() {
   settingsWindow();
   inputWindow();
   if (!done) {
-    testEq = new Equation("y=2x+1");
+    testEq = new LinearEquation("y=2/3x+1");
     print(testEq.giveEquation());
-    print(testEq.findY());
+    print("\n" + testEq.findY());
+    print("\n" + testEq.hasFraction);
+    print("\n" + testEq.indexBar);
     done = true;
   }
 }

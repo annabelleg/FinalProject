@@ -1,10 +1,12 @@
-public class Equation {
+public abstract class Equation {
 
   ArrayList<Coordinate> data;
   String equation;
   String[] equation_;
   boolean linear = false;
   boolean parabola = false;
+  int indexBar;
+  boolean hasFraction = false;
 
   public Equation(String eq) {
     equation = eq;
@@ -42,14 +44,16 @@ public class Equation {
     return index;
   }
 
-  float findY() {
-    float m = 0;
-    int ex = 0;
-    if (equation_[0].equals("y") && equation_[1].equals("=")) {
-      ex = findX();
-      m = parseInt(equation.substring(2, ex));
+  public abstract float findY();
+
+
+  void findBar(String str) {
+    for (int i = 0; i < str.length (); i++) {
+      if (str.substring(i, i+1).equals("/")) {
+        indexBar = i + 2;
+        hasFraction = true;
+      }
     }
-    return m;
   }
 
   public class Coordinate {
@@ -61,5 +65,36 @@ public class Equation {
       this.y = y;
     }
   }
+}
+
+public class LinearEquation extends Equation {
+  // y = mx+b
+  float m;
+  float b;
+
+  void findM() {
+    findBar(equation.substring(2, findX()));
+    int ex = 0;
+    if (equation_[0].equals("y") && equation_[1].equals("=")) {
+      ex = findX();
+      if (!hasFraction) {
+        m = parseFloat(equation.substring(2, ex));
+      } else {
+        float numerator = parseFloat(equation.substring(2, indexBar));
+        float denominator = parseFloat(equation.substring(indexBar+1, ex));
+        m = numerator/denominator;
+      }
+    }
+  }
+
+  float findY() {
+    return m;
+  }
+
+  LinearEquation(String eq) {
+    super(eq);
+    findM();
+  }
+
 }
 
