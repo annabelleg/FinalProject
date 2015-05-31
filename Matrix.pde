@@ -10,7 +10,7 @@ public class Matrix {
     coords = new int[r][c][2];
     enterData();
   }
-  public void enterData() {
+  void enterData() {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
         data[r][c] = (int) (Math.random()*10) * 1.0;
@@ -27,13 +27,13 @@ public class Matrix {
     fill(225);
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        text(String.valueOf(data[r][c]).substring(0,3), rectW+ c*50 +15, rectH + r*50 + 25);
+        text(String.valueOf(data[r][c]).substring(0, 3), rectW+ c*50 +15, rectH + r*50 + 25);
         coords[r][c][0] = rectW+ c*50 +15;
         coords[r][c][1] = rectH + r*50 + 25;
       }
     }
   }
- void displayREF() {
+  void displayREF() {
     textSize(15);
     fill(0, 0, 0, 100);
     int rectW = cols*80 ;
@@ -42,16 +42,17 @@ public class Matrix {
     fill(225);
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        text(String.valueOf(data[r][c]).substring(0,3), rectW+ c*50 + 25, rectH + r*50 + 25);
+        text(String.valueOf(data[r][c]).substring(0, 3), rectW+ c*50 + 25, rectH + r*50 + 25);
       }
     }
   }
- 
-  public void REF() {
+
+  void REF() {
     exchange();
     dilateAndShear();
+    checkMatrix();
   }
-  public void exchange() {
+  void exchange() {
     for (int r = 0; r < rows; r++) {
       int k = 1;
       while (k < rows-r) {
@@ -62,14 +63,14 @@ public class Matrix {
       }
     }
   }
-  public int findLeadingEntry(int row) {
+  int findLeadingEntry(int row) {
     for (int c = 0; c < cols; c++) {
       if (data[row][c] != 0.0)
         return c;
     }
     return -1;
   }
-  public void switchRows(int a, int b) {
+  void switchRows(int a, int b) {
     for (int c = 0; c < cols; c++) {
       double temp = data[a][c];
       data[a][c] = data[b][c];
@@ -77,7 +78,7 @@ public class Matrix {
     }
   }
 
-  public void dilateAndShear() {
+  void dilateAndShear() {
     int r=0;
     while (r < rows) {
       int c = findLeadingEntry(r);
@@ -88,7 +89,7 @@ public class Matrix {
       r++;
     }
   }
-  public void dilate(int r, int c) {
+  void dilate(int r, int c) {
     if (data[r][c] != 1.0) {
       double val = 1/data[r][c];
       for (int i = c; i < cols; i++) {
@@ -97,7 +98,7 @@ public class Matrix {
     }
   }
 
-  public void shear(int r, int c) {
+  void shear(int r, int c) {
     int tempr = 0;
     while (tempr < rows) {
       if (tempr != r) {
@@ -110,4 +111,12 @@ public class Matrix {
       tempr++;
     }
   }
+  void checkMatrix() {
+    for (int r = 1; r < rows; r++) {
+      if (findLeadingEntry(r) <= findLeadingEntry(r-1)) {
+        switchRows(r, r-1);
+      }
+    }
+  }
 }
+
