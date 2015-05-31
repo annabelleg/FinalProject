@@ -3,6 +3,8 @@ public class Equation {
   ArrayList<Coordinate> data;
   String equation;
   String[] equation_;
+  boolean linear = false;
+  boolean parabola = false;
 
   public Equation(String eq) {
     equation = eq;
@@ -32,25 +34,32 @@ public class Equation {
     return result + "]";
   }
 
-  /* String toString() {
-   String result = ""; 
-   for (int i = 0; i < data.size (); i++) {
-   result += data.get(i) + " ";
-   } 
-   return result;
-   }*/
-}
-
-public class Coordinate {
-
-  float x, y; 
-
-  public Coordinate(float x, float y) {
-    this.x = x; 
-    this.y = y;
+  int findX() {
+    int index = 0;
+    while (!equation_[index].equals ("x")) {
+      index++;
+    }
+    return index;
   }
-  /*String toString() {
-   return "(" + x "," + y + ")";
-   }*/
+
+  float findY() {
+    float m = 0;
+    int ex = 0;
+    if (equation_[0].equals("y") && equation_[1].equals("=")) {
+      ex = findX();
+      m = parseInt(equation.substring(2, ex));
+    }
+    return m;
+  }
+
+  public class Coordinate {
+
+    float x, y; 
+
+    public Coordinate(float x, float y) {
+      this.x = x; 
+      this.y = y;
+    }
+  }
 }
 

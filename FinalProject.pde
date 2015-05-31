@@ -9,7 +9,7 @@ int gridRatio = 10;
 boolean toRun = false;
 int xCenter, yCenter;
 boolean drawEquation = false;
-boolean typeMode = true;
+boolean typeMode = false;
 TextBox current;
 PFont p;
 boolean settingsWindowOpen = false;
@@ -38,6 +38,7 @@ void draw() {
   if (!done) {
     testEq = new Equation("y=2x+1");
     print(testEq.giveEquation());
+    print(testEq.findY());
     done = true;
   }
 }
