@@ -28,13 +28,6 @@ void draw() {
   background(255);
   fill(255);
   graphGrid(gridRatio);
-  if (drawEquation) {
-    fill(255, 0, 0);
-    noStroke();
-    testEquation(1, 0);
-  }
-  settingsWindow();
-  inputWindow();
   if (!done) {
     testEq = new LinearEquation("y=x");
     print(testEq.giveEquation());
@@ -45,6 +38,13 @@ void draw() {
     print("\nB: " + testEq.getB());
     done = true;
   }
+  if (drawEquation) {
+    fill(255, 0, 0);
+    noStroke();
+    testEq.testEquation();
+  }
+  settingsWindow();
+  inputWindow();
 }
 
 public class PFrame extends JFrame {
