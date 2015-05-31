@@ -1,4 +1,6 @@
 import javax.swing.JFrame;
+import java.util.*;
+import java.io.*;
 PFrame f;
 NewFrame yo;
 settingsApplet s;
@@ -12,6 +14,8 @@ TextBox current;
 PFont p;
 boolean settingsWindowOpen = false;
 boolean inputWindowOpen = false;
+boolean done = false;
+Equation testEq;
 
 
 void setup() {
@@ -31,6 +35,11 @@ void draw() {
   }
   settingsWindow();
   inputWindow();
+  if (!done) {
+    testEq = new Equation("y=2x+1");
+    print(testEq.giveEquation());
+    done = true;
+  }
 }
 
 public class PFrame extends JFrame {
