@@ -1,5 +1,5 @@
 public class EquationApplet extends PApplet {
-  
+
   TextBox typing = new TextBox(30, 30);
 
   public void setup() {

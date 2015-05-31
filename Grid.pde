@@ -1,4 +1,5 @@
 void graphGrid(int scale) {
+  
   stroke(0);
   for (int i = 1; i <= height/scale; i++) {
     if (i==(height/scale)/2) {
@@ -9,6 +10,7 @@ void graphGrid(int scale) {
     }
     line(0, i*scale, width, i*scale);
   }
+  
   for (int i = 1; i <= width/scale; i++) {
     if (i==(width/scale)/2) {
       strokeWeight(2);
@@ -18,6 +20,7 @@ void graphGrid(int scale) {
     }
     line(i*scale, 0, i*scale, height);
   }
+  
 }
 
 

@@ -59,6 +59,7 @@ public abstract class Equation {
       this.x = x; 
       this.y = y;
     }
+    
   }
   
 }

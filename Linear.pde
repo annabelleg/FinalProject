@@ -44,7 +44,7 @@ public class LinearEquation extends Equation {
   }
 
   float findY() {
-    return 4.5;
+    return 3.4
   }
 
   float getM() {
@@ -53,15 +53,12 @@ public class LinearEquation extends Equation {
   float getB() {
     return b;
   }
-
-  void makeData() {
-    Coordinate coor;
-    float xCore, yCore;
-    for (float i = xMin; i <= xMax; i += step) {
-      xCore = xMin;
-      yCore = (m*xCore);
-    }
+  
+  void makeData(){
+    
   }
+
+
 
   void testEquation() {
     // y = mx + b form
