@@ -28,7 +28,7 @@ public class LinearEquation extends Equation {
   }
 
   void findB() {
-    if (equation.length() > 3) {
+    if (equation.length() > 3 && !(equation_[equation.length()-1].equals("x"))) {
       hasFraction = false;
       findBar(equation.substring(findX()+2, equation.length()));
       boolean positive = true;
