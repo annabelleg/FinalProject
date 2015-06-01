@@ -1,6 +1,4 @@
 import javax.swing.JFrame;
-import java.util.*;
-import java.io.*;
 
 int mode;
 int GRAPH = 0;
@@ -10,9 +8,11 @@ boolean toShowMatrix = false;
 boolean toShowREF = false;
 boolean enterRows = false;
 boolean enterColumns = false;
+
 Matrix m;
 int rows, cols;
-
+import java.util.*;
+import java.io.*;
 PFrame f;
 NewFrame yo;
 settingsApplet s;
@@ -44,7 +44,7 @@ int buttonHeight = 40;
 
 void setup() {
   size(600, 578);
-  b1x=b2x=b3x=165;
+  b1x=b2x=b3x=150;
   b1y = 135;
   b2y = b1y + buttonHeight + 10;
   b3y = b2y + buttonHeight + 10;
@@ -76,6 +76,9 @@ void draw() {
     GraphStuff();
   }
 }
+
+
+
 
 void mouseClicked() {
   if (mouseX > b1x+65 && mouseX < b1x+65+buttonLength && mouseY > b1y+20 && mouseY < b1y+20+buttonHeight) {

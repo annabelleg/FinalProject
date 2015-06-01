@@ -54,7 +54,7 @@ public class TextBox {
 }
 
 void keyPressed() {
-  if (mode == GRAPH) {
+  if (mode == graph) {
     if (typeMode) {
       for (int i = 0; i < 26; i++) {
         if (key == alphabetLower[i]) {
