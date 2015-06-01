@@ -3,7 +3,7 @@ public class Matrix {
   int[][][] coords;
   int rows, cols;
 
-  public  Matrix(int r, int c) {
+  Matrix(int r, int c) {
     rows = r; 
     cols = c;
     data = new double[r][c];

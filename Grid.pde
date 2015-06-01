@@ -1,4 +1,4 @@
-/*void graphGrid(int scale) {
+void graphGrid(int scale) {
   stroke(0);
   for (int i = 1; i <= height/scale; i++) {
     if (i==(height/scale)/2) {
@@ -18,7 +18,7 @@
     }
     line(i*scale, 0, i*scale, height);
   }
-}
+}  
 
 void testEquation(int m, int b) {
   // y = mx + b form
@@ -27,5 +27,4 @@ void testEquation(int m, int b) {
     ellipse(x+xCenter, m*x+(b*25)+yCenter, 2, 2);
   }
 }
-*/
 
