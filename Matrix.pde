@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 public class Matrix {
   double[][] data;
   int[][][] coords;
@@ -168,5 +167,3 @@ fill(225);
  }
  }
  */
-=======
-
