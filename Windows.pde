@@ -1,4 +1,4 @@
-void settingsWindow() {
+void settingsWindow() {  
   int count = 0;
   rectMode(CENTER);
   fill(0);
