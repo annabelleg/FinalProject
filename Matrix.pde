@@ -119,7 +119,7 @@ public class Matrix {
   }
 }
 
-void MatrixStuff() {
+void MatrixStuff() { // basically the draw method for the matrices
 
   text("Enter dimensions of your matrix:", width/4, height/8);
   text("Rows:", width/8 + 5, height/8 + 25);
