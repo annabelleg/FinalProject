@@ -118,6 +118,37 @@ public class Matrix {
     }
   }
 }
+
+void MatrixStuff() {
+  text("Enter dimensions of your matrix:", width/4, height/8);
+  text("Rows:", width/8 + 5, height/8 + 25);
+  text("Columns:", width/4 + 65, height/8 + 25);
+  fill(225, 225, 225);
+  rect(width/8 + 30, height/8 + 10, 50, 17);
+  rect(width/4 + 100, height/8 + 10, 50, 17);
+  fill(0);
+  text(rows, width/8 + 40, height/8 + 25);
+  text(cols, width/4 + 110, height/8 + 25);
+  stroke(0);
+  if (rows != 0 && cols != 0) {
+    m = new Matrix(rows, cols);  
+    if (!toShowMatrix) {
+      m.displayMatrix();
+      toShowMatrix = true;
+    }
+  }
+  fill(225);
+  rect(width/3, height - height/4, width/3, height/8);
+  fill(0);
+  textAlign(CENTER);
+  textSize(15);
+  text("Compute \nReduced Echelon Form", width/3+100, height - height/4 + 30);
+}
+void showREF() {
+  m.REF();
+  m.displayREF();
+  toShowREF = true;
+}
 /*
 fill(225);
  rect(width/3, height - height/4, width/3, height/8);
