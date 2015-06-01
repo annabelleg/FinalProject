@@ -37,23 +37,62 @@ boolean destroySettings = false;
 boolean destroyInput = false;
 
 
+/*void setup() {
+ size(600, 578);
+ setLocation(400, 300);
+ mode = (int)Math.random()*3; //sets mode randomly
+ }*/
+
+int b1x, b1y;
+int b2x, b2y;
+int b3x, b3y;
+int buttonLength = 130;
+int buttonHeight = 40;
+
 void setup() {
   size(600, 578);
-  setLocation(400, 300);
-  mode = (int)Math.random()*2; //sets mode randomly
+  b1x=b2x=b3x=150;
+  b1y = 135;
+  b2y = b1y + buttonHeight + 10;
+  b3y = b2y + buttonHeight + 10;
 }
 
 void draw() {
+  background(225);
+  fill(0); 
+  textSize(15); 
+  textAlign(CENTER); 
+  text("Hello! Welcome to Mariya and Annabelle's \ncalculator extraordinaire.\nWhat would you like to do?", 200, 25);
+  stroke(0);
+  rect(b1x, b1y, buttonLength, buttonHeight);
+  stroke(0);
+  rect(b2x, b2y, buttonLength, buttonHeight);
+  stroke(0);
+  rect(b3x, b3y, buttonLength, buttonHeight);
+  textSize(10);
+  fill(255);
+  textAlign(CENTER);
+  text("Graph Equations!", b1x+65, b1y + 20);
+  text("Matrix stuff!", b2x+65, b2y + 20);
+  text("Evaluate expressions!", b3x+65, b3y+20);
   //background(255);
   if (mode == MATRIX ) {
+    background(255);
     MatrixStuff();
-  } else if (mode == GRAPH) {
+  }
+  if (mode == GRAPH) {
+    background(255);
     GraphStuff();
   }
 }
 
 
 void mouseClicked() {
+  if (mouseX > b1x+65 && mouseX < b1x+65+buttonLength && mouseY > b1y+20 && mouseY < b1y+20+buttonHeight) {
+    mode = GRAPH;
+  } else if (mouseX > b2x+65 && mouseX < b2x+65+buttonLength && mouseY > b2y+20 && mouseY < b2y+20+buttonHeight) {
+    mode = MATRIX;
+  }
   if (mode == MATRIX && !toShowREF && mouseX > (width/3) && mouseX < (2*width/3) && mouseY > (height-height/4) && mouseY < (height - height/8)) {
     showREF();
   }
@@ -63,13 +102,6 @@ void mouseClicked() {
   if (mode == MATRIX && mouseX > width/4 + 100 && mouseX < width/4 + 150 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
     enterColumns = true;
   }
-  if (mode == MATRIX && mouseX > width/8 + 30 && mouseX < width/8 + 80 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
-    enterRows = true;
-  }
-  if (mode == MATRIX && mouseX > width/4 + 100 && mouseX < width/4 + 150 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
-    enterColumns = true;
-  }
-  
 }
 
 
