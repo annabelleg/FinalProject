@@ -5,10 +5,11 @@ secondApplet s, t;
 boolean toShowMatrix = false;
 boolean toShowREF = false;
 int ENTER_MATRIX = 42;
+boolean enterRows = false;
+boolean enterColumns = false;
 int mode;
 Matrix m;
 int rows, cols;
-char[] = {'1','2','3','4','5','6','7','8','9','0'};
 
 
 void setup() {
@@ -18,8 +19,8 @@ void setup() {
 }
 
 void draw() {
-  background(255);
-  if (mode == ENTER_MATRIX) {
+  //background(255);
+  if (mode == ENTER_MATRIX ) {
     MatrixStuff();
   }
 }
@@ -30,12 +31,16 @@ void MatrixStuff() {
   fill(225, 225, 225);
   rect(width/8 + 30, height/8 + 10, 50, 17);
   rect(width/4 + 100, height/8 + 10, 50, 17);
-  fill(225);
+  fill(0);
+  text(rows, width/8 + 40, height/8 + 25);
+  text(cols, width/4 + 110, height/8 + 25);
   stroke(0);
-  m = new Matrix(rows, cols);
-  if (!toShowMatrix) {
-    m.displayMatrix();
-    toShowMatrix = true;
+  if (rows != 0 && cols != 0) {
+    m = new Matrix(rows, cols);  
+    if (!toShowMatrix) {
+      m.displayMatrix();
+      toShowMatrix = true;
+    }
   }
   fill(225);
   rect(width/3, height - height/4, width/3, height/8);
@@ -47,8 +52,20 @@ void MatrixStuff() {
 void keyPressed() {
   print(keyCode); 
   //keyCode for TAB == 9
-  if (mode == ENTER_MATRIX){
-     int 
+  if (mode == ENTER_MATRIX) {
+    if (enterRows == true) {
+      String r = key+"";
+      rows = Integer.parseInt(r);
+      enterRows = false;
+      fill(0);
+      
+    }
+    if (enterColumns == true) {
+      String c = ""+key;
+      cols = Integer.parseInt(c);
+      enterColumns = false;
+      
+    }
   }
 }
 
@@ -62,14 +79,11 @@ void mouseClicked() {
     showREF();
   }
   if (mouseX > width/8 + 30 && mouseX < width/8 + 80 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
-    enterRows();
+    enterRows = true;
   }
   if (mouseX > width/4 + 100 && mouseX < width/4 + 150 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
-    enterColumns();
+    enterColumns = true;
   }
-}
-void enterRows(){
-  
 }
 
 public class PFrame extends JFrame {
