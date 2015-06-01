@@ -120,6 +120,7 @@ public class Matrix {
 }
 
 void MatrixStuff() {
+  background(225);
   fill(0);
   text("Enter dimensions of your matrix:", width/4, height/8);
   text("Rows:", width/8 + 5, height/8 + 25);
