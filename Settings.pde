@@ -5,6 +5,10 @@ public class settingsApplet extends PApplet {
   }
   public void draw() {
 
+    if (destroySettings) {
+      this.setVisible(false);
+    }
+
     // Heading
     p = createFont("Georgia", 24);
     textFont(p, 24);                
@@ -43,18 +47,20 @@ public class settingsApplet extends PApplet {
     }
 
     // SHOW EQUATION
-    rectMode(CENTER);
-    fill(0);
-    rect(50, 150, 75, 25);
-    p = createFont("Georgia", 18);
-    textFont(p, 18);                
-    fill(255);  
-    text("Draw It", 15, 160);   
-    // Changes Scale
-    if (mousePressed) {
-      if (mouseX > 13 && mouseX < 87 && mouseY > 108 && mouseY < 162) {
-        drawEquation = true;
-      }
-    }
+    /*rectMode(CENTER);
+     fill(0);
+     rect(50, 150, 75, 25);
+     p = createFont("Georgia", 18);
+     textFont(p, 18);                
+     fill(255);  
+     text("Draw It", 15, 160);   
+     // Changes Scale
+     if (mousePressed) {
+     if (mouseX > 13 && mouseX < 87 && mouseY > 108 && mouseY < 162) {
+     drawEquation = true;
+     }
+     }
+     }*/
   }
 }
+

@@ -11,6 +11,8 @@ public class LinearEquation extends Equation {
   void findM() {
     if (equation_[1].equals("=") && equation_[2].equals("x")) {
       m = 1;
+    } else if (findX() == 0) {
+      m = 0;
     } else {
       findBar(equation.substring(2, findX()));
       int ex = 0;
@@ -32,14 +34,11 @@ public class LinearEquation extends Equation {
       hasFraction = false;
       findBar(equation.substring(findX()+2, equation.length()));
       boolean positive = true;
-      //float num;
       if (equation_[findX()+1].equals("-")) {
         b = parseFloat(equation.substring(findX()+2, equation.length())) * (-1.0);
       } else {
         b = parseFloat(equation.substring(findX()+2, equation.length()));
       }
-    } else {
-      b = 0;
     }
   }
 
@@ -59,7 +58,7 @@ public class LinearEquation extends Equation {
 
   void testEquation(int colorNum) {
     // y = mx + b form
-    for (int x = (-1)*(xCenter); x <= xCenter+100; x++) {
+    for (float x = (-1)*(xCenter); x <= xCenter+100; x+= step) {
       fill(colorNum);
       ellipse(x+xCenter, yCenter-(m*x+(b*gridRatio)), 2, 2);
       Coordinate c = new Coordinate(x, (m*x)+b);

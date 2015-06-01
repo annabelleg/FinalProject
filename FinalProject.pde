@@ -16,37 +16,40 @@ boolean settingsWindowOpen = false;
 boolean inputWindowOpen = false;
 boolean done = false;
 boolean equationIn = false;
-LinearEquation testEq,testEqu;
-//String theEquation = "";
+LinearEquation testEq;
+//QuadraticEquation testEqu;
+String theEquation;
+float step;
+boolean destroySettings = false;
+boolean destroyInput = false;
 
 
 void setup() {
   size(600, 578);
   setLocation(400, 300);
-  current = new TextBox(50, 50);
+  step = 0.1;
 }
 
 void draw() {
   background(255);
   fill(255);
   graphGrid(gridRatio);
-  if (!done) {
-    testEq = new LinearEquation("y=1/2x");
-    testEqu = new LinearEquation("y=2x+1");
-    print(testEq.giveEquation());
-    print("\n" + testEq.findY());
-    print("\n" + testEq.hasFraction);
-    print("\n" + testEq.indexBar);
-    print("\nM: " + testEq.getM());
-    print("\nB: " + testEq.getB());
-    done = true;
-  }
   if (drawEquation) {
     fill(255, 0, 0);
     noStroke();
+    testEq = new LinearEquation(theEquation);
     testEq.testEquation(#F03AB3);
-    testEqu.testEquation(#4BBCF7);
   }
+ /* if (!done) {
+    testEqu = new QuadraticEquation("y=1/2x^2+6x");
+    print(testEqu.equation);
+    print("\n"+testEqu.getXsquared());
+    print("\n"+testEqu.findX());
+    print("\n"+testEqu.getA());
+    print("\n"+testEqu.getB());
+    print("\n"+testEqu.getC());
+    done = true;
+  }*/
   settingsWindow();
   inputWindow();
   // theEquation = t.typing.input;

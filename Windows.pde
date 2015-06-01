@@ -1,4 +1,5 @@
 void settingsWindow() {
+  int count = 0;
   rectMode(CENTER);
   fill(0);
   rect(30, 10, 60, 20);
@@ -15,6 +16,8 @@ void settingsWindow() {
       if (!settingsWindowOpen) {
         PFrame f = new PFrame();
         settingsWindowOpen = true;
+      } else {
+        destroySettings = true;
       }
     }
   }
@@ -37,6 +40,8 @@ void inputWindow() {
       if (!inputWindowOpen) {
         NewFrame yo = new NewFrame();
         inputWindowOpen = true;
+      } else {
+        destroyInput = true;
       }
     }
   }

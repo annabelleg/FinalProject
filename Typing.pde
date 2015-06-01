@@ -8,7 +8,7 @@ char[] numbers = {
   '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
 };
 char[] operations = {
-  '+', '-', '*', '/', '^', '!', '=', '(', ')'
+  '+', '-', '*', '/', '^', '!', '=', '(', ')','.',','
 };
 
 // FIGURE OUT HOW TO DO OPERATIONS
@@ -17,18 +17,26 @@ public class TextBox {
 
   String input = "";
   int xCor, yCor; //center points
+  int maxChar;
+  int nowChar;
 
-  TextBox(int x, int y) {
+  TextBox(int x, int y, int maxC) {
     input = "";
     xCor = x;
     yCor = y;
+    maxChar = maxC;
+    nowChar = 0;
   }
 
   void typeIn(String letter) {
     input += letter;
+    nowChar++;
   }
   void erase() {
-    input = input.substring(0, input.length()-1);
+    if (nowChar>0) {
+      input = input.substring(0, input.length()-1);
+      nowChar--;
+    }
   }
 }
 

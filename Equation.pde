@@ -7,6 +7,7 @@ public abstract class Equation {
   boolean parabola = false;
   int indexBar;
   boolean hasFraction = false;
+  boolean noX = false;
 
   public Equation(String eq) {
     equation = eq;
@@ -32,11 +33,13 @@ public abstract class Equation {
   }
 
   int findX() {
-    int index = 0;
-    while (!equation_[index].equals ("x")) {
-      index++;
+    for (int i = 0; i < equation_.length; i++) {
+      if (equation_[i].equals("x")) {
+        return i;
+      }
     }
-    return index;
+    noX = true;
+    return 0;
   }
 
   public abstract float findY();
@@ -60,7 +63,5 @@ public abstract class Equation {
       this.y = y;
     }
   }
-  
 }
-
 
