@@ -68,16 +68,33 @@ Interpreting user input of equations
   - fixed matrix display, ref stuff all works now (except for truncating numbers)
   - added way to open one file when you run another (but it doesn't run the newly opened file)
   - made settings menu for graph
+- weekend of 5/29/15 - 5/31/15
+  - big thing: merged all the stuff!!
+  - linear equations are gucci, quadratic equations have begun but are super buggy
+  - added homepage, it switches views based on what you click! woohoo
+  - user now enters number of rows + columns they want for matrix
+  - user can input linear equation + theoretically graph will output it (it worked in the past but the merge messed it up)
   
   
 
 
 #### THINGS TO DO
 - complete matrix display + user input stuff
-- complete user input of graph equations
+  - gotta scale display based on dimensions
+- more types of graphs (not just linear)
 - entire expression calculator
 - more matrix functions (inverse, determinant etc)
+- button on each mode to switch back to homepage mode
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
 - basic display of matrix
+- reduced echelon form
+- user input for size of matrix
+- linear equation graphing
+- homepage
+
+
+#### WORKING DEMOS
+6/1/15: Demo #1:
+https://github.com/annabelleg/FinalProject.git
