@@ -44,7 +44,7 @@ public class settingsApplet extends PApplet {
           gridRatio-= 2;
         }
       }
-    }  
+    }
 
     // SHOW EQUATION
     /*rectMode(CENTER);
@@ -61,6 +61,6 @@ public class settingsApplet extends PApplet {
      }
      }
      }*/
-  }  
-}    
+  }
+}
 
