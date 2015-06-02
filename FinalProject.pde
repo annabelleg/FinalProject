@@ -11,6 +11,7 @@ boolean enterColumns = false;
 
 Matrix m;
 int rows, cols;
+
 import java.util.*;
 import java.io.*;
 PFrame f;
