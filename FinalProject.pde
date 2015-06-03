@@ -2,19 +2,6 @@ import javax.swing.JFrame;
 import java.util.*;
 import java.io.*;
 
-int mode = -1;
-int GRAPH = 0;
-int MATRIX = 1;
-
-boolean toShowMatrix = false;
-boolean toShowREF = false;
-boolean enterRows = false;
-boolean enterColumns = false;
-Matrix m;
-int rows, cols;
-
-
-PFrame f;
 NewFrame yo;
 settingsApplet s;
 EquationApplet t;
@@ -37,20 +24,10 @@ boolean destroySettings = false;
 boolean destroyInput = false;
 
 
-int b1x, b1y;
-int b2x, b2y;
-int b3x, b3y;
-int buttonHeight;
-int buttonLength;
 
 void setup() {
   size(600, 578);
-  buttonLength= width/3;
-  buttonHeight = height/8;
-  b1x=b2x=b3x=width/3;
-  b1y = height/6;
-  b2y = b1y + buttonHeight + 10;
-  b3y = b2y + buttonHeight + 10;
+  
 }
 
 void draw() {

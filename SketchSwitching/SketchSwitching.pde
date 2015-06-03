@@ -45,7 +45,7 @@ void keyPressed() {
     selected = 1;
   }
   if (key == '2') {
-  //  selected = 2;
+    //  selected = 2;
   }
 }
 
