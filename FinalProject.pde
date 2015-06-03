@@ -1,4 +1,20 @@
 import javax.swing.JFrame;
+<<<<<<< HEAD
+
+int mode;
+int GRAPH = 0;
+int ENTER_MATRIX = 1;
+
+boolean toShowMatrix = false;
+boolean toShowREF = false;
+boolean enterRows = false;
+boolean enterColumns = false;
+
+Matrix m;
+int rows, cols;
+
+=======
+>>>>>>> origin/homepage
 import java.util.*;
 import java.io.*;
 
