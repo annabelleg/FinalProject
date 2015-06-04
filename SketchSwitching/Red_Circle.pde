@@ -436,7 +436,7 @@ public class RedCircle extends AppBase {
     background(255);
     fill(255);
     graphGrid(gridRatio);
-    if (!done) {
+   /* if (!done) {
       testEq = new LinearEquation("y=1/2x");
       testEqu = new LinearEquation("y=2x+1");
       print(testEq.giveEquation());
@@ -446,12 +446,12 @@ public class RedCircle extends AppBase {
       print("\nM: " + testEq.getM());
       print("\nB: " + testEq.getB());
       done = true;
-    }
+    }*/
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
-      testEq.testEquation(#F03AB3);
-      testEqu.testEquation(#4BBCF7);
+   //   testEq.testEquation(#F03AB3);
+     // testEqu.testEquation(#4BBCF7);
     }
     settingsWindow();
     inputWindow();
