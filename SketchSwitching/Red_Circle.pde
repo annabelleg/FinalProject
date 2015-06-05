@@ -279,7 +279,7 @@ public class RedCircle extends AppBase {
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 38 && mouseY < 62) {
-          gridRatio+= 2;
+          gridRatio+= 1;
         }
       } 
       // ZOOM OUT
@@ -294,7 +294,7 @@ public class RedCircle extends AppBase {
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 58 && mouseY < 112) {
           if (gridRatio > 2) {
-            gridRatio-= 2;
+            gridRatio-= 1;
           }
         }
       }
@@ -306,11 +306,11 @@ public class RedCircle extends AppBase {
       p = createFont("Georgia", 18);
       textFont(p, 18);                
       fill(255);  
-      text("Draw It", 15, 160);   
+  //    text("Draw It", 15, 160);   
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 108 && mouseY < 162) {
-          drawEquation = true;
+
         }
       }
     }
