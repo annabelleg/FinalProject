@@ -73,7 +73,12 @@ Interpreting user input of equations
   - linear equations are gucci, quadratic equations have begun but are super buggy
   - added homepage, it switches views based on what you click! woohoo
   - user now enters number of rows + columns they want for matrix
-  - user can input linear equation + theoretically graph will output it (it worked in the past but the merge messed it up)
+  - user can input linear equation + theoretically graph will output it (it worked in the past but the merge messed it up)  
+- week of 6/1/15 - 6/5/15
+  - figured out an easier way to toggle between screens, using an array of PApplets and an AppBase class. 
+  - fixed evaluating fractions in equation. 
+  - user can differentiate betweeen quadratic and linear inputs.
+  - user can input up to 4 different funtions, each of which is graphed in a different color. 
   
   
 
@@ -93,6 +98,7 @@ Interpreting user input of equations
 - user input for size of matrix
 - linear equation graphing
 - homepage
+- Toggling between sketch-screens.
 
 
 #### WORKING DEMOS
