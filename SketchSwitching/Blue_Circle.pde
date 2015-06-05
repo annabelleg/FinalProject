@@ -137,7 +137,7 @@ public class BlueSquare extends AppBase
   }
 
   void MatrixStuff() {
-    background(225);
+    //  background(225);
     fill(0);
     text("Enter dimensions of your matrix:", width/4, height/8);
     text("Rows:", width/8 + 5, height/8 + 25);
@@ -209,6 +209,7 @@ public class BlueSquare extends AppBase
 
   @Override
     public void display() {
+    background(225);
     MatrixStuff();
     matrixPress();
   }

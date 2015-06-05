@@ -436,14 +436,14 @@ public class RedCircle extends AppBase {
     graphGrid(gridRatio);
     if (!done) {
       testEq1 = new LinearEquation(current.input);
-      testEq2 = new LinearEquation("y=x");
+    //  testEq2 = new LinearEquation("y=x");
       done = true;
     }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
       testEq1.testEquation(#F03AB3);
-      testEq2.testEquation(#4BBCF7);
+      //testEq2.testEquation(#4BBCF7);
     }
     settingsWindow();
     inputWindow();

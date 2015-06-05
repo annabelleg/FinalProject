@@ -7,7 +7,7 @@ import java.io.*;
 int selected;
 
 void setup() {
-  size(250, 250);
+  size(600, 578);
   background(255);
   rectMode(CENTER);
 
@@ -17,6 +17,7 @@ void setup() {
   //adding each of our nested Applets to the list.
   apps.add(new RedCircle(this));
   apps.add(new BlueSquare(this));
+  apps.add(new HomePage(this));
 
   //calling the initialization function on each
   //Applet in the list.
@@ -24,7 +25,7 @@ void setup() {
     a.init();
   }
 
-  selected = 0;
+  selected = 2;
 }
 
 void draw() {
@@ -45,7 +46,14 @@ void keyPressed() {
     selected = 1;
   }
   if (key == '2') {
-    //  selected = 2;
+    selected = 2;
   }
 }
+void mouseClicked() {
+    if (mouseX > 265 && mouseX < 390 && mouseY > 220 && mouseY < 260) {
+      selected = 0;
+    } else if (mouseX > 265 && mouseX <390 && mouseY > 220 && mouseY < 260) {
+      selected = 1;
+    }
+  }
 
