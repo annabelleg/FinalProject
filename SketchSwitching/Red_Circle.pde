@@ -15,7 +15,7 @@ public class RedCircle extends AppBase {
   boolean done = true;
   String theEquation;
   boolean equationIn = false;
-  LinearEquation testEq, testEqu;
+  LinearEquation testEq1, testEq2;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -435,14 +435,15 @@ public class RedCircle extends AppBase {
     fill(255);
     graphGrid(gridRatio);
     if (!done) {
-      testEq = new LinearEquation(current.input);
+      testEq1 = new LinearEquation(current.input);
+      testEq2 = new LinearEquation("y=x");
       done = true;
     }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
-      testEq.testEquation(#F03AB3);
-      //    testEqu.testEquation(#4BBCF7);
+      testEq1.testEquation(#F03AB3);
+      testEq2.testEquation(#4BBCF7);
     }
     settingsWindow();
     inputWindow();
