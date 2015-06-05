@@ -12,7 +12,8 @@ public class RedCircle extends AppBase {
   PFont p;
   boolean settingsWindowOpen = false;
   boolean inputWindowOpen = false;
-  boolean done = false;
+  boolean done = true;
+  String theEquation;
   boolean equationIn = false;
   LinearEquation testEq, testEqu;
 
@@ -52,11 +53,6 @@ public class RedCircle extends AppBase {
       rectMode(CENTER);
       fill(255);
       rect(100, 50, 150, 25);
-      //    p = createFont("Georgia", 18);
-      //    textFont(p, 18);                
-      //    fill(0);  
-      //    text("Zoom In", 15, 60);   
-      // Changes Scale
       if (mousePressed) {
         if (mouseX > 25 && mouseX < 175 && mouseY > 38 && mouseY < 62) {
           typeMode = true;
@@ -64,38 +60,39 @@ public class RedCircle extends AppBase {
       }
       textFont(p, 15);                
       fill(0);                    
-      text(typing.input, 30, 55);
+      text(current.input, 30, 55);
     }
 
     void keyPressed() {
       if (typeMode) {
         for (int i = 0; i < 26; i++) {
           if (key == alphabetLower[i]) {
-            typing.typeIn(String.valueOf(alphabetLower[i]));
+            current.typeIn(String.valueOf(alphabetLower[i]));
           }
           if (key == alphabetUpper[i]) {
-            typing.typeIn(String.valueOf(alphabetUpper[i]));
+            current.typeIn(String.valueOf(alphabetUpper[i]));
           }
         }
         for (int i = 0; i < 10; i++) {
           if (key == numbers[i]) {  
-            typing.typeIn(String.valueOf(numbers[i]));
+            current.typeIn(String.valueOf(numbers[i]));
           }
         }
         for (int i = 0; i < 9; i++) {
           if (key == operations[i]) {  
-            typing.typeIn(String.valueOf(operations[i]));
+            current.typeIn(String.valueOf(operations[i]));
           }
         }
         if (key == ' ') {
-          typing.typeIn(" ");
+          current.typeIn(" ");
         }
         if (key == ENTER) {
           drawEquation = true;
+          done = false;
           typeMode = false;
         }
         if (key == BACKSPACE) {
-          typing.erase();
+          current.erase();
         }
       }
     }
@@ -119,7 +116,8 @@ public class RedCircle extends AppBase {
     }
 
     void fillEq() {
-      for (int i = 0; i < equation_.length; i++) {
+      print("Equationlenght: " + equation.length());
+      for (int i = 0; i < equation.length(); i++) {
         equation_[i] = equation.substring(i, i+1);
       }
     }
@@ -436,22 +434,15 @@ public class RedCircle extends AppBase {
     background(255);
     fill(255);
     graphGrid(gridRatio);
-   /* if (!done) {
-      testEq = new LinearEquation("y=1/2x");
-      testEqu = new LinearEquation("y=2x+1");
-      print(testEq.giveEquation());
-      print("\n" + testEq.findY());
-      print("\n" + testEq.hasFraction);
-      print("\n" + testEq.indexBar);
-      print("\nM: " + testEq.getM());
-      print("\nB: " + testEq.getB());
+    if (!done) {
+      testEq = new LinearEquation(current.input);
       done = true;
-    }*/
+    }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
-   //   testEq.testEquation(#F03AB3);
-     // testEqu.testEquation(#4BBCF7);
+      testEq.testEquation(#F03AB3);
+      //    testEqu.testEquation(#4BBCF7);
     }
     settingsWindow();
     inputWindow();
