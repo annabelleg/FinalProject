@@ -17,6 +17,7 @@ public class RedCircle extends AppBase {
   boolean done = true;
   String theEquation;
   boolean equationIn = false;
+  boolean first, second, third, fourth = false;
   LinearEquation testEq1, testEq2, testEq3, testEq4;
   float step = 0.1;
 
@@ -212,8 +213,12 @@ public class RedCircle extends AppBase {
 
     LinearEquation(String eq) {
       super(eq);
-      findM();
-      findB();
+      try {
+        findM();
+        findB();
+      } 
+      catch (IndexOutOfBoundsException e) {
+      }
     }
 
     void findM() {
@@ -373,7 +378,8 @@ public class RedCircle extends AppBase {
       input += letter;
     }
     void erase() {
-      input = input.substring(0, input.length()-1);
+      if (input.length() >= 1)
+        input = input.substring(0, input.length()-1);
     }
   }
 
@@ -445,6 +451,33 @@ public class RedCircle extends AppBase {
     }
   }
 
+  void getInputs() {
+    testEq1 = new LinearEquation(eqInputs.get(0).input);
+    testEq2 = new LinearEquation(eqInputs.get(1).input);
+    testEq3 = new LinearEquation(eqInputs.get(2).input);
+    testEq4 = new LinearEquation(eqInputs.get(3).input);
+  }
+  void testInputs(boolean a, boolean b, boolean c, boolean d) {
+    if (a)
+      testEq1.testEquation(#F03AB3);
+    if (b)
+      testEq2.testEquation(#4BBCF7);
+    if (c)
+      testEq3.testEquation(#22DE4F);
+    if (d)
+      testEq4.testEquation(#FAD414);
+  }
+  void hasInput() {
+    if (!testEq1.equation.equals(""))
+      first = true;
+    if (!testEq2.equation.equals(""))
+      second = true;
+    if (!testEq3.equation.equals(""))
+      third = true;
+    if (!testEq4.equation.equals(""))
+      fourth = true;
+  }
+
   public RedCircle(PApplet parentApplet) {
     super(parentApplet);
   }
@@ -472,19 +505,14 @@ public class RedCircle extends AppBase {
     graphGrid(gridRatio);
     current = eqInputs.get(currentBox);
     if (!done) {
-      testEq1 = new LinearEquation(eqInputs.get(0).input);
-      testEq2 = new LinearEquation(eqInputs.get(1).input);
-      testEq3 = new LinearEquation(eqInputs.get(2).input);
-      testEq4 = new LinearEquation(eqInputs.get(3).input);
+      getInputs();
       done = true;
     }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
-      testEq1.testEquation(#F03AB3);
-      testEq2.testEquation(#4BBCF7);
-      testEq3.testEquation(#22DE4F);
-      testEq4.testEquation(#FAD414);
+      hasInput();
+      testInputs(first, second, third, fourth);
     }
     settingsWindow();
     inputWindow();
