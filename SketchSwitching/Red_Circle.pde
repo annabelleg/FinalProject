@@ -8,14 +8,17 @@ public class RedCircle extends AppBase {
   int xCenter, yCenter;
   boolean drawEquation = false;
   boolean typeMode = false;
+  int currentBox = 0;
   TextBox current;
+  ArrayList<TextBox> eqInputs;
   PFont p;
   boolean settingsWindowOpen = false;
   boolean inputWindowOpen = false;
   boolean done = true;
   String theEquation;
   boolean equationIn = false;
-  LinearEquation testEq1, testEq2;
+  LinearEquation testEq1, testEq2, testEq3, testEq4;
+  float step = 0.1;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -38,7 +41,6 @@ public class RedCircle extends AppBase {
   }
 
   public class EquationApplet extends PApplet {
-    TextBox typing = new TextBox(30, 55);
 
     public void setup() {
       background(#6FF598);
@@ -53,14 +55,33 @@ public class RedCircle extends AppBase {
       rectMode(CENTER);
       fill(255);
       rect(100, 50, 150, 25);
+      rect(100, 100, 150, 25);
+      rect(100, 150, 150, 25);
+      rect(100, 200, 150, 25);
       if (mousePressed) {
         if (mouseX > 25 && mouseX < 175 && mouseY > 38 && mouseY < 62) {
           typeMode = true;
+          currentBox = 0;
+        }
+        if (mouseX > 25 && mouseX < 175 && mouseY > 88 && mouseY < 112) {
+          typeMode = true;
+          currentBox = 1;
+        }
+        if (mouseX > 25 && mouseX < 175 && mouseY > 138 && mouseY < 162) {
+          typeMode = true;
+          currentBox = 2;
+        }
+        if (mouseX > 25 && mouseX < 175 && mouseY > 188 && mouseY < 212) {
+          typeMode = true;
+          currentBox = 3;
         }
       }
       textFont(p, 15);                
       fill(0);                    
-      text(current.input, 30, 55);
+      text(eqInputs.get(0).input, 30, 55);
+      text(eqInputs.get(1).input, 30, 105);
+      text(eqInputs.get(2).input, 30, 155);
+      text(eqInputs.get(3).input, 30, 205);
     }
 
     void keyPressed() {
@@ -78,7 +99,7 @@ public class RedCircle extends AppBase {
             current.typeIn(String.valueOf(numbers[i]));
           }
         }
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 11; i++) {
           if (key == operations[i]) {  
             current.typeIn(String.valueOf(operations[i]));
           }
@@ -116,8 +137,7 @@ public class RedCircle extends AppBase {
     }
 
     void fillEq() {
-      print("Equationlenght: " + equation.length());
-      for (int i = 0; i < equation.length(); i++) {
+      for (int i = 0; i < equation.length (); i++) {
         equation_[i] = equation.substring(i, i+1);
       }
     }
@@ -133,11 +153,12 @@ public class RedCircle extends AppBase {
     }
 
     int findX() {
-      int index = 0;
-      while (!equation_[index].equals ("x")) {
-        index++;
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals ("x")) {
+          return i;
+        }
       }
-      return index;
+      return 0;
     }
 
     public abstract float findY();
@@ -198,6 +219,10 @@ public class RedCircle extends AppBase {
     void findM() {
       if (equation_[1].equals("=") && equation_[2].equals("x")) {
         m = 1;
+        return;
+      } else if (findX() == 0) {
+        m = 0;
+        return;
       } else {
         findBar(equation.substring(2, findX()));
         int ex = 0;
@@ -217,13 +242,16 @@ public class RedCircle extends AppBase {
     void findB() {
       if (equation.length() > 3 && !(equation_[equation.length()-1].equals("x"))) {
         hasFraction = false;
-        findBar(equation.substring(findX()+2, equation.length()));
-        boolean positive = true;
+        findBar(equation.substring(findX()+1, equation.length()));
         //float num;
-        if (equation_[findX()+1].equals("-")) {
-          b = parseFloat(equation.substring(findX()+2, equation.length())) * (-1.0);
+        if (hasFraction) {
+          //  NEEDS IMPROVEMENT
+          /* float numerator = parseFloat(equation.substring(findX(), indexBar));
+           float denominator = parseFloat(equation.substring(indexBar+1, equation.length()));
+           b = numerator/denominator;
+           print("\n"+findX() + " " + indexBar);*/
         } else {
-          b = parseFloat(equation.substring(findX()+2, equation.length()));
+          b = parseFloat(equation.substring(findX()+1, equation.length()));
         }
       } else {
         b = 0;
@@ -246,7 +274,7 @@ public class RedCircle extends AppBase {
 
     void testEquation(int colorNum) {
       // y = mx + b form
-      for (int x = (-1)*(xCenter); x <= xCenter+100; x++) {
+      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
         fill(colorNum);
         ellipse(x+xCenter, yCenter-(m*x+(b*gridRatio)), 2, 2);
         Coordinate c = new Coordinate(x, (m*x)+b);
@@ -306,11 +334,10 @@ public class RedCircle extends AppBase {
       p = createFont("Georgia", 18);
       textFont(p, 18);                
       fill(255);  
-  //    text("Draw It", 15, 160);   
+      //    text("Draw It", 15, 160);   
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 108 && mouseY < 162) {
-
         }
       }
     }
@@ -326,7 +353,7 @@ public class RedCircle extends AppBase {
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
   };
   char[] operations = {
-    '+', '-', '*', '/', '^', '!', '=', '(', ')'
+    '+', '-', '*', '/', '^', '!', '=', '(', ')', ',', '.'
   };
 
   // FIGURE OUT HOW TO DO OPERATIONS
@@ -426,6 +453,15 @@ public class RedCircle extends AppBase {
   public void init() {
     size(600, 578);
     setLocation(400, 300);
+    eqInputs = new ArrayList<TextBox>();
+    TextBox box1 = new TextBox(30, 55);
+    TextBox box2 = new TextBox(30, 55);
+    TextBox box3 = new TextBox(30, 55);
+    TextBox box4 = new TextBox(30, 55);
+    eqInputs.add(box1); // index 0
+    eqInputs.add(box2); // index 1
+    eqInputs.add(box3); // index 2
+    eqInputs.add(box4); // index 3
     current = new TextBox(50, 50);
   }
 
@@ -434,16 +470,21 @@ public class RedCircle extends AppBase {
     background(255);
     fill(255);
     graphGrid(gridRatio);
+    current = eqInputs.get(currentBox);
     if (!done) {
-      testEq1 = new LinearEquation(current.input);
-    //  testEq2 = new LinearEquation("y=x");
+      testEq1 = new LinearEquation(eqInputs.get(0).input);
+      testEq2 = new LinearEquation(eqInputs.get(1).input);
+      testEq3 = new LinearEquation(eqInputs.get(2).input);
+      testEq4 = new LinearEquation(eqInputs.get(3).input);
       done = true;
     }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
       testEq1.testEquation(#F03AB3);
-      //testEq2.testEquation(#4BBCF7);
+      testEq2.testEquation(#4BBCF7);
+      testEq3.testEquation(#22DE4F);
+      testEq4.testEquation(#FAD414);
     }
     settingsWindow();
     inputWindow();

@@ -50,10 +50,10 @@ void keyPressed() {
   }
 }
 void mouseClicked() {
-    if (mouseX > 265 && mouseX < 390 && mouseY > 220 && mouseY < 260) {
-      selected = 0;
-    } else if (mouseX > 265 && mouseX <390 && mouseY > 220 && mouseY < 260) {
-      selected = 1;
-    }
+  if (mouseX > 265 && mouseX < 390 && mouseY > 220 && mouseY < 260) {
+    selected = 0;
+  } else if (mouseX > 265 && mouseX <390 && mouseY > 220 && mouseY < 260) {
+    selected = 1;
   }
+}
 
