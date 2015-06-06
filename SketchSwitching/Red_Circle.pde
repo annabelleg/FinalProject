@@ -20,6 +20,8 @@ public class RedCircle extends AppBase {
   boolean first, second, third, fourth = false;
   LinearEquation testEq1, testEq2, testEq3, testEq4;
   float step = 0.1;
+  boolean ther = false;
+  QuadraticEquation testEq5;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -40,6 +42,9 @@ public class RedCircle extends AppBase {
       show();
     }
   }
+
+  // <<<<<<<<<<<<<<<<<<<<<<<<<< EQUATION APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   public class EquationApplet extends PApplet {
 
@@ -120,6 +125,9 @@ public class RedCircle extends AppBase {
     }
   }
 
+  // <<<<<<<<<<<<<<<<<<<<<<<< PARENT EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
   public abstract class Equation {
 
     ArrayList<Coordinate> data;
@@ -184,7 +192,7 @@ public class RedCircle extends AppBase {
       }
     }
   }
-
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< GRAPH GRID >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   void graphGrid(int scale) {
     stroke(0);
     for (int i = 1; i <= height/scale; i++) {
@@ -206,6 +214,9 @@ public class RedCircle extends AppBase {
       line(i*scale, 0, i*scale, height);
     }
   }
+
+  // <<<<<<<<<<<<<<<<<<<<<<<< LINEAR EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   public class LinearEquation extends Equation {
     // y = mx+b
@@ -291,6 +302,134 @@ public class RedCircle extends AppBase {
       }
     }
   }
+  // <<<<<<<<<<<<<<<<<<<<<<<< QUADRATIC EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  public class QuadraticEquation extends Equation {
+    // y = ax^2 + bx + c
+    float a, b, c;
+
+    QuadraticEquation(String eq) {
+      super(eq);
+      findA();
+      findB();
+      findC();
+    }
+
+    int getXsquared() {
+      for (int i  = 0; i < equation_.length-1; i++) {
+        if (equation_[i].equals("x") && equation_[i+1].equals("^") &&equation_[i+2].equals("2")) {
+          return i;
+        }
+      }
+      return 0;
+    }
+
+    int findX() {
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals("x") && !(equation_[i+1].equals("^"))) {
+          return i;
+        }
+      }
+      return 0;
+    }
+
+    void findA() {
+      hasFraction = false;
+      if (equation_[1].equals("=") && getXsquared() == 2) {
+        a = 1;
+        return;
+      } else {
+        findBar(equation.substring(2, getXsquared()));
+        if (equation_[0].equals("y") && equation_[1].equals("=")) {
+          if (!hasFraction) {
+            a = parseFloat(equation.substring(2, getXsquared()));
+            return;
+          } else {
+            float numerator = parseFloat(equation.substring(2, indexBar));
+            float denominator = parseFloat(equation.substring(indexBar+1, getXsquared()));
+            a = numerator/denominator;
+            return;
+          }
+        }
+      }
+    }
+
+    void findB() {
+      hasFraction = false;
+      if (findX() == 0) {
+        b = 0;
+        return;
+      } else {
+        int ex = getXsquared();
+        if (findX()-ex == 4) {
+          b = 1;
+          return;
+        }
+        findBar(equation.substring(ex+3, findX()));
+        if (!hasFraction) {
+          b = parseFloat(equation.substring(ex+3, findX()));
+          return;
+        } else {
+          float numerator = parseFloat(equation.substring(ex, indexBar));
+          float denominator = parseFloat(equation.substring(indexBar+1, findX()));
+          b = numerator/denominator;
+          return;
+        }
+      }
+    }
+
+    void findC() {
+      hasFraction = false;
+      int endX = findX()+1;
+      if (b==0) {
+        endX = getXsquared() + 3;
+      }
+      if (endX >= equation_.length) {
+        c = 0;
+        return;
+      } else {
+        findBar(equation.substring(endX, equation.length()));
+        if (hasFraction) {
+          float numerator = parseFloat(equation.substring(endX, indexBar));
+          float denominator = parseFloat(equation.substring(indexBar+1, equation.length()));
+          c = numerator/denominator;
+          return;
+        } else {
+          c = parseFloat(equation.substring(endX, equation_.length));
+          return;
+        }
+      }
+    }
+
+    float findY() {
+      return a;
+    }
+
+    float getA() {
+      return a;
+    }
+    float getB() {
+      return b;
+    }
+    float getC() {
+      return c;
+    }
+    void makeData() {
+    }
+
+    void testEquation(int colorNum) {
+      // y = ax^2+bx+c
+      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+        fill(colorNum);
+        ellipse(x+xCenter, yCenter-((a*x*x)+(b*x)+(c*gridRatio)), 2, 2);
+        // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
+        //  data.add(c);
+      }
+    }
+  }
+
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SETTINGS APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   public class settingsApplet extends PApplet {
 
@@ -410,7 +549,8 @@ public class RedCircle extends AppBase {
       // FIGURE OUT BACKSPACE
     }
   }
-
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<< WINDOWS N INPUTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   void settingsWindow() {
     rectMode(CENTER);
     fill(0);
@@ -481,7 +621,8 @@ public class RedCircle extends AppBase {
     if (!testEq4.equation.equals(""))
       fourth = true;
   }
-
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MAIN METHODS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   public RedCircle(PApplet parentApplet) {
     super(parentApplet);
   }
@@ -512,11 +653,19 @@ public class RedCircle extends AppBase {
       getInputs();
       done = true;
     }
+    if (!ther) {
+      testEq5 = new QuadraticEquation("y=1/4x^2+6");
+      print("A: " + testEq5.getA());
+      print("B: " + testEq5.getB());
+      print("C: " + testEq5.getC());
+      ther = true;
+    }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
       hasInput();
       testInputs(first, second, third, fourth);
+      testEq5.testEquation(#EA1837);
     }
     settingsWindow();
     inputWindow();
