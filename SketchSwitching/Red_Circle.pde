@@ -245,6 +245,10 @@ public class RedCircle extends AppBase {
     }
 
     void findB() {
+      if (findX() == 0) {
+        b = parseFloat(equation.substring(2, equation.length()));
+        return;
+      }
       if (equation.length() > 3 && !(equation_[equation.length()-1].equals("x"))) {
         hasFraction = false;
         findBar(equation.substring(findX()+1, equation.length()));
