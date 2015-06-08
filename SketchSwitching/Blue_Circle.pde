@@ -24,7 +24,7 @@ public class BlueSquare extends AppBase
   PFont p;
   public class PFrame extends JFrame {
     public PFrame() {
-      setBounds(100, 75, 400, 300);
+      setBounds(100, 75, 500, 500);
       s = new MatrixApplet();
       add(s);
       s.init();
@@ -34,7 +34,7 @@ public class BlueSquare extends AppBase
 
   public class NewFrame extends JFrame {
     public NewFrame() {
-      setBounds(100, 375, 400, 300);
+      setBounds(100, 375, 500, 500);
       t = new REFApplet();
       add(t);
       t.init();
@@ -49,36 +49,53 @@ public class BlueSquare extends AppBase
     void draw() {
       background(225);
       p = createFont("Georgia", 24);
-      textFont(p, 24);                
+      textFont(p, 15);                
       fill(255);                  
 
       fill(0);
-      text("Enter dimensions of your matrix:", width/4, height/8);
-      text("Rows:", width/8 + 5, height/8 + 25);
-      TextBox box1 = new TextBox(width/8 + 5, height/8 + 25);
-      text("Columns:", width/4 + 65, height/8 + 25);
+      text("Enter dimensions of your matrix:", width/8, height/8);
+      text("Rows:", width/8, height/6 );
+      TextBox box1 = new TextBox(width/8 +55, height/8 + 25);
+      text("Columns:", width/2, height/6);
       TextBox box2 = new TextBox(width/4 + 65, height/8 + 25);
       fill(225, 225, 225);
       rect(width/8 + 55, height/8 + 20, 50, 17);
       rect(width/4 + 125, height/8 + 20, 50, 17);
       fill(0);
-      text(rows, width/8 + 40, height/8 + 25);
-      text(cols, width/4 + 110, height/8 + 25);
+
+
       stroke(0);
       if (mousePressed) {
-        if (mouseX > width/8 + 30 && mouseX < width/8 + 80 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
+        if (mouseX > width/8 + 55 && mouseX < width/8 + 105 && mouseY > height/8 + 20 && mouseY < height/8 + 37) {
+          typeMode = true;
+          current = box1;
           enterRows = true;
         }
-        if (mouseX > width/4 + 100 && mouseX < width/4 + 150 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
+        if (mouseX > width/4 + 125 && mouseX < width/4 + 175 && mouseY > height/8 + 20 && mouseY < height/8 + 37) {
+          typeMode = true;
+          current = box2;
           enterColumns = true;
         }
       }
+    text(rows, width/8 + 65, height/8 + 30);
+    text(cols, width/4 + 135, height/8 + 30);
+    m = new Matrix(rows,cols);
+    m.displayMatrix();
     }
     void keyPressed() {
       if (typeMode) {
         for (int i = 0; i < 10; i++) {
           if (key == numbers[i]) {  
-            current.typeIn(String.valueOf(numbers[i]));
+            if (enterRows) {
+              String r = ""+key;
+              rows = Integer.parseInt(r);
+              enterRows = false;//current.typeIn(String.valueOf(numbers[i]));
+            }
+            if (enterColumns) {
+              String c = "" + key;
+              cols = Integer.parseInt(c);
+              enterColumns = false;
+            }
           }
         }
         if (key == ENTER) {
@@ -91,18 +108,22 @@ public class BlueSquare extends AppBase
         }
       }
     }
-  }
+ 
+  } 
+  
   public class REFApplet extends PApplet {
     void setup() {
       size(500, 500);
     }
     void draw() {
+      showREF();
     }
   }
   void matrixWindow() {
     stroke(0);
     rectMode(CENTER);
-fill(225);
+    fill(225);
+    rect(width/2, height/2, width/3, height/8);
     p = createFont("Georgia", 15, true);
     textFont(p, 15);                
     fill(0); 
@@ -112,7 +133,7 @@ fill(225);
       text("Close", width/3+100, height/2);
     }
     if (mousePressed) {
-      if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
+      if (mouseX > width/3 && mouseY > height/2 && mouseX < 2*width/3 && mouseY < height/2 + height/8) {
         if (!matrixWindowOpen) {
           PFrame f = new PFrame();
           matrixWindowOpen = true;
@@ -125,7 +146,7 @@ fill(225);
     stroke(0);
     rectMode(CENTER);
     fill(225);
-    rect(width/2, height/2, width/3, height/8);
+    rect(width/2, height/2 + height/3, width/3, height/8);
     p = createFont("Georgia", 15, true);
     textFont(p, 15);   
     fill(0); 
@@ -135,7 +156,7 @@ fill(225);
       text("Close", width/3+100, height - height/4 + 30);
     }
     if (mousePressed) {
-      if (mouseX > 70 && mouseY > 0 && mouseX < 130 && mouseY < 20) {
+      if (mouseX > width/3 && mouseY > height/2 + height/3 && mouseX < 2*width/3 && mouseY < height/2 + height/3 + height/8) {
         if (!REFWindowOpen && matrixWindowOpen) {
           NewFrame yo = new NewFrame();
           REFWindowOpen = true;

@@ -40,7 +40,7 @@ public class HomePage extends AppBase
     textAlign(CENTER);
     text("Graph Equations! \n(press 0)", b1x, b1y -5);
     text("Matrix stuff!\n (press 1)", b2x, b2y-5 );
-    text("Evaluate expressions!", b3x, b3y-5);
+    text("To get back to the home page,\n press 2", b3x, b3y-5);
   }
 }
 
