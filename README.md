@@ -79,6 +79,9 @@ Interpreting user input of equations
   - fixed evaluating fractions in equation. 
   - user can differentiate betweeen quadratic and linear inputs.
   - user can input up to 4 different funtions, each of which is graphed in a different color. 
+- weekend of 6/6/15
+  - opens new windows to display matrix and ref of matrix
+  - need to create way to have user input matrix
   
   
 
@@ -99,8 +102,11 @@ Interpreting user input of equations
 - linear equation graphing
 - homepage
 - Toggling between sketch-screens.
+- way to get back to homepage/switch between different functions (0,1,2)
 
 
 #### WORKING DEMOS
 6/1/15: Demo #1:
 https://github.com/annabelleg/FinalProject.git
+6/8/15: Demo #2:
+
