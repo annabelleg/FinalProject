@@ -21,7 +21,7 @@ void setup() {
   //adding each of our nested Applets to the list.
   apps.add(new HomePage(this)); //HomePage is  0
   apps.add(new RedCircle(this)); // graphing is  1
-  apps.add(new BlueSquare(this)); // matrux is  2
+  apps.add(new BlueSquare(this)); // matrix is  2
 
 
   //calling the initialization function on each
