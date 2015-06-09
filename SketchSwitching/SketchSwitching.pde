@@ -4,10 +4,14 @@ import javax.swing.JFrame;
 import java.util.*;
 import java.io.*;
 
+
 int selected;
+
+
 
 void setup() {
   size(600, 578);
+  
   background(255);
   rectMode(CENTER);
 
@@ -15,9 +19,10 @@ void setup() {
   apps = new ArrayList<AppBase>();
 
   //adding each of our nested Applets to the list.
-  apps.add(new RedCircle(this));
-  apps.add(new BlueSquare(this));
-  apps.add(new HomePage(this));
+  apps.add(new HomePage(this)); //HomePage is  0
+  apps.add(new RedCircle(this)); // graphing is  1
+  apps.add(new BlueSquare(this)); // matrux is  2
+
 
   //calling the initialization function on each
   //Applet in the list.
@@ -25,7 +30,7 @@ void setup() {
     a.init();
   }
 
-  selected = 2;
+  selected = 0;
 }
 
 void draw() {
@@ -49,11 +54,11 @@ void keyPressed() {
     selected = 2;
   }
 }
-void mouseClicked() {
-  if (mouseX > 265 && mouseX < 390 && mouseY > 220 && mouseY < 260) {
-    selected = 0;
-  } else if (mouseX > 265 && mouseX <390 && mouseY > 220 && mouseY < 260) {
-    selected = 1;
-  }
-}
-
+/*void mouseClicked() {
+ if (mouseX > 265 && mouseX < 390 && mouseY > 220 && mouseY < 260) {
+ selected = 1;
+ } else if (mouseX > 265 && mouseX <390 && mouseY > 220 && mouseY < 260) {
+ selected = 2;
+ }
+ }
+ */
