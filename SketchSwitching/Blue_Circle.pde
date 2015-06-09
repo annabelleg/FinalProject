@@ -43,6 +43,7 @@ public class BlueSquare extends AppBase
   }  
 
   public class MatrixApplet extends PApplet {
+    Matrix matrix;
     void setup() {
       size(500, 500);
     }
@@ -77,10 +78,14 @@ public class BlueSquare extends AppBase
           enterColumns = true;
         }
       }
-    text(rows, width/8 + 65, height/8 + 30);
-    text(cols, width/4 + 135, height/8 + 30);
-    m = new Matrix(rows,cols);
-    m.displayMatrix();
+      text(rows, width/8 + 65, height/8 + 30);
+      text(cols, width/4 + 135, height/8 + 30);
+      if (!toShowMatrix) {
+        matrix = new Matrix(rows, cols);
+        matrix.displayMatrix();
+        toShowMatrix = true;
+        m = matrix;
+      }
     }
     void keyPressed() {
       if (typeMode) {
@@ -99,7 +104,7 @@ public class BlueSquare extends AppBase
           }
         }
         if (key == ENTER) {
-          toShowMatrix = true;
+          //toShowMatrix = true;
           //       done = false;
           typeMode = false;
         }
@@ -108,15 +113,16 @@ public class BlueSquare extends AppBase
         }
       }
     }
- 
   } 
-  
+
   public class REFApplet extends PApplet {
     void setup() {
       size(500, 500);
     }
     void draw() {
-      showREF();
+      m.REF();
+      m.displayREF();
+      toShowREF = true;
     }
   }
   void matrixWindow() {
@@ -187,8 +193,8 @@ public class BlueSquare extends AppBase
     void displayMatrix() {
       textSize(15);
       fill(0, 0, 0, 100);
-      int rectW = cols*20;
-      int rectH = rows*50;
+      int rectW = width/4;
+      int rectH = height/4;
       rect(rectW, rectH, cols*50, rows*50);
       fill(225);
       for (int r = 0; r < rows; r++) {
@@ -325,7 +331,7 @@ public class BlueSquare extends AppBase
         toShowMatrix = true;
       }
       if (!toShowREF && mouseX > (width/3) && mouseX < (2*width/3) && mouseY > (height-height/4) && mouseY < (height - height/8)) {
-        showREF();
+        //showREF();
       }
       if (mouseX > width/8 + 30 && mouseX < width/8 + 80 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
         enterRows = true;
@@ -348,11 +354,7 @@ public class BlueSquare extends AppBase
       }
     }
   }
-  void showREF() {
-    m.REF();
-    m.displayREF();
-    toShowREF = true;
-  }
+
 
   public BlueSquare(PApplet parentApplet) {
     super(parentApplet);
