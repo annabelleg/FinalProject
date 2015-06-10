@@ -21,6 +21,7 @@ public class BlueSquare extends AppBase
   boolean pressClose = false;
 
   boolean typeMode = false;
+  boolean done;
   int currentBox = 0;
   TextBox current;
   PFont p;
@@ -55,52 +56,62 @@ public class BlueSquare extends AppBase
       fill(255);                  
 
       fill(0);
-      text("Enter dimensions of your matrix:", width/8, height/8);
-      text("Rows:", width/8, height/6 );
-      TextBox box1 = new TextBox(width/8 +55, height/8 + 25);
-      text("Columns:", width/2, height/6);
-      TextBox box2 = new TextBox(width/4 + 65, height/8 + 25);
+      text("Enter dimensions of your matrix:", 15, 15);
+      text("Rows:", 50, 40 );
+      //TextBox box1 = new TextBox(100, height/8 + 25);
+      text("Columns:", 200, 40);
+      //TextBox box2 = new TextBox(width/4 + 65, height/8 + 25);
       fill(225, 225, 225);
-      rect(width/8 + 55, height/8 + 20, 50, 17);
-      rect(width/4 + 125, height/8 + 20, 50, 17);
+      rect(100, 25, 50, 20);
+      rect(275, 25, 50, 20);
       fill(0);
       stroke(0);
       if (mousePressed) {
-        if (mouseX > width/8 + 55 && mouseX < width/8 + 105 && mouseY > height/8 + 20 && mouseY < height/8 + 37) {
+        if (mouseX > 95 && mouseX < 155 && mouseY > 20 && mouseY < 50) {
           typeMode = true;
-          current = box1;
+        //  current = box1;
           enterRows = true;
         }
-        if (mouseX > width/4 + 125 && mouseX < width/4 + 175 && mouseY > height/8 + 20 && mouseY < height/8 + 37) {
+        if (mouseX > 270 && mouseX < 340 && mouseY > 20 && mouseY < 50) {
           typeMode = true;
-          current = box2;
+          //current = box2;
           enterColumns = true;
         }
       }
-      text(rows, width/8 + 65, height/8 + 30);
-      text(cols, width/4 + 135, height/8 + 30);
+      text(rows, 125, 40);
+      text(cols, 300, 40);
       m = new Matrix(rows, cols);
       if (rows != 0 && cols != 0) {
         valInputs = new ArrayList<TextBox>(rows*cols);
       }
-      fill(140);
+      // fill(140);
+      enterMatrixData();
+    }
+    void enterMatrixData() {
+      fill(200);
+      //makes rectangle and textbox at each entry of the matrix
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
-          valInputs.add(new TextBox());
           if (r <= rows/2 && c <= cols/2) {
-            rect(width/2 - r*50, height/2 -c*50, 35, 15);
-          } else if (r > rows/2 && c <= cols/2) {
-            rect(width/2+(rows-r)*50, height/2-c*50, 35, 15);
-          } else if (r <= rows/2 && c > cols/2) {
-            rect(width/2-r*50, height/2+(cols-c)*50, 35, 15);
-          } else if (r > rows/2 && c > cols/2) {
-            rect(width/2+(rows-r)*50, height/2+(cols-c)*50, 35, 15);
+            rect(width/2 - r*50, height/2 - c*50, 35, 15);
+            valInputs.add(new TextBox(width/2 - r*50 + 15, height/2 - c*50 + 7));
+          } 
+          if (r > rows/2 && c <= cols/2) {
+            rect(width/2 + (rows-r)*50, height/2 - c*50, 35, 15);
+            valInputs.add(new TextBox(width/2 + (rows-r)*50 + 15, height/2 - c*50 + 7));
+          }
+          if (r <= rows/2 && c > cols/2) {
+            rect(width/2 - r*50, height/2 + (cols-c)*50, 35, 15);
+            valInputs.add(new TextBox(width/2 - r*50+15, height/2 + (cols-c)*50 + 7));
+          } 
+          if (r > rows/2 && c > cols/2) {
+            rect(width/2 + (rows-r)*50, height/2 + (cols-c)*50, 35, 15);
+            valInputs.add(new TextBox(width/2 + (rows-r)*50 + 15, height/2 + (cols-c)*50 + 7));
           }
         }
       }
     }
-    void enterMatrixData() {
-    }
+
     void keyPressed() {
       if (typeMode) {
         for (int i = 0; i < 10; i++) {
@@ -108,7 +119,7 @@ public class BlueSquare extends AppBase
             if (enterRows) {
               String r = ""+key;
               rows = Integer.parseInt(r);
-              enterRows = false;//current.typeIn(String.valueOf(numbers[i]));
+              enterRows = false;
             }
             if (enterColumns) {
               String c = "" + key;
@@ -119,7 +130,7 @@ public class BlueSquare extends AppBase
         }
         if (key == ENTER) {
           toShowMatrix = true;
-          //       done = false;
+          done = false;
           typeMode = false;
         }
         if (key == BACKSPACE) {
@@ -137,6 +148,7 @@ public class BlueSquare extends AppBase
       showREF();
     }
   }
+
   void matrixWindow() {
     stroke(0);
     rectMode(CENTER);
@@ -345,13 +357,8 @@ public class BlueSquare extends AppBase
       if (!toShowREF && mouseX > (width/3) && mouseX < (2*width/3) && mouseY > (height-height/4) && mouseY < (height - height/8)) {
         showREF();
       }
-      if (mouseX > width/8 + 30 && mouseX < width/8 + 80 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
-        enterRows = true;
-      }
-      if (mouseX > width/4 + 100 && mouseX < width/4 + 150 && mouseY > height/8 + 10 && mouseY < height/8 + 27) {
-        enterColumns = true;
-      }
     }
+
     if (keyPressed) {
 
       if (enterRows == true) {
@@ -435,4 +442,3 @@ public class BlueSquare extends AppBase
     }
   }
 }
-
