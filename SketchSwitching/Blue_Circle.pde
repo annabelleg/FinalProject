@@ -9,6 +9,7 @@ public class BlueSquare extends AppBase
   char[] numbers = {
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'
   };
+  ArrayList<TextBox> valInputs;
 
   PFrame f;
   MatrixApplet s;
@@ -17,6 +18,7 @@ public class BlueSquare extends AppBase
 
   boolean matrixWindowOpen = false;
   boolean REFWindowOpen = false;
+  boolean pressClose = false;
 
   boolean typeMode = false;
   int currentBox = 0;
@@ -62,8 +64,6 @@ public class BlueSquare extends AppBase
       rect(width/8 + 55, height/8 + 20, 50, 17);
       rect(width/4 + 125, height/8 + 20, 50, 17);
       fill(0);
-
-
       stroke(0);
       if (mousePressed) {
         if (mouseX > width/8 + 55 && mouseX < width/8 + 105 && mouseY > height/8 + 20 && mouseY < height/8 + 37) {
@@ -77,10 +77,29 @@ public class BlueSquare extends AppBase
           enterColumns = true;
         }
       }
-    text(rows, width/8 + 65, height/8 + 30);
-    text(cols, width/4 + 135, height/8 + 30);
-    m = new Matrix(rows,cols);
-    m.displayMatrix();
+      text(rows, width/8 + 65, height/8 + 30);
+      text(cols, width/4 + 135, height/8 + 30);
+      m = new Matrix(rows, cols);
+      if (rows != 0 && cols != 0) {
+        valInputs = new ArrayList<TextBox>(rows*cols);
+      }
+      fill(140);
+      for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+          valInputs.add(new TextBox());
+          if (r <= rows/2 && c <= cols/2) {
+            rect(width/2 - r*50, height/2 -c*50, 35, 15);
+          } else if (r > rows/2 && c <= cols/2) {
+            rect(width/2+(rows-r)*50, height/2-c*50, 35, 15);
+          } else if (r <= rows/2 && c > cols/2) {
+            rect(width/2-r*50, height/2+(cols-c)*50, 35, 15);
+          } else if (r > rows/2 && c > cols/2) {
+            rect(width/2+(rows-r)*50, height/2+(cols-c)*50, 35, 15);
+          }
+        }
+      }
+    }
+    void enterMatrixData() {
     }
     void keyPressed() {
       if (typeMode) {
@@ -108,9 +127,8 @@ public class BlueSquare extends AppBase
         }
       }
     }
- 
   } 
-  
+
   public class REFApplet extends PApplet {
     void setup() {
       size(500, 500);
@@ -167,15 +185,15 @@ public class BlueSquare extends AppBase
 
   public class Matrix {
     double[][] data;
-    int[][][] coords;
+    //int[][][] coords;
     int rows, cols;
 
     Matrix(int r, int c) {
       rows = r; 
       cols = c;
       data = new double[r][c];
-      coords = new int[r][c][2];
-      enterData();
+      // coords = new int[r][c][2];
+      //enterData();
     }
     void enterData() {
       for (int r = 0; r < rows; r++) {
@@ -194,8 +212,8 @@ public class BlueSquare extends AppBase
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           text(String.valueOf(data[r][c]).substring(0, 3), rectW+ c*50 +15, rectH + r*50 + 25);
-          coords[r][c][0] = rectW+ c*50 +15;
-          coords[r][c][1] = rectH + r*50 + 25;
+          // coords[r][c][0] = rectW+ c*50 +15;
+          //coords[r][c][1] = rectH + r*50 + 25;
         }
       }
     }
@@ -315,9 +333,9 @@ public class BlueSquare extends AppBase
     textSize(15);
     text("Enter a matrix!", width/3+100, height/2);
     fill(225);
-    rect(width/2, height - height/5+10, width/3, height/8);
+    rect(width/2, height - height/5+10, width/3, height/2);
     fill(0);
-    text("Compute \nReduced Echelon Form", width/3+100, height - height/4 + 30);
+    text("Compute \nReduced Echelon Form", width/3+100, height/2 + 50);
   }
   void matrixPress() {
     if (mousePressed) {
@@ -360,14 +378,16 @@ public class BlueSquare extends AppBase
 
   @Override
     public void init() {
-    //  p = new PVector(parent.width / 2, parent.height / 2, 0);
     size(600, 578);
+    setLocation(400, 300);
+    valInputs = new ArrayList<TextBox>();
   }
 
   @Override
     public void display() {
     background(225);
     matrixWindow();
+    //current = new TextBox(50, 50);
     REFWindow();
   }
   public class TextBox {
@@ -380,6 +400,20 @@ public class BlueSquare extends AppBase
       xCor = x;
       yCor = y;
     }
+    TextBox() {
+    }
+    int getX() {
+      return xCor;
+    }
+    int getY() {
+      return yCor;
+    }
+    void setX(int x) {
+      xCor = x;
+    }
+    void setY(int y) {
+      yCor = y;
+    }
 
     void typeIn(String letter) {
       input += letter;
@@ -389,6 +423,7 @@ public class BlueSquare extends AppBase
         input = input.substring(0, input.length()-1);
     }
   }
+
 
   void keyPressed() {
     if (typeMode) {
