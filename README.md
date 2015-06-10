@@ -97,6 +97,7 @@ Interpreting user input of equations
 - get matrix to actually keep the values its given :/
 - make buttons on homepage do something when clicked
 - make "Close" buttons have functionality
+- allow matrix to take doubles and negatives
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
