@@ -135,8 +135,9 @@ public class BlueSquare extends AppBase
             if (enterData) {
               current.typeIn(String.valueOf(numbers[i]));
 
-              text(current.input, current.xCor, current.yCor+6);
+             
               m.data[current.mR][current.mC] = Double.parseDouble(current.input);
+               text(""+m.data[current.mR][current.mC], current.xCor, current.yCor+6);
               println(m.data[current.mR][current.mC]);
               enterData = false;
               typeMode = false;
@@ -201,17 +202,17 @@ public class BlueSquare extends AppBase
     stroke(0);
     rectMode(CENTER);
     fill(200);
-    rect(width/2, height/2, width/3, height/8);
+    rect(width/2, height/2-height/8, width/3, height/8);
     p = createFont("Georgia", 15, true);
     textFont(p, 15);                
     fill(0); 
     if (!matrixWindowOpen) {    
-      text("Enter a matrix!", width/3+100, height/2);
+      text("Enter a matrix!", width/3+100, height/2-height/8);
     } else {
-      text("Close", width/3+100, height/2);
+      text("Close", width/3+100, height/2-height/8);
     }
     if (mousePressed) {
-      if (mouseX > width/3 && mouseY > height/2 && mouseX < 2*width/3 && mouseY < height/2 + height/8) {
+      if (mouseX > width/2-width/6 &&  mouseX < width/2+width/6 && mouseY > height/2 - height/8 && mouseY < height/2 ) {
         if (!matrixWindowOpen) {
           PFrame f = new PFrame();
           matrixWindowOpen = true;
@@ -224,17 +225,17 @@ public class BlueSquare extends AppBase
     stroke(0);
     rectMode(CENTER);
     fill(200);
-    rect(width/2, height-height/3, width/3, height/8);
+    rect(width/2, height/2 + height/8, width/3, height/8);
     p = createFont("Georgia", 15, true);
     textFont(p, 15);   
     fill(0); 
     if (!REFWindowOpen) {    
-      text("Compute \nReduced Echelon Form", width/3+100, height-height/3);
+      text("Compute \nReduced Echelon Form", width/3+100, height/2 + height/8);
     } else {
-      text("Close", width/3+100, height-height/3);
+      text("Close", width/3+100, height/2 + height/8);
     }
     if (mousePressed) {
-      if (mouseX > width/3 && mouseY > height - height/3 && mouseX < 2*width/3 && mouseY < height - height/3 + height/8) {
+      if (mouseX > width/2-width/6 &&  mouseX < width/2 + width/6 && mouseY > height/2 + height/8 && mouseY < 3*height/4) {
         if (!REFWindowOpen && matrixWindowOpen) {
           NewFrame yo = new NewFrame();
           REFWindowOpen = true;
