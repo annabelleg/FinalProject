@@ -38,9 +38,9 @@ public class HomePage extends AppBase
     //textSize();
     fill(255);
     textAlign(CENTER);
-    text("Graph Equations! \n(press 0)", b1x, b1y -5);
-    text("Matrix stuff!\n (press 1)", b2x, b2y-5 );
-    text("To get back to the home page,\n press 2", b3x, b3y-5);
+    text("Graph Equations! \n(press 1)", b1x, b1y -5);
+    text("Matrix stuff!\n (press 2)", b2x, b2y-5 );
+    text("To get back to the home page,\n press 0", b3x, b3y-5);
   }
 }
 

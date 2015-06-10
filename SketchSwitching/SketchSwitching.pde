@@ -15,9 +15,10 @@ void setup() {
   apps = new ArrayList<AppBase>();
 
   //adding each of our nested Applets to the list.
+  apps.add(new HomePage(this));
   apps.add(new RedCircle(this));
   apps.add(new BlueSquare(this));
-  apps.add(new HomePage(this));
+  
 
   //calling the initialization function on each
   //Applet in the list.
@@ -25,7 +26,7 @@ void setup() {
     a.init();
   }
 
-  selected = 2;
+  selected = 0;
 }
 
 void draw() {
