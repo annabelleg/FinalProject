@@ -22,7 +22,7 @@ public class BlueSquare extends AppBase
   boolean enterData = false;
 
   boolean typeMode = false;
-  boolean done;
+  boolean done = false;
   int currentBox = 0;
   TextBox current;
   PFont p;
@@ -114,7 +114,6 @@ public class BlueSquare extends AppBase
             current = t;
             typeMode = true;
             enterData = true;
-            text(current.input, current.xCor, current.yCor+6);
           }
         }
       }
@@ -136,6 +135,7 @@ public class BlueSquare extends AppBase
             if (enterData) {
               current.typeIn(String.valueOf(numbers[i]));
 
+              text(current.input, current.xCor, current.yCor+6);
               m.data[current.mR][current.mC] = Double.parseDouble(current.input);
               println(m.data[current.mR][current.mC]);
               enterData = false;
@@ -143,14 +143,14 @@ public class BlueSquare extends AppBase
             }
           }
         }
-        if (key == ENTER) {
-          done = false;
-          enterData = false;
-          typeMode = false;
-        }
-        if (key == BACKSPACE) {
-          current.erase();
-        }
+      }
+      if (key == ENTER) {
+        done = true;
+        typeMode = false;
+        enterData = false;
+      }
+      if (key == BACKSPACE) {
+        current.erase();
       }
     }
   } 
@@ -194,11 +194,6 @@ public class BlueSquare extends AppBase
         }
       }
     }
-  }
-  void showREF() {
-    m.REF();
-    m.displayREF();
-    toShowREF = true;
   }
 
 
@@ -261,19 +256,6 @@ public class BlueSquare extends AppBase
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           data[r][c] = (int) (Math.random()*10) * 1.0;
-        }
-      }
-    }
-    void displayREF() {
-      textSize(15);
-      fill(0, 0, 0, 100);
-      int rectW = cols*80 ;
-      int rectH = rows*50;
-      rect(rectW, rectH, cols*50, rows*50);
-      fill(225);
-      for (int r = 0; r < rows; r++) {
-        for (int c = 0; c < cols; c++) {
-          text(String.valueOf(data[r][c]).substring(0, 3), rectW+ c*50 + 25, rectH + r*50 + 25);
         }
       }
     }
