@@ -115,19 +115,22 @@ public class BlueSquare extends AppBase
           }
         }
       }
-      fill(0);
+      fill(0);     
       for (TextBox t : valInputs) { //enter input into each entry
         if (mousePressed) {
           if (mouseX > t.xCor-25 && mouseX < t.xCor+25 && mouseY > t.yCor - 10 && mouseY < t.yCor + 10) {
-            current = valInputs.get(t.mR*cols + t.mC);
-            if (current.input != "") {
-            }
+            done = false;
+            current = t;
             typeMode = true;
             enterData = true;
           }
         }
+        if (t.input != "") {
+          entered = true;
+        } else {
+          entered = false;
+        }
       }
-      entered = true;
     }
     void keyPressed() {
       if (typeMode) {
@@ -147,8 +150,9 @@ public class BlueSquare extends AppBase
                 enterColumns = false;
               }
             }
-            if (enterData) {
+            if (enterData ) {
               current.typeIn(String.valueOf(numbers[i]));
+
               m.data[current.mR][current.mC] = Double.parseDouble(current.input);
               text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
               println(m.data[current.mR][current.mC]);
@@ -225,7 +229,7 @@ public class BlueSquare extends AppBase
       text("Close", width/3+100, height/2-height/8);
     }
     if (mousePressed) {
-      if (mouseX > width/2-width/6 &&  mouseX < width/2+width/6 && mouseY > height/2 - height/8 && mouseY < height/2 ) {
+      if (mouseX > width/2-width/3 &&  mouseX < width/2+width/3 && mouseY > height/2 - height/6 && mouseY < height/2 ) {
         if (!matrixWindowOpen) {
           PFrame f = new PFrame();
           matrixWindowOpen = true;
