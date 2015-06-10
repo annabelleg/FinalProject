@@ -25,7 +25,7 @@ public class BlueSquare extends AppBase
   boolean typeMode = false;
   boolean done = false;
   int currentBox = 0;
-  TextBox current;
+  TextBox current = new TextBox(0,0);
   PFont p;
 
   public class PFrame extends JFrame {
@@ -85,10 +85,10 @@ public class BlueSquare extends AppBase
       }
 
       enterMatrixData();
-      if (entered) {
-        for (TextBox t : valInputs) {
-          text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
-        }
+
+      for (TextBox t : valInputs) {
+        text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
+        text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
       }
     }
 
@@ -115,20 +115,24 @@ public class BlueSquare extends AppBase
           }
         }
       }
+
       fill(0);     
       for (TextBox t : valInputs) { //enter input into each entry
         if (mousePressed) {
           if (mouseX > t.xCor-25 && mouseX < t.xCor+25 && mouseY > t.yCor - 10 && mouseY < t.yCor + 10) {
-            done = false;
             current = t;
+            current.mR = t.mR;
+            current.mC = t.mC;
+            current.input = t.input;
             typeMode = true;
             enterData = true;
+            if (current.hasStuff){
+              t = current;
+              t.input = current.input;
+              t.mR = current.mR;
+              t.mC = current.mC;
+            }
           }
-        }
-        if (t.input != "") {
-          entered = true;
-        } else {
-          entered = false;
         }
       }
     }
@@ -158,6 +162,7 @@ public class BlueSquare extends AppBase
               println(m.data[current.mR][current.mC]);
               enterData = false;
               typeMode = false;
+              current.hasStuff = true;
             }
           }
         }
@@ -379,11 +384,13 @@ public class BlueSquare extends AppBase
     String input = "";
     int xCor, yCor; //center points
     int mR, mC; //entry in matrix
+    boolean hasStuff;
 
     TextBox(int x, int y) {
       input = "";
       xCor = x;
       yCor = y;
+      hasStuff = false;
     }
     TextBox(int x, int y, int r, int c, String i) {
       input = i;
