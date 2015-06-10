@@ -18,9 +18,10 @@ public class RedCircle extends AppBase {
   String theEquation;
   boolean equationIn = false;
   boolean first, second, third, fourth = false;
-  Equation testEq1, testEq2, testEq3, testEq4;
+  LinearEquation testEq1, testEq2, testEq3, testEq4;
   float step = 0.1;
   boolean ther = false;
+  QuadraticEquation testEq5;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -151,7 +152,6 @@ public class RedCircle extends AppBase {
     }
 
     public abstract void makeData();
-    public abstract void testEquation(int colorNum);
 
     String giveEquation() {
       String result = "[ ";
@@ -310,13 +310,9 @@ public class RedCircle extends AppBase {
 
     QuadraticEquation(String eq) {
       super(eq);
-      try {
-        findA();
-        findB();
-        findC();
-      }
-      catch (IndexOutOfBoundsException e) {
-      }
+      findA();
+      findB();
+      findC();
     }
 
     int getXsquared() {
@@ -563,9 +559,9 @@ public class RedCircle extends AppBase {
     textFont(p, 15);                
     fill(255); 
     if (!settingsWindowOpen) {    
-      text("Settings", 0, 15);
+      text("Settings", 25, 15);
     } else {
-      text("Close", 0, 15);
+      text("Close", 25, 15);
     }
     if (mousePressed) {
       if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
@@ -585,9 +581,9 @@ public class RedCircle extends AppBase {
     textFont(p, 15);   
     fill(255); 
     if (!inputWindowOpen) {    
-      text("Input", 75, 15);
+      text("Input", 90, 15);
     } else {
-      text("Close", 75, 15);
+      text("Close", 90, 15);
     }
     if (mousePressed) {
       if (mouseX > 70 && mouseY > 0 && mouseX < 130 && mouseY < 20) {
@@ -599,22 +595,12 @@ public class RedCircle extends AppBase {
     }
   }
 
-  boolean isQuadratic(String eq) {
-    for (int i = 0; i < eq.length ()-2; i++) {
-      if (eq.substring(i, i+3).equals("X^2")) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   void getInputs() {
-    testEq1 = new QuadraticEquation(eqInputs.get(0).input);
-    testEq2 = new QuadraticEquation(eqInputs.get(1).input);
+    testEq1 = new LinearEquation(eqInputs.get(0).input);
+    testEq2 = new LinearEquation(eqInputs.get(1).input);
     testEq3 = new LinearEquation(eqInputs.get(2).input);
     testEq4 = new LinearEquation(eqInputs.get(3).input);
   }
-
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
     if (a)
       testEq1.testEquation(#F03AB3);
@@ -667,12 +653,19 @@ public class RedCircle extends AppBase {
       getInputs();
       done = true;
     }
+    if (!ther) {
+      testEq5 = new QuadraticEquation("y=1/4x^2+6");
+      print("A: " + testEq5.getA());
+      print("B: " + testEq5.getB());
+      print("C: " + testEq5.getC());
+      ther = true;
+    }
     if (drawEquation) {
       fill(255, 0, 0);
       noStroke();
       hasInput();
       testInputs(first, second, third, fourth);
-      //testEq5.testEquation(#EA1837);
+      testEq5.testEquation(#EA1837);
     }
     settingsWindow();
     inputWindow();

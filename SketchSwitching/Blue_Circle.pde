@@ -20,6 +20,7 @@ public class BlueSquare extends AppBase
   boolean REFWindowOpen = false;
 
   boolean enterData = false;
+  boolean entered = false;
 
   boolean typeMode = false;
   boolean done = false;
@@ -82,8 +83,15 @@ public class BlueSquare extends AppBase
       if (rows != 0 && cols != 0) {
         valInputs = new ArrayList<TextBox>(rows*cols);
       }
+
       enterMatrixData();
+      if (entered) {
+        for (TextBox t : valInputs) {
+          text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
+        }
+      }
     }
+
     void enterMatrixData() {
       fill(200);
       //makes rectangle and textbox at each entry of the matrix
@@ -111,12 +119,15 @@ public class BlueSquare extends AppBase
       for (TextBox t : valInputs) { //enter input into each entry
         if (mousePressed) {
           if (mouseX > t.xCor-25 && mouseX < t.xCor+25 && mouseY > t.yCor - 10 && mouseY < t.yCor + 10) {
-            current = t;
+            current = valInputs.get(t.mR*cols + t.mC);
+            if (current.input != "") {
+            }
             typeMode = true;
             enterData = true;
           }
         }
       }
+      entered = true;
     }
     void keyPressed() {
       if (typeMode) {
@@ -124,20 +135,22 @@ public class BlueSquare extends AppBase
           if (key == numbers[i]) {  
             if (enterRows) {
               String r = ""+key;
-              rows = Integer.parseInt(r);
-              enterRows = false;
+              if (r != "0") {
+                rows = Integer.parseInt(r);
+                enterRows = false;
+              }
             }
             if (enterColumns) {
               String c = "" + key;
-              cols = Integer.parseInt(c);
-              enterColumns = false;
+              if (c != "0") {
+                cols = Integer.parseInt(c);
+                enterColumns = false;
+              }
             }
             if (enterData) {
               current.typeIn(String.valueOf(numbers[i]));
-
-             
               m.data[current.mR][current.mC] = Double.parseDouble(current.input);
-               text(""+m.data[current.mR][current.mC], current.xCor, current.yCor+6);
+              text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
               println(m.data[current.mR][current.mC]);
               enterData = false;
               typeMode = false;
