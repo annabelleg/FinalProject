@@ -1,6 +1,6 @@
 public class BlueSquare extends AppBase
 {
-
+boolean matrixexists = false;
   boolean toShowREF = false;
   boolean enterRows = false;
   boolean enterColumns = false;
@@ -25,7 +25,7 @@ public class BlueSquare extends AppBase
   boolean typeMode = false;
   boolean done = false;
   int currentBox = 0;
-  TextBox current = new TextBox(0,0);
+  TextBox current = new TextBox(0, 0);
   PFont p;
 
   public class PFrame extends JFrame {
@@ -51,7 +51,9 @@ public class BlueSquare extends AppBase
   public class MatrixApplet extends PApplet {
     void setup() {
       size(500, 500);
+      
     }
+   
     void draw() {
       background(225);
       p = createFont("Georgia", 24);
@@ -79,17 +81,28 @@ public class BlueSquare extends AppBase
       }
       text(rows, 125, 40);
       text(cols, 300, 40);
-      m = new Matrix(rows, cols);
+      
+     if (!matrixexists && rows!= 0 && cols!= 0){
+       //buildMatrix();
+       m = new Matrix(rows, cols);
+       matrixexists = true;
+     }
+     
       if (rows != 0 && cols != 0) {
         valInputs = new ArrayList<TextBox>(rows*cols);
       }
 
       enterMatrixData();
-
+  
       for (TextBox t : valInputs) {
         text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
         text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
+        println(m.data[t.mR][t.mC]);
       }
+    }
+     void buildMatrix(){
+       m = new Matrix(rows, cols);
+       matrixexists = true;
     }
 
     void enterMatrixData() {
@@ -120,21 +133,15 @@ public class BlueSquare extends AppBase
       for (TextBox t : valInputs) { //enter input into each entry
         if (mousePressed) {
           if (mouseX > t.xCor-25 && mouseX < t.xCor+25 && mouseY > t.yCor - 10 && mouseY < t.yCor + 10) {
-            current = t;
-            current.mR = t.mR;
-            current.mC = t.mC;
-            current.input = t.input;
+            currentBox = t.mR*cols+t.mC;
+            current = valInputs.get(currentBox);
             typeMode = true;
             enterData = true;
-            if (current.hasStuff){
-              t = current;
-              t.input = current.input;
-              t.mR = current.mR;
-              t.mC = current.mC;
-            }
+            t = current;
           }
         }
       }
+      
     }
     void keyPressed() {
       if (typeMode) {
@@ -282,6 +289,10 @@ public class BlueSquare extends AppBase
         }
       }
     }
+    
+    /*double get(int r, int c){
+      return data[r][c];
+    }*/
 
     void REF() {
       exchange();
