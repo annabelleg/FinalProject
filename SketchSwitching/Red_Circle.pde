@@ -563,9 +563,9 @@ public class RedCircle extends AppBase {
     textFont(p, 15);                
     fill(255); 
     if (!settingsWindowOpen) {    
-      text("Settings", 0, 15);
+      text("Settings", 30, 15);
     } else {
-      text("Close", 0, 15);
+      text("Close", 30, 15);
     }
     if (mousePressed) {
       if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
@@ -585,9 +585,9 @@ public class RedCircle extends AppBase {
     textFont(p, 15);   
     fill(255); 
     if (!inputWindowOpen) {    
-      text("Input", 75, 15);
+      text("Input", 100, 15);
     } else {
-      text("Close", 75, 15);
+      text("Close", 100, 15);
     }
     if (mousePressed) {
       if (mouseX > 70 && mouseY > 0 && mouseX < 130 && mouseY < 20) {
