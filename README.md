@@ -82,25 +82,31 @@ Interpreting user input of equations
 - weekend of 6/6/15
   - opens new windows to display matrix and ref of matrix
   - need to create way to have user input matrix
+- week of 6/8/15
+  - matrix is displayed in a very nice-looking way, placed based on number of rows/cols
+  - user can input values (but it doesn't store them yet lol oops)
+  - rearranged homepage a little to look nicer/work more intuitively
+  - ref displays values too! its just that all values are 0.0
   
   
 
 
 #### THINGS TO DO
-- complete matrix display + user input stuff
-  - gotta scale display based on dimensions
-- more types of graphs (not just linear)
 - entire expression calculator
 - more matrix functions (inverse, determinant etc)
-- button on each mode to switch back to homepage mode
+- get matrix to actually keep the values its given :/
+- make buttons on homepage do something when clicked
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
 - basic display of matrix
+- user entry of matrix values
+- scale matrix display based on dimensions
 - reduced echelon form
 - user input for size of matrix
 - linear equation graphing
-- homepage
+- quadratic equation graphing
+- homepage looks pretty and works
 - Toggling between sketch-screens.
 - way to get back to homepage/switch between different functions (0,1,2)
 
