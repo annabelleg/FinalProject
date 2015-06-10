@@ -92,10 +92,11 @@ Interpreting user input of equations
 
 
 #### THINGS TO DO
-- entire expression calculator
+- entire expression calculator (probably not tho)
 - more matrix functions (inverse, determinant etc)
 - get matrix to actually keep the values its given :/
 - make buttons on homepage do something when clicked
+- make "Close" buttons have functionality
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
