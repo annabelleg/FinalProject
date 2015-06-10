@@ -87,6 +87,10 @@ public class RedCircle extends AppBase {
       text(eqInputs.get(1).input, 30, 105);
       text(eqInputs.get(2).input, 30, 155);
       text(eqInputs.get(3).input, 30, 205);
+      text("Quadratic", 180, 55);
+      text("Linear", 180, 205);
+      text("Quadratic", 180, 105);
+      text("Linear", 180, 155);
     }
 
     void keyPressed() {
@@ -483,13 +487,27 @@ public class RedCircle extends AppBase {
       rectMode(CENTER);
       fill(0);
       rect(50, 150, 75, 25);
-      p = createFont("Georgia", 18);
-      textFont(p, 18);                
+      p = createFont("Georgia", 15);
+      textFont(p, 15);                
       fill(255);  
-      //    text("Draw It", 15, 160);   
+      text("Scale Up", 15, 160);   
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 108 && mouseY < 162) {
+          step /= 1.1;
+        }
+      }
+      rectMode(CENTER);
+      fill(0);
+      rect(50, 200, 75, 25);
+      p = createFont("Georgia", 14);
+      textFont(p, 14);                
+      fill(255);  
+      text("Scale Down", 13, 210);   
+      // Changes Scale
+      if (mousePressed) {
+        if (mouseX > 13 && mouseX < 87 && mouseY > 158 && mouseY < 212) {
+          step *= 1.1;
         }
       }
     }
