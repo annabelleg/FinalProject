@@ -118,4 +118,4 @@ Interpreting user input of equations
 https://github.com/annabelleg/FinalProject.git
 
 6/8/15: Demo #2:
-https://github.com/annabelleg/FinalProject/tree/master/SketchSwitching
+https://github.com/annabelleg/FinalProject/tree/Demo6/8
