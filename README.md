@@ -82,11 +82,17 @@ Interpreting user input of equations
 - weekend of 6/6/15
   - opens new windows to display matrix and ref of matrix
   - need to create way to have user input matrix
-- week of 6/8/15
+- 6/8/15
   - matrix is displayed in a very nice-looking way, placed based on number of rows/cols
   - user can input values (but it doesn't store them yet lol oops)
   - rearranged homepage a little to look nicer/work more intuitively
-  - ref displays values too! its just that all values are 0.0
+  - ref displays values too! 
+- 6/9/15
+  - entry of equations works, just math is a little wacky
+- 6/10/15
+  - user entry of matrix values sticks!
+  - ref calculates mostly correctly (truncating is a lil off, need to check matrix at the end)
+  - the matrix changes when the ref does so need to disconnect those
   
   
 
@@ -94,15 +100,15 @@ Interpreting user input of equations
 #### THINGS TO DO
 - entire expression calculator (probably not tho)
 - more matrix functions (inverse, determinant etc)
-- get matrix to actually keep the values its given :/
 - make buttons on homepage do something when clicked
 - make "Close" buttons have functionality
 - allow matrix to take doubles and negatives
+- disconnect matrix from REF so matrix window doesn't change when REF is calculated
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
 - basic display of matrix
-- user entry of matrix values
+- user entry of matrix values -- now the matrix keeps them!!
 - scale matrix display based on dimensions
 - reduced echelon form
 - user input for size of matrix
