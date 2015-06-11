@@ -97,7 +97,7 @@ public class BlueSquare extends AppBase
       for (TextBox t : valInputs) {
         text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
         text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
-        println(m.data[t.mR][t.mC]);
+        // println(m.data[t.mR][t.mC]);
       }
     }
     void buildMatrix() {
@@ -148,24 +148,24 @@ public class BlueSquare extends AppBase
           if (key == numbers[i]) {  
             if (enterRows) {
               String r = ""+key;
-              if (r != "0") {
+             // if (r != "0") {
                 rows = Integer.parseInt(r);
                 enterRows = false;
-              }
+            //  }
             }
             if (enterColumns) {
               String c = "" + key;
-              if (c != "0") {
+              //if (c != "0") {
                 cols = Integer.parseInt(c);
                 enterColumns = false;
-              }
+            //  }
             }
             if (enterData ) {
               current.typeIn(String.valueOf(numbers[i]));
 
               m.data[current.mR][current.mC] = Double.parseDouble(current.input);
-              text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
-              println(m.data[current.mR][current.mC]);
+           //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
+             // println(m.data[current.mR][current.mC]);
               enterData = false;
               typeMode = false;
               current.hasStuff = true;
@@ -290,21 +290,17 @@ public class BlueSquare extends AppBase
       }
     }
 
-    /*double get(int r, int c){
-     return data[r][c];
-     }*/
-
     void REF() {
       ref = new double[rows][cols];
-      for (int r = 0; r < rows; r++){
-        for (int c = 0; c < cols; c++){
+      for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
           ref[r][c] = data[r][c];
         }
       }
-        
+
       exchange(); 
       dilateAndShear(); 
-      checkMatrix();
+    //  checkMatrix();
     }
     void exchange() {
       for (int r = 0; r < rows; r++) {
@@ -370,10 +366,14 @@ public class BlueSquare extends AppBase
         if (findLeadingEntry(r) <= findLeadingEntry(r-1)) {
           switchRows(r, r-1);
         }
+        /* if (r >= cols) {
+         for (int c = 0; c < cols; c++) {
+         ref[r][c] = 0.0;
+         }
+         }*/
       }
     }
   }
-
 
 
   public BlueSquare(PApplet parentApplet) {
