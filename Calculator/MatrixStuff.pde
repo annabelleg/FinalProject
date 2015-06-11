@@ -1,6 +1,6 @@
 public class BlueSquare extends AppBase
 {
-boolean matrixexists = false;
+  boolean matrixexists = false;
   boolean toShowREF = false;
   boolean enterRows = false;
   boolean enterColumns = false;
@@ -51,9 +51,8 @@ boolean matrixexists = false;
   public class MatrixApplet extends PApplet {
     void setup() {
       size(500, 500);
-      
     }
-   
+
     void draw() {
       background(225);
       p = createFont("Georgia", 24);
@@ -81,29 +80,29 @@ boolean matrixexists = false;
       }
       text(rows, 125, 40);
       text(cols, 300, 40);
-      
-     if (!matrixexists && rows!= 0 && cols!= 0){
-       //buildMatrix();
-       m = new Matrix(rows, cols);
-       matrixexists = true;
-     }
-     
-     
+
+      if (!matrixexists && rows!= 0 && cols!= 0) {
+        //buildMatrix();
+        m = new Matrix(rows, cols);
+        matrixexists = true;
+      }
+
+
       if (rows != 0 && cols != 0) {
         valInputs = new ArrayList<TextBox>(rows*cols);
       }
 
       enterMatrixData();
-  
+
       for (TextBox t : valInputs) {
         text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
         text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
         println(m.data[t.mR][t.mC]);
       }
     }
-     void buildMatrix(){
-       m = new Matrix(rows, cols);
-       matrixexists = true;
+    void buildMatrix() {
+      m = new Matrix(rows, cols);
+      matrixexists = true;
     }
 
     void enterMatrixData() {
@@ -142,7 +141,6 @@ boolean matrixexists = false;
           }
         }
       }
-      
     }
     void keyPressed() {
       if (typeMode) {
@@ -201,25 +199,25 @@ boolean matrixexists = false;
           if (r <= rows/2 && c <= cols/2) {
             rect(width/2 - r*50, height/2 - c*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], (width/2 - r*50)+12, (height/2 - c*50)+11);
+            text(""+m.ref[r][c], (width/2 - r*50)+12, (height/2 - c*50)+11);
             fill(200);
           } 
           if (r > rows/2 && c <= cols/2) {
             rect(width/2 + (rows-r)*50, height/2 - c*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], width/2 + (rows-r)*50+12, height/2 - c*50+11);
+            text(""+m.ref[r][c], width/2 + (rows-r)*50+12, height/2 - c*50+11);
             fill(200);
           }
           if (r <= rows/2 && c > cols/2) {
             rect(width/2 - r*50, height/2 + (cols-c)*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], width/2 - r*50+12, height/2 + (cols-c)*50+11);
+            text(""+m.ref[r][c], width/2 - r*50+12, height/2 + (cols-c)*50+11);
             fill(200);
           } 
           if (r > rows/2 && c > cols/2) {
             rect(width/2 + (rows-r)*50, height/2 + (cols-c)*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], width/2 + (rows-r)*50+12, height/2 + (cols-c)*50+11);
+            text(""+m.ref[r][c], width/2 + (rows-r)*50+12, height/2 + (cols-c)*50+11);
             fill(200);
           }
         }
@@ -277,6 +275,7 @@ boolean matrixexists = false;
   public class Matrix {
     double[][] data;
     int rows, cols;
+    double [][] ref;
 
     Matrix(int r, int c) {
       rows = r; 
@@ -290,19 +289,26 @@ boolean matrixexists = false;
         }
       }
     }
-    
+
     /*double get(int r, int c){
-      return data[r][c];
-    }*/
+     return data[r][c];
+     }*/
 
     void REF() {
-      exchange();
-      dilateAndShear();
+      ref = new double[rows][cols];
+      for (int r = 0; r < rows; r++){
+        for (int c = 0; c < cols; c++){
+          ref[r][c] = data[r][c];
+        }
+      }
+        
+      exchange(); 
+      dilateAndShear(); 
       checkMatrix();
     }
     void exchange() {
       for (int r = 0; r < rows; r++) {
-        int k = 1;
+        int k = 1; 
         while (k < rows-r) {
           if (findLeadingEntry(r) > findLeadingEntry(r+k)) {
             switchRows(r, r+k);
@@ -313,47 +319,47 @@ boolean matrixexists = false;
     }
     int findLeadingEntry(int row) {
       for (int c = 0; c < cols; c++) {
-        if (data[row][c] != 0.0)
+        if (ref[row][c] != 0.0)
           return c;
       }
       return -1;
     }
     void switchRows(int a, int b) {
       for (int c = 0; c < cols; c++) {
-        double temp = data[a][c];
-        data[a][c] = data[b][c];
-        data[b][c] = temp;
+        double temp = ref[a][c]; 
+        ref[a][c] = ref[b][c]; 
+        ref[b][c] = temp;
       }
     }
 
     void dilateAndShear() {
-      int r=0;
+      int r=0; 
       while (r < rows) {
-        int c = findLeadingEntry(r);
+        int c = findLeadingEntry(r); 
         if (c >= 0) {
-          dilate(r, c);
+          dilate(r, c); 
           shear(r, c);
         }
         r++;
       }
     }
     void dilate(int r, int c) {
-      if (data[r][c] != 1.0) {
-        double val = 1/data[r][c];
+      if (ref[r][c] != 1.0) {
+        double val = 1/ref[r][c]; 
         for (int i = c; i < cols; i++) {
-          data[r][i] = data[r][i]*val;
+          ref[r][i] = ref[r][i]*val;
         }
       }
     }
 
     void shear(int r, int c) {
-      int tempr = 0;
+      int tempr = 0; 
       while (tempr < rows) {
         if (tempr != r) {
-          double shearval = data[tempr][c];
-          int startval = findLeadingEntry(tempr);
+          double shearval = ref[tempr][c]; 
+          int startval = findLeadingEntry(tempr); 
           for (int i = startval; i < cols; i++) {
-            data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
+            ref[tempr][i] = ref[tempr][i] + (-1)*shearval*(ref[r][i]);
           }
         }
         tempr++;
@@ -376,15 +382,15 @@ boolean matrixexists = false;
 
   @Override
     public void init() {
-    size(600, 578);
-    setLocation(400, 300);
+    size(600, 578); 
+    setLocation(400, 300); 
     valInputs = new ArrayList<TextBox>();
   }
 
   @Override
     public void display() {
-    background(225);
-    matrixWindow();
+    background(225); 
+    matrixWindow(); 
     //current = new TextBox(50, 50);
     REFWindow();
   }
@@ -393,22 +399,22 @@ boolean matrixexists = false;
    ===========================================================================================*/
   public class TextBox {
 
-    String input = "";
+    String input = ""; 
     int xCor, yCor; //center points
     int mR, mC; //entry in matrix
-    boolean hasStuff;
+    boolean hasStuff; 
 
     TextBox(int x, int y) {
-      input = "";
-      xCor = x;
-      yCor = y;
+      input = ""; 
+      xCor = x; 
+      yCor = y; 
       hasStuff = false;
     }
     TextBox(int x, int y, int r, int c, String i) {
-      input = i;
-      xCor = x;
-      yCor = y;
-      mR = r;
+      input = i; 
+      xCor = x; 
+      yCor = y; 
+      mR = r; 
       mC = c;
     }
 
@@ -432,3 +438,4 @@ boolean matrixexists = false;
     }
   }
 }
+
