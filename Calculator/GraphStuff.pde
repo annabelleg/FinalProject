@@ -21,6 +21,8 @@ public class RedCircle extends AppBase {
   Equation testEq1, testEq2, testEq3, testEq4;
   float step = 0.1;
   boolean ther = false;
+  int time;
+  int wait = 2000;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -218,6 +220,14 @@ public class RedCircle extends AppBase {
       line(i*scale, 0, i*scale, height);
     }
   }
+  void graphPolar(int scale) {
+    stroke(0);
+    for (int i = height/2; i < 0; i+= scale) {
+      strokeWeight(1);
+      fill(255);
+      ellipse(0, 0, i, i);
+    }
+  }
 
   // <<<<<<<<<<<<<<<<<<<<<<<< LINEAR EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -370,8 +380,13 @@ public class RedCircle extends AppBase {
       } else {
         int ex = getXsquared();
         if (findX()-ex == 4) {
-          b = 1;
-          return;
+          if (equation.substring(ex-1, ex).equals("-")) {
+            b=-1;
+            return;
+          } else {
+            b = 1;
+            return;
+          }
         }
         findBar(equation.substring(ex+3, findX()));
         if (!hasFraction) {
@@ -429,7 +444,7 @@ public class RedCircle extends AppBase {
       // y = ax^2+bx+c
       for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
         fill(colorNum);
-        ellipse(x+xCenter, yCenter-((((a*x*x)/gridRatio)+(b*x)+(c*gridRatio))), 2, 2);
+        ellipse(x+xCenter, yCenter-(((a*x*x)/gridRatio)+(b*x)+(c*gridRatio)), 2, 2);
         // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
         //  data.add(c);
       }
@@ -447,19 +462,19 @@ public class RedCircle extends AppBase {
     public void draw() {
 
       // Heading
-      p = createFont("Georgia", 24);
-      textFont(p, 24);                
-      fill(255);                  
-      text("Graph Settings", 0, 25);
+      p = createFont("Georgia", 24); 
+      textFont(p, 24); 
+      fill(255); 
+      text("Graph Settings", 0, 25); 
 
       // ZOOM IN
-      rectMode(CENTER);
-      fill(0);
-      rect(50, 50, 75, 25);
-      p = createFont("Georgia", 18);
-      textFont(p, 18);                
-      fill(255);  
-      text("Zoom In", 15, 60);   
+      rectMode(CENTER); 
+      fill(0); 
+      rect(50, 50, 75, 25); 
+      p = createFont("Georgia", 18); 
+      textFont(p, 18); 
+      fill(255); 
+      text("Zoom In", 15, 60); 
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 38 && mouseY < 62) {
@@ -467,13 +482,13 @@ public class RedCircle extends AppBase {
         }
       } 
       // ZOOM OUT
-      rectMode(CENTER);
-      fill(0);
-      rect(50, 100, 75, 25);
-      p = createFont("Georgia", 16);
-      textFont(p, 16);                
-      fill(255);  
-      text("Zoom Out", 15, 110);   
+      rectMode(CENTER); 
+      fill(0); 
+      rect(50, 100, 75, 25); 
+      p = createFont("Georgia", 16); 
+      textFont(p, 16); 
+      fill(255); 
+      text("Zoom Out", 15, 110); 
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 58 && mouseY < 112) {
@@ -484,26 +499,26 @@ public class RedCircle extends AppBase {
       }
 
       // SHOW EQUATION
-      rectMode(CENTER);
-      fill(0);
-      rect(50, 150, 75, 25);
-      p = createFont("Georgia", 15);
-      textFont(p, 15);                
-      fill(255);  
-      text("Scale Up", 15, 160);   
+      rectMode(CENTER); 
+      fill(0); 
+      rect(50, 150, 75, 25); 
+      p = createFont("Georgia", 15); 
+      textFont(p, 15); 
+      fill(255); 
+      text("Scale Up", 15, 160); 
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 108 && mouseY < 162) {
           step /= 1.1;
         }
       }
-      rectMode(CENTER);
-      fill(0);
-      rect(50, 200, 75, 25);
-      p = createFont("Georgia", 14);
-      textFont(p, 14);                
-      fill(255);  
-      text("Scale Down", 13, 210);   
+      rectMode(CENTER); 
+      fill(0); 
+      rect(50, 200, 75, 25); 
+      p = createFont("Georgia", 14); 
+      textFont(p, 14); 
+      fill(255); 
+      text("Scale Down", 13, 210); 
       // Changes Scale
       if (mousePressed) {
         if (mouseX > 13 && mouseX < 87 && mouseY > 158 && mouseY < 212) {
@@ -530,12 +545,12 @@ public class RedCircle extends AppBase {
 
   public class TextBox {
 
-    String input = "";
+    String input = ""; 
     int xCor, yCor; //center points
 
     TextBox(int x, int y) {
-      input = "";
-      xCor = x;
+      input = ""; 
+      xCor = x; 
       yCor = y;
     }
 
@@ -574,11 +589,11 @@ public class RedCircle extends AppBase {
   // <<<<<<<<<<<<<<<<<<<<<<<<<<< WINDOWS N INPUTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   void settingsWindow() {
-    rectMode(CENTER);
-    fill(0);
-    rect(30, 10, 60, 20);
-    p = createFont("Georgia", 15, true);
-    textFont(p, 15);                
+    rectMode(CENTER); 
+    fill(0); 
+    rect(30, 10, 60, 20); 
+    p = createFont("Georgia", 15, true); 
+    textFont(p, 15); 
     fill(255); 
     if (!settingsWindowOpen) {    
       text("Settings", 30, 15);
@@ -588,7 +603,7 @@ public class RedCircle extends AppBase {
     if (mousePressed) {
       if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
         if (!settingsWindowOpen) {
-          PFrame f = new PFrame();
+          PFrame f = new PFrame(); 
           settingsWindowOpen = true;
         }
       }
@@ -596,11 +611,11 @@ public class RedCircle extends AppBase {
   }
 
   void inputWindow() {
-    rectMode(CENTER);
-    fill(0);
-    rect(100, 10, 60, 20);
-    p = createFont("Georgia", 15, true);
-    textFont(p, 15);   
+    rectMode(CENTER); 
+    fill(0); 
+    rect(100, 10, 60, 20); 
+    p = createFont("Georgia", 15, true); 
+    textFont(p, 15); 
     fill(255); 
     if (!inputWindowOpen) {    
       text("Input", 100, 15);
@@ -610,7 +625,7 @@ public class RedCircle extends AppBase {
     if (mousePressed) {
       if (mouseX > 70 && mouseY > 0 && mouseX < 130 && mouseY < 20) {
         if (!inputWindowOpen) {
-          NewFrame yo = new NewFrame();
+          NewFrame yo = new NewFrame(); 
           inputWindowOpen = true;
         }
       }
@@ -627,29 +642,29 @@ public class RedCircle extends AppBase {
   }
 
   void getInputs() {
-    testEq1 = new QuadraticEquation(eqInputs.get(0).input);
-    testEq2 = new QuadraticEquation(eqInputs.get(1).input);
-    testEq3 = new LinearEquation(eqInputs.get(2).input);
+    testEq1 = new QuadraticEquation(eqInputs.get(0).input); 
+    testEq2 = new QuadraticEquation(eqInputs.get(1).input); 
+    testEq3 = new LinearEquation(eqInputs.get(2).input); 
     testEq4 = new LinearEquation(eqInputs.get(3).input);
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
     if (a)
-      testEq1.testEquation(#F03AB3);
+      testEq1.testEquation(#F03AB3); 
     if (b)
-      testEq2.testEquation(#4BBCF7);
+      testEq2.testEquation(#4BBCF7); 
     if (c)
-      testEq3.testEquation(#22DE4F);
+      testEq3.testEquation(#22DE4F); 
     if (d)
       testEq4.testEquation(#FAD414);
   }
   void hasInput() {
     if (!testEq1.equation.equals(""))
-      first = true;
+      first = true; 
     if (!testEq2.equation.equals(""))
-      second = true;
+      second = true; 
     if (!testEq3.equation.equals(""))
-      third = true;
+      third = true; 
     if (!testEq4.equation.equals(""))
       fourth = true;
   }
@@ -661,13 +676,14 @@ public class RedCircle extends AppBase {
 
   // @Override
   public void init() {
-    size(600, 578);
-    setLocation(400, 300);
-    eqInputs = new ArrayList<TextBox>();
-    TextBox box1 = new TextBox(30, 55);
-    TextBox box2 = new TextBox(30, 55);
-    TextBox box3 = new TextBox(30, 55);
-    TextBox box4 = new TextBox(30, 55);
+    time = millis();//store the current time
+    size(600, 578); 
+    setLocation(400, 300); 
+    eqInputs = new ArrayList<TextBox>(); 
+    TextBox box1 = new TextBox(30, 55); 
+    TextBox box2 = new TextBox(30, 55); 
+    TextBox box3 = new TextBox(30, 55); 
+    TextBox box4 = new TextBox(30, 55); 
     eqInputs.add(box1); // index 0
     eqInputs.add(box2); // index 1
     eqInputs.add(box3); // index 2
@@ -677,22 +693,22 @@ public class RedCircle extends AppBase {
 
   //  @Override
   public void display() {
-    background(255);
-    fill(255);
-    graphGrid(gridRatio);
-    current = eqInputs.get(currentBox);
+    background(255); 
+    fill(255); 
+    graphGrid(gridRatio); 
+    current = eqInputs.get(currentBox); 
     if (!done) {
-      getInputs();
+      getInputs(); 
       done = true;
     }
     if (drawEquation) {
-      fill(255, 0, 0);
-      noStroke();
-      hasInput();
-      testInputs(first, second, third, fourth);
+      fill(255, 0, 0); 
+      noStroke(); 
+      hasInput(); 
+      testInputs(first, second, third, fourth); 
       //testEq5.testEquation(#EA1837);
     }
-    settingsWindow();
+    settingsWindow(); 
     inputWindow();
   }
 }
