@@ -468,23 +468,50 @@ public class RedCircle extends AppBase {
     // y = ax^2 + bx + c
     float a, b;
     float r, theta;
+    // 0 = sine , 1 = cosine, 2 = tangent, 3 = csc, 4 = sec, 5 = cot
+    int trigOperation;
+    ArrayList posTrig;
 
     PolarEquation(String eq) {
       super(eq);
+      posTrig = new ArrayList();
       try {
+        findTrig();
+        makeData();
       }
       catch (IndexOutOfBoundsException e) {
       }
     }
 
+    void findTrig() {
+      if (equation.substring(findTheta()-3, findTheta()).equals("sin") || equation.substring(findTheta()-4, findTheta()).equals("sine")) {
+        trigOperation = 0;
+      } else if (equation.substring(findTheta()-3, findTheta()).equals("cos") || equation.substring(findTheta()-6, findTheta()).equals("cosine")) {
+        trigOperation = 1;
+      } else if (equation.substring(findTheta()-3, findTheta()).equals("tan") || equation.substring(findTheta()-7, findTheta()).equals("tangent")) {
+        trigOperation = 2;
+      } else if (equation.substring(findTheta()-3, findTheta()).equals("csc")) {
+        trigOperation = 3;
+      } else if (equation.substring(findTheta()-3, findTheta()).equals("sec")) {
+        trigOperation = 4;
+      } else if (equation.substring(findTheta()-3, findTheta()).equals("cot")) {
+        trigOperation = 5;
+      }
+    }
+
+    int findTheta() {
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals("x")) {
+          return i;
+        }
+      }
+      return 0;
+    }
 
     void findA() {
     }
 
     void findB() {
-    }
-
-    void findC() {
     }
 
     float findY() {
@@ -787,7 +814,7 @@ public class RedCircle extends AppBase {
       graphPolar(gridRatio);
     }
     current = eqInputs.get(currentBox); 
-    if (!done) {
+    if (!done) {  
       getInputs(); 
       done = true;
     }
@@ -796,7 +823,6 @@ public class RedCircle extends AppBase {
       noStroke(); 
       hasInput(); 
       testInputs(first, second, third, fourth); 
-      //testEq5.testEquation(#EA1837);
     }
     settingsWindow(); 
     inputWindow();
