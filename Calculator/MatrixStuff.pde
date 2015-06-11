@@ -1,3 +1,4 @@
+import java.util.*;
 public class BlueSquare extends AppBase
 {
   boolean matrixexists = false;
@@ -95,9 +96,13 @@ public class BlueSquare extends AppBase
       enterMatrixData();
 
       for (TextBox t : valInputs) {
-        text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
-        text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
-        // println(m.data[t.mR][t.mC]);
+        try {
+          text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
+          text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
+          // println(m.data[t.mR][t.mC]);
+        }
+        catch ( ArrayOutOfBoundsException e) {
+        }
       }
     }
     void buildMatrix() {
@@ -148,24 +153,30 @@ public class BlueSquare extends AppBase
           if (key == numbers[i]) {  
             if (enterRows) {
               String r = ""+key;
-             // if (r != "0") {
+              // if (r != "0") {
+              try {
                 rows = Integer.parseInt(r);
                 enterRows = false;
-            //  }
+              }
+              finally {
+              }
             }
             if (enterColumns) {
               String c = "" + key;
               //if (c != "0") {
+              try {
                 cols = Integer.parseInt(c);
                 enterColumns = false;
-            //  }
+              }
+              finally {
+              }
             }
             if (enterData ) {
               current.typeIn(String.valueOf(numbers[i]));
 
               m.data[current.mR][current.mC] = Double.parseDouble(current.input);
-           //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
-             // println(m.data[current.mR][current.mC]);
+              //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
+              // println(m.data[current.mR][current.mC]);
               enterData = false;
               typeMode = false;
               current.hasStuff = true;
@@ -300,7 +311,7 @@ public class BlueSquare extends AppBase
 
       exchange(); 
       dilateAndShear(); 
-    //  checkMatrix();
+      //  checkMatrix();
     }
     void exchange() {
       for (int r = 0; r < rows; r++) {
