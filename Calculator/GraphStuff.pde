@@ -23,6 +23,8 @@ public class RedCircle extends AppBase {
   boolean ther = false;
   int time;
   int wait = 2000;
+  // 0 = funtion, 1 = polar
+  int graphMode = 0;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -222,11 +224,20 @@ public class RedCircle extends AppBase {
   }
   void graphPolar(int scale) {
     stroke(0);
-    for (int i = height/2; i < 0; i+= scale) {
-      strokeWeight(1);
-      fill(255);
-      ellipse(0, 0, i, i);
+    strokeWeight(0.75);
+    noFill();
+    xCenter = width/2;
+    yCenter = height/2;
+    scale = 25;
+    //  for (int i = height+250; i > 0; i-= scale) {
+    //  ellipse(xCenter, yCenter, i, i);
+    //}
+    for (int i = 0; i < (height+250)/gridRatio; i++) {
+      ellipse(xCenter, yCenter, i*gridRatio, i*gridRatio);
     }
+    strokeWeight(2);
+    line(xCenter, 0, xCenter, height);
+    line(0, yCenter, width, yCenter);
   }
 
   // <<<<<<<<<<<<<<<<<<<<<<<< LINEAR EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -608,6 +619,30 @@ public class RedCircle extends AppBase {
         }
       }
     }
+    rectMode(CENTER); 
+    fill(0); 
+    rect(width-50, 10, 60, 20);
+    p = createFont("Georgia", 15, true); 
+    textFont(p, 15); 
+    fill(255); 
+    text("Polar", width-58, 15);
+    if (mousePressed) {
+      if (mouseX > width-88 && mouseY > 0 && mouseX < width-28 && mouseY < 20) {
+        graphMode = 1;
+      }
+    }
+    rectMode(CENTER); 
+    fill(0); 
+    rect(width-120, 10, 60, 20);
+    p = createFont("Georgia", 15, true); 
+    textFont(p, 15); 
+    fill(255); 
+    text("Function", width-120, 15);
+    if (mousePressed) {
+      if (mouseX > width-150 && mouseY > 0 && mouseX < width-90 && mouseY < 20) {
+        graphMode = 0;
+      }
+    }
   }
 
   void inputWindow() {
@@ -694,8 +729,12 @@ public class RedCircle extends AppBase {
   //  @Override
   public void display() {
     background(255); 
-    fill(255); 
-    graphGrid(gridRatio); 
+    fill(255);
+    if (graphMode == 0) {
+      graphGrid(gridRatio);
+    } else if (graphMode == 1) {
+      graphPolar(gridRatio);
+    }
     current = eqInputs.get(currentBox); 
     if (!done) {
       getInputs(); 
