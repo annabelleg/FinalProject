@@ -429,7 +429,7 @@ public class RedCircle extends AppBase {
       // y = ax^2+bx+c
       for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
         fill(colorNum);
-        ellipse(x+xCenter, yCenter-((a*x*x)+(b*x)+(c*gridRatio)), 2, 2);
+        ellipse(x+xCenter, yCenter-((((a*x*x)/gridRatio)+(b*x)+(c*gridRatio))), 2, 2);
         // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
         //  data.add(c);
       }
