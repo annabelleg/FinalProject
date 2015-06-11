@@ -25,6 +25,7 @@ public class RedCircle extends AppBase {
   int wait = 2000;
   // 0 = funtion, 1 = polar
   int graphMode = 0;
+  PolarEquation pol;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -461,6 +462,54 @@ public class RedCircle extends AppBase {
       }
     }
   }
+  // <<<<<<<<<<<<<<<<<<<<<<<< POLAR EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  public class PolarEquation extends Equation {
+    // y = ax^2 + bx + c
+    float a, b;
+    float r, theta;
+
+    PolarEquation(String eq) {
+      super(eq);
+      try {
+      }
+      catch (IndexOutOfBoundsException e) {
+      }
+    }
+
+
+    void findA() {
+    }
+
+    void findB() {
+    }
+
+    void findC() {
+    }
+
+    float findY() {
+      return a;
+    }
+
+    float getA() {
+      return a;
+    }
+    float getB() {
+      return b;
+    }
+    void makeData() {
+    }
+
+    void testEquation(int colorNum) {
+      // r = a + bcos(theta)
+      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+        fill(colorNum);
+        ellipse((x*gridRatio)+xCenter, yCenter-(4*cos(x)*gridRatio), 2, 2);
+        // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
+        //  data.add(c);
+      }
+    }
+  }
 
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SETTINGS APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -681,11 +730,14 @@ public class RedCircle extends AppBase {
     testEq2 = new QuadraticEquation(eqInputs.get(1).input); 
     testEq3 = new LinearEquation(eqInputs.get(2).input); 
     testEq4 = new LinearEquation(eqInputs.get(3).input);
+    pol = new PolarEquation("y=costheta");
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
-    if (a)
+    if (a) {
       testEq1.testEquation(#F03AB3); 
+      pol.testEquation(#14B71B);
+    }
     if (b)
       testEq2.testEquation(#4BBCF7); 
     if (c)
@@ -725,7 +777,6 @@ public class RedCircle extends AppBase {
     eqInputs.add(box4); // index 3
     current = new TextBox(50, 50);
   }
-
   //  @Override
   public void display() {
     background(255); 
