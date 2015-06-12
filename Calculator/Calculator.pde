@@ -41,17 +41,18 @@ public class HomePage extends AppBase
     text("Graph Equations! \n(press 1)", b1x, b1y -5);
     text("Matrix stuff!\n (press 2)", b2x, b2y-5 );
     text("To get back to the home page,\n press 0", b3x, b3y-5);
-  }
-  void mousePressed() {
-    if (mousePressed) {
-      if (mouseX > b1x && mouseX < b1x + buttonLength && mouseY > b1y && mouseY < b1y + buttonHeight) {
+    if (mousePressed && selected == 0) {
+      if (mouseX > b1x - buttonLength && mouseX < b1x + buttonLength && mouseY > b1y && mouseY < b1y + buttonHeight) {
         selected = 1;
         apps.get(1).display();
       }
-      if (mouseX > b2x && mouseX < b2x + buttonLength && mouseY > b2y && mouseY < b2y + buttonHeight) {
+      if (mouseX > b2x - buttonLength && mouseX < b2x + buttonLength && mouseY > b2y && mouseY < b2y + buttonHeight) {
         selected = 2;
         apps.get(2).display();
       }
     }
+  }
+  void mousePressed() {
+    
   }
 }

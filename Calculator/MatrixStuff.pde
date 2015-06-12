@@ -96,13 +96,12 @@ public class BlueSquare extends AppBase
       enterMatrixData();
 
       for (TextBox t : valInputs) {
-        try {
-          text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
-          text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
-          // println(m.data[t.mR][t.mC]);
-        }
-        catch ( ArrayOutOfBoundsException e) {
-        }
+        //  try {
+        text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
+        text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
+        // println(m.data[t.mR][t.mC]);
+
+        // catch ( ArrayOutOfBoundsException e) {
       }
     }
     void buildMatrix() {
