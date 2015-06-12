@@ -465,25 +465,46 @@ public class RedCircle extends AppBase {
   // <<<<<<<<<<<<<<<<<<<<<<<< POLAR EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   public class PolarEquation extends Equation {
-    // y = ax^2 + bx + c
+    // y = a+bsin(x)
     float a, b;
-    float r, theta;
+    float r;
+    String angle;
+    int pr1, pr2;
     // 0 = sine , 1 = cosine, 2 = tangent, 3 = csc, 4 = sec, 5 = cot
     int trigOperation;
     ArrayList posTrig;
+
+    /*   public class Parts {
+     ArraLyList<Integer> adding; //index of where to add;
+     ArraLyList<Integer> subtracting;
+     ArraLyList<Integer> multiplying;
+     ArraLyList<Integer> dividing;
+     
+     Parts(int[] equation) {
+     adding = new ArrayList();
+     subtracting = new ArrayList();
+     multiplying = new ArrayList();
+     dividing = new ArrayList();
+     for (int i = 0; i < equation.length; i++) {
+     if (equation[i].equals("+")) {
+     }
+     }
+     }
+     }*/
 
     PolarEquation(String eq) {
       super(eq);
       posTrig = new ArrayList();
       try {
-        findTrig();
+       // findTrig();
+        findAngle();
         makeData();
       }
       catch (IndexOutOfBoundsException e) {
       }
     }
 
-    void findTrig() {
+   /* void findTrig() {
       if (equation.substring(findTheta()-3, findTheta()).equals("sin") || equation.substring(findTheta()-4, findTheta()).equals("sine")) {
         trigOperation = 0;
       } else if (equation.substring(findTheta()-3, findTheta()).equals("cos") || equation.substring(findTheta()-6, findTheta()).equals("cosine")) {
@@ -497,21 +518,27 @@ public class RedCircle extends AppBase {
       } else if (equation.substring(findTheta()-3, findTheta()).equals("cot")) {
         trigOperation = 5;
       }
-    }
-
-    int findTheta() {
+    }*/
+    void findAngle() {
       for (int i = 0; i < equation_.length; i++) {
-        if (equation_[i].equals("x")) {
-          return i;
+        if (equation_[i].equals(")")) {
+          pr1 = i;
         }
       }
-      return 0;
-    }
-
-    void findA() {
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals("(")) {
+          pr2 = i;
+        }
+      }
+      angle = equation.substring(pr1+1, pr2);
     }
 
     void findB() {
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals("")) {
+          pr1 = i;
+        }
+      }
     }
 
     float findY() {
@@ -537,7 +564,6 @@ public class RedCircle extends AppBase {
       }
     }
   }
-
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SETTINGS APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -822,7 +848,7 @@ public class RedCircle extends AppBase {
       fill(255, 0, 0); 
       noStroke(); 
       hasInput(); 
-      testInputs(first, second, third, fourth); 
+      testInputs(first, second, third, fourth);
     }
     settingsWindow(); 
     inputWindow();
