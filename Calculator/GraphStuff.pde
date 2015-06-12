@@ -496,7 +496,7 @@ public class RedCircle extends AppBase {
       super(eq);
       posTrig = new ArrayList();
       try {
-       // findTrig();
+        // findTrig();
         findAngle();
         makeData();
       }
@@ -504,21 +504,36 @@ public class RedCircle extends AppBase {
       }
     }
 
-   /* void findTrig() {
-      if (equation.substring(findTheta()-3, findTheta()).equals("sin") || equation.substring(findTheta()-4, findTheta()).equals("sine")) {
-        trigOperation = 0;
-      } else if (equation.substring(findTheta()-3, findTheta()).equals("cos") || equation.substring(findTheta()-6, findTheta()).equals("cosine")) {
-        trigOperation = 1;
-      } else if (equation.substring(findTheta()-3, findTheta()).equals("tan") || equation.substring(findTheta()-7, findTheta()).equals("tangent")) {
-        trigOperation = 2;
-      } else if (equation.substring(findTheta()-3, findTheta()).equals("csc")) {
-        trigOperation = 3;
-      } else if (equation.substring(findTheta()-3, findTheta()).equals("sec")) {
-        trigOperation = 4;
-      } else if (equation.substring(findTheta()-3, findTheta()).equals("cot")) {
-        trigOperation = 5;
-      }
-    }*/
+    float convertPolar(float x, float y, boolean ar) {
+      float r = sqrt((x*x)+(y*y));
+      float theta = atan(y/x);
+      if (ar)
+        return r;
+      return theta;
+    }
+    float convertRect(float r, float theta, boolean ex) {
+      float yR = (r*sin(theta));
+      float xR = (r*cos(theta));
+      if (ex)
+        return xR;
+      return yR;
+    }
+
+    /* void findTrig() {
+     if (equation.substring(findTheta()-3, findTheta()).equals("sin") || equation.substring(findTheta()-4, findTheta()).equals("sine")) {
+     trigOperation = 0;
+     } else if (equation.substring(findTheta()-3, findTheta()).equals("cos") || equation.substring(findTheta()-6, findTheta()).equals("cosine")) {
+     trigOperation = 1;
+     } else if (equation.substring(findTheta()-3, findTheta()).equals("tan") || equation.substring(findTheta()-7, findTheta()).equals("tangent")) {
+     trigOperation = 2;
+     } else if (equation.substring(findTheta()-3, findTheta()).equals("csc")) {
+     trigOperation = 3;
+     } else if (equation.substring(findTheta()-3, findTheta()).equals("sec")) {
+     trigOperation = 4;
+     } else if (equation.substring(findTheta()-3, findTheta()).equals("cot")) {
+     trigOperation = 5;
+     }
+     }*/
     void findAngle() {
       for (int i = 0; i < equation_.length; i++) {
         if (equation_[i].equals(")")) {
@@ -541,8 +556,16 @@ public class RedCircle extends AppBase {
       }
     }
 
-    float findY() {
-      return a;
+    void convertThem() {
+      for (Coordinate cor : data) {
+        float cX = cor.x;
+        cor.x = convertPolar(cX, cor.y, true);
+        cor.y = convertPolar(cX, cor.y, false);
+      }
+    }
+    
+    float findY(){
+      return 0.0;
     }
 
     float getA() {
