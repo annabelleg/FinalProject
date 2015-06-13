@@ -467,9 +467,9 @@ public class RedCircle extends AppBase {
   public class PolarEquation extends Equation {
     // y = a+bsin(x)
     float a, b;
-    float r;
     String angle;
-    int pr1, pr2;
+    int pr1, pr2; // parenthesis for theta
+    int endA;
     // 0 = sine , 1 = cosine, 2 = tangent, 3 = csc, 4 = sec, 5 = cot
     int trigOperation;
     ArrayList posTrig;
@@ -496,15 +496,16 @@ public class RedCircle extends AppBase {
       super(eq);
       posTrig = new ArrayList();
       try {
-        // findTrig();
         findAngle();
+        findA();
+        findB();
         makeData();
       }
       catch (IndexOutOfBoundsException e) {
       }
     }
 
-    float convertPolar(float x, float y, boolean ar) {
+    float convertPolar(float x, float y, boolean ar) { // ar true = return r & ar false = return theta
       float r = sqrt((x*x)+(y*y));
       float theta = atan(y/x);
       if (ar)
@@ -536,24 +537,32 @@ public class RedCircle extends AppBase {
      }*/
     void findAngle() {
       for (int i = 0; i < equation_.length; i++) {
-        if (equation_[i].equals(")")) {
+        if (equation_[i].equals("(")) {
           pr1 = i;
         }
       }
       for (int i = 0; i < equation_.length; i++) {
-        if (equation_[i].equals("(")) {
+        if (equation_[i].equals(")")) {
           pr2 = i;
         }
       }
       angle = equation.substring(pr1+1, pr2);
     }
 
-    void findB() {
+    void findA() {
       for (int i = 0; i < equation_.length; i++) {
-        if (equation_[i].equals("")) {
-          pr1 = i;
+        if (equation_[i].equals("+") || equation_[i].equals("-")) {
+          endA = i;
+          break;
         }
       }
+      if (equation_[0].equals("r") && equation_[1].equals("=")) {
+        a = parseFloat(equation.substring(2, endA));
+      }
+    }
+
+    void findB() {
+      b = parseFloat(equation.substring(endA, pr1-3));
     }
 
     void convertThem() {
@@ -563,8 +572,8 @@ public class RedCircle extends AppBase {
         cor.y = convertPolar(cX, cor.y, false);
       }
     }
-    
-    float findY(){
+
+    float findY() {
       return 0.0;
     }
 
@@ -806,7 +815,7 @@ public class RedCircle extends AppBase {
     testEq2 = new QuadraticEquation(eqInputs.get(1).input); 
     testEq3 = new LinearEquation(eqInputs.get(2).input); 
     testEq4 = new LinearEquation(eqInputs.get(3).input);
-    pol = new PolarEquation("y=costheta");
+    pol = new PolarEquation("r=3+2cos(theta)");
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
@@ -865,6 +874,8 @@ public class RedCircle extends AppBase {
     current = eqInputs.get(currentBox); 
     if (!done) {  
       getInputs(); 
+      print(pol.getA());
+      print(pol.getB());
       done = true;
     }
     if (drawEquation) {
