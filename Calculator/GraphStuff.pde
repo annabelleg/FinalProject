@@ -535,6 +535,7 @@ public class RedCircle extends AppBase {
      trigOperation = 5;
      }
      }*/
+     
     void findAngle() {
       for (int i = 0; i < equation_.length; i++) {
         if (equation_[i].equals("(")) {
@@ -588,12 +589,17 @@ public class RedCircle extends AppBase {
 
     void testEquation(int colorNum) {
       // r = a + bcos(theta)
-      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+      for (float x = (-1)*(2*PI); x <= 2*PI; x+=step) {
         fill(colorNum);
-       // ellipse((x*gridRatio)+xCenter, yCenter-(4*cos(x)*gridRatio), 2, 2);
-        ellipse((x*gridRatio)+xCenter, yCenter-(a*gridRatio+(b*cos(x)*gridRatio)), 2, 2);
-        // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
-        //  data.add(c);
+        float theX = (x*gridRatio)+xCenter;
+        float theY = yCenter-(a*gridRatio+(b*cos(x)*gridRatio));
+        ellipse(theX, theY, 2, 2); // << Graphs well. But does so rectangularly. 
+        Coordinate c = new Coordinate(theX,theY);
+        data.add(c);
+        convertThem();
+        for(Coordinate thisCor : data){
+          ellipse(thisCor.x,thisCor.y,2,2);
+        }
       }
     }
   }
