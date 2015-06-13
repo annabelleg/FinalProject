@@ -590,7 +590,8 @@ public class RedCircle extends AppBase {
       // r = a + bcos(theta)
       for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
         fill(colorNum);
-        ellipse((x*gridRatio)+xCenter, yCenter-(4*cos(x)*gridRatio), 2, 2);
+       // ellipse((x*gridRatio)+xCenter, yCenter-(4*cos(x)*gridRatio), 2, 2);
+        ellipse((x*gridRatio)+xCenter, yCenter-(a*gridRatio+(b*cos(x)*gridRatio)), 2, 2);
         // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
         //  data.add(c);
       }
@@ -815,7 +816,7 @@ public class RedCircle extends AppBase {
     testEq2 = new QuadraticEquation(eqInputs.get(1).input); 
     testEq3 = new LinearEquation(eqInputs.get(2).input); 
     testEq4 = new LinearEquation(eqInputs.get(3).input);
-    pol = new PolarEquation("r=3+2cos(theta)");
+    pol = new PolarEquation("r=3+5cos(theta)");
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
