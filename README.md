@@ -101,6 +101,7 @@ Interpreting user input of equations
 - 6/13/15
   - working on functionality of close buttons
   - fixing REF
+  - fixed bug where column # and row # were switched
   
   
 
