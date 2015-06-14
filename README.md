@@ -219,6 +219,11 @@ Interpreting user input of equations
   - user entry of matrix values sticks!
   - ref calculates mostly correctly (truncating is a lil off, need to check matrix at the end)
   - the matrix changes when the ref does so need to disconnect those
+  - basic polar graph display
+- 6/11/15
+  - disconnected REF of matrix and matrix so they no longer both change
+  - ref doesn't calculate correctly so working on figuring that out
+  - can almost graph polar functions (cosine automatically graphs but that will be gone in a bit)
   
   
 
@@ -226,10 +231,9 @@ Interpreting user input of equations
 #### THINGS TO DO
 - entire expression calculator (probably not tho)
 - more matrix functions (inverse, determinant etc)
-- make buttons on homepage do something when clicked
 - make "Close" buttons have functionality
 - allow matrix to take doubles and negatives
-- disconnect matrix from REF so matrix window doesn't change when REF is calculated
+- fix all the ref mistakes and stuff
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
@@ -243,6 +247,9 @@ Interpreting user input of equations
 - homepage looks pretty and works
 - Toggling between sketch-screens.
 - way to get back to homepage/switch between different functions (0,1,2)
+- polar graphing!!! 
+- buttons on homepage work when clicked
+- matrix and REF of matrix are separate
 
 
 #### WORKING DEMOS
