@@ -83,7 +83,6 @@ public class BlueSquare extends AppBase
       text(cols, 300, 40);
 
       if (!matrixexists && rows!= 0 && cols!= 0) {
-        //buildMatrix();
         m = new Matrix(rows, cols);
         matrixexists = true;
       }
@@ -115,20 +114,20 @@ public class BlueSquare extends AppBase
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           if (r <= rows/2 && c <= cols/2) {
-            rect(width/2 - r*50, height/2 - c*50, 35, 15);
-            valInputs.add(new TextBox(width/2 - r*50 + 15, height/2 - c*50 + 7, r, c, ""));
+            rect( height/2 - c*50, width/2 - r*50,35, 15);
+            valInputs.add(new TextBox(height/2 - c*50 + 15,width/2 - r*50 + 7,  r, c, ""));
           } 
           if (r > rows/2 && c <= cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 - c*50, 35, 15);
-            valInputs.add(new TextBox(width/2 + (rows-r)*50 + 15, height/2 - c*50 + 7, r, c, ""));
+            rect(height/2 - c*50,width/2 + (rows-r)*50,  35, 15);
+            valInputs.add(new TextBox( height/2 - c*50 + 15, width/2 + (rows-r)*50 + 7,r, c, ""));
           }
           if (r <= rows/2 && c > cols/2) {
-            rect(width/2 - r*50, height/2 + (cols-c)*50, 35, 15);
-            valInputs.add(new TextBox(width/2 - r*50+15, height/2 + (cols-c)*50 + 7, r, c, ""));
+            rect( height/2 + (cols-c)*50,width/2 - r*50, 35, 15);
+            valInputs.add(new TextBox( height/2 + (cols-c)*50 + 15,width/2 - r*50+7, r, c, ""));
           } 
           if (r > rows/2 && c > cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 + (cols-c)*50, 35, 15);
-            valInputs.add(new TextBox(width/2 + (rows-r)*50 + 15, height/2 + (cols-c)*50 + 7, r, c, ""));
+            rect(height/2 + (cols-c)*50, width/2 + (rows-r)*50, 35, 15);
+            valInputs.add(new TextBox(height/2 + (cols-c)*50 + 15,width/2 + (rows-r)*50 + 7,  r, c, ""));
           }
         }
       }
@@ -207,27 +206,27 @@ public class BlueSquare extends AppBase
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           if (r <= rows/2 && c <= cols/2) {
-            rect(width/2 - r*50, height/2 - c*50, 35, 15);
+            rect( height/2 - c*50, width/2 - r*50, 35, 15);
             fill(0);
-            text(""+m.ref[r][c], (width/2 - r*50)+12, (height/2 - c*50)+11);
+            text(""+m.ref[r][c], (height/2 - c*50)+11, (width/2 - r*50)+12);
             fill(200);
           } 
           if (r > rows/2 && c <= cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 - c*50, 35, 15);
+            rect(height/2 - c*50, width/2 + (rows-r)*50, 35, 15);
             fill(0);
-            text(""+m.ref[r][c], width/2 + (rows-r)*50+12, height/2 - c*50+11);
+            text(""+m.ref[r][c],  height/2 - c*50+11, width/2 + (rows-r)*50+12);
             fill(200);
           }
           if (r <= rows/2 && c > cols/2) {
-            rect(width/2 - r*50, height/2 + (cols-c)*50, 35, 15);
+            rect( height/2 + (cols-c)*50, width/2 - r*50, 35, 15);
             fill(0);
-            text(""+m.ref[r][c], width/2 - r*50+12, height/2 + (cols-c)*50+11);
+            text(""+m.ref[r][c],  height/2 + (cols-c)*50+11, width/2 - r*50+12);
             fill(200);
           } 
           if (r > rows/2 && c > cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 + (cols-c)*50, 35, 15);
+            rect( height/2 + (cols-c)*50, width/2 + (rows-r)*50, 35, 15);
             fill(0);
-            text(""+m.ref[r][c], width/2 + (rows-r)*50+12, height/2 + (cols-c)*50+11);
+            text(""+m.ref[r][c], height/2 + (cols-c)*50+11, width/2 + (rows-r)*50+12 );
             fill(200);
           }
         }
@@ -252,10 +251,12 @@ public class BlueSquare extends AppBase
     if (mousePressed) {
       if (mouseX > width/2-width/3 &&  mouseX < width/2+width/3 && mouseY > height/2 - height/6 && mouseY < height/2 ) {
         if (!matrixWindowOpen) {
-          PFrame f = new PFrame();
+          f = new PFrame();
           matrixWindowOpen = true;
         }
       }
+      // if (matrixWindowOpen && !closePressed) {
+      //   f.hide();
     }
   }
 
