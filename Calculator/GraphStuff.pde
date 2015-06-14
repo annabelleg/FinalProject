@@ -253,6 +253,7 @@ public class RedCircle extends AppBase {
       try {
         findM();
         findB();
+        makeData();
       } 
       catch (IndexOutOfBoundsException e) {
       }
@@ -316,15 +317,19 @@ public class RedCircle extends AppBase {
     }
 
     void makeData() {
+      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+        float tX = x+xCenter;
+        float tY = yCenter-(m*x+(b*gridRatio));
+        Coordinate c = new Coordinate(tX, tY);
+        data.add(c);
+      }
     }
 
     void testEquation(int colorNum) {
       // y = mx + b form
-      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+      for (Coordinate c : data) {
         fill(colorNum);
-        ellipse(x+xCenter, yCenter-(m*x+(b*gridRatio)), 2, 2);
-        Coordinate c = new Coordinate(x, (m*x)+b);
-        data.add(c);
+        ellipse(c.x, c.y, 2, 2);
       }
     }
   }
@@ -340,6 +345,7 @@ public class RedCircle extends AppBase {
         findA();
         findB();
         findC();
+        makeData();
       }
       catch (IndexOutOfBoundsException e) {
       }
@@ -450,15 +456,19 @@ public class RedCircle extends AppBase {
       return c;
     }
     void makeData() {
+      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+        float tX = x+xCenter;
+        float tY = yCenter-(((a*x*x)/gridRatio)+(b*x)+(c*gridRatio));
+        Coordinate c = new Coordinate(tX, tY);
+        data.add(c);
+      }
     }
 
     void testEquation(int colorNum) {
       // y = ax^2+bx+c
-      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+      for (Coordinate cor : data) {
         fill(colorNum);
-        ellipse(x+xCenter, yCenter-(((a*x*x)/gridRatio)+(b*x)+(c*gridRatio)), 2, 2);
-        // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
-        //  data.add(c);
+        ellipse(cor.x, cor.y, 2, 2);
       }
     }
   }
@@ -473,32 +483,17 @@ public class RedCircle extends AppBase {
     // 0 = sine , 1 = cosine, 2 = tangent, 3 = csc, 4 = sec, 5 = cot
     int trigOperation;
     ArrayList posTrig;
-
-    /*   public class Parts {
-     ArraLyList<Integer> adding; //index of where to add;
-     ArraLyList<Integer> subtracting;
-     ArraLyList<Integer> multiplying;
-     ArraLyList<Integer> dividing;
-     
-     Parts(int[] equation) {
-     adding = new ArrayList();
-     subtracting = new ArrayList();
-     multiplying = new ArrayList();
-     dividing = new ArrayList();
-     for (int i = 0; i < equation.length; i++) {
-     if (equation[i].equals("+")) {
-     }
-     }
-     }
-     }*/
+    ArrayList<Coordinate> PolarCoors;
 
     PolarEquation(String eq) {
       super(eq);
       posTrig = new ArrayList();
+      PolarCoors = new ArrayList<Coordinate>();
       try {
         findAngle();
         findA();
         findB();
+        findTrig();
         makeData();
       }
       catch (IndexOutOfBoundsException e) {
@@ -520,22 +515,38 @@ public class RedCircle extends AppBase {
       return yR;
     }
 
-    /* void findTrig() {
-     if (equation.substring(findTheta()-3, findTheta()).equals("sin") || equation.substring(findTheta()-4, findTheta()).equals("sine")) {
-     trigOperation = 0;
-     } else if (equation.substring(findTheta()-3, findTheta()).equals("cos") || equation.substring(findTheta()-6, findTheta()).equals("cosine")) {
-     trigOperation = 1;
-     } else if (equation.substring(findTheta()-3, findTheta()).equals("tan") || equation.substring(findTheta()-7, findTheta()).equals("tangent")) {
-     trigOperation = 2;
-     } else if (equation.substring(findTheta()-3, findTheta()).equals("csc")) {
-     trigOperation = 3;
-     } else if (equation.substring(findTheta()-3, findTheta()).equals("sec")) {
-     trigOperation = 4;
-     } else if (equation.substring(findTheta()-3, findTheta()).equals("cot")) {
-     trigOperation = 5;
-     }
-     }*/
-     
+    void findTrig() {
+      if (equation.substring(pr1-3, pr1).equals("sin") || equation.substring(pr1-4, pr1).equals("sine")) {
+        trigOperation = 0;
+      } else if (equation.substring(pr1-3, pr1).equals("cos") || equation.substring(pr1-6, pr1).equals("cosine")) {
+        trigOperation = 1;
+      } else if (equation.substring(pr1-3, pr1).equals("tan") || equation.substring(pr1-7, pr1).equals("tangent")) {
+        trigOperation = 2;
+      } else if (equation.substring(pr1-3, pr1).equals("csc")) {
+        trigOperation = 3;
+      } else if (equation.substring(pr1-3, pr1).equals("sec")) {
+        trigOperation = 4;
+      } else if (equation.substring(pr1-3, pr1).equals("cot")) {
+        trigOperation = 5;
+      }
+    }
+
+    float trigOperation(float angle) {
+      if (trigOperation == 0) {
+        return sin(angle);
+      } else if (trigOperation == 1) {
+        return cos(angle);
+      } else if (trigOperation == 2) {
+        return tan(angle);
+      } else if (trigOperation == 3) {
+        return 1/( sin(angle) );
+      } else if (trigOperation == 4) {
+        return 1/( cos(angle) );
+      } else {
+        return 1/( tan(angle) );
+      }
+    }
+
     void findAngle() {
       for (int i = 0; i < equation_.length; i++) {
         if (equation_[i].equals("(")) {
@@ -552,7 +563,7 @@ public class RedCircle extends AppBase {
 
     void findA() {
       for (int i = 0; i < equation_.length; i++) {
-        if (equation_[i].equals("+") || equation_[i].equals("-")) {
+        if (equation_[i].equals("+") || equation_[i].equals("-") && i!=2) {
           endA = i;
           break;
         }
@@ -566,10 +577,10 @@ public class RedCircle extends AppBase {
       b = parseFloat(equation.substring(endA, pr1-3));
     }
 
-    void convertThem() {
-      for (Coordinate cor : data) {
+    void convertThem(ArrayList<Coordinate> lis) {
+      for (Coordinate cor : lis) {
         float cX = cor.x;
-        cor.x = convertPolar(cX, cor.y, true);
+        cor.x = convertRect(cX, cor.y, true);
         cor.y = convertPolar(cX, cor.y, false);
       }
     }
@@ -585,6 +596,12 @@ public class RedCircle extends AppBase {
       return b;
     }
     void makeData() {
+      for (float x = 0; x <= 2*PI; x+=step) {
+        float thisR = a + b*cos(x);
+        Coordinate thisCor = new Coordinate(thisR, x);
+        PolarCoors.add(thisCor);
+      }
+      convertThem(PolarCoors);
     }
 
     void testEquation(int colorNum) {
@@ -592,15 +609,15 @@ public class RedCircle extends AppBase {
       for (float x = (-1)*(2*PI); x <= 2*PI; x+=step) {
         fill(colorNum);
         float theX = (x*gridRatio)+xCenter;
-        float theY = yCenter-(a*gridRatio+(b*cos(x)*gridRatio));
-       ellipse(theX, theY, 2, 2); // << Graphs well. But does so rectangularly. 
-        Coordinate c = new Coordinate(theX,theY);
+        float theY = yCenter-(a*gridRatio+(b*trigOperation(x)*gridRatio));
+        ellipse(theX, theY, 2, 2); // << Graphs well. But does so rectangularly. 
+        Coordinate c = new Coordinate(theX, theY);
         data.add(c);
-     /*   convertThem();
-        for(Coordinate thisCor : data){
-          ellipse(thisCor.x,thisCor.y,2,2);
-        }*/
       }
+      /* for (Coordinate c : PolarCoors) {
+       fill(colorNum);
+       ellipse(xCenter+(c.x*gridRatio), yCenter-(c.y*gridRatio), 2, 2);
+       }*/
     }
   }
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SETTINGS APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -757,6 +774,8 @@ public class RedCircle extends AppBase {
         if (!settingsWindowOpen) {
           PFrame f = new PFrame(); 
           settingsWindowOpen = true;
+        } else {
+          // f.setVisible(false);
         }
       }
     }
@@ -822,7 +841,7 @@ public class RedCircle extends AppBase {
     testEq2 = new QuadraticEquation(eqInputs.get(1).input); 
     testEq3 = new LinearEquation(eqInputs.get(2).input); 
     testEq4 = new LinearEquation(eqInputs.get(3).input);
-    pol = new PolarEquation("r=3+5cos(theta)");
+    pol = new PolarEquation("r=3+5sin(theta)");
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
