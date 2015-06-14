@@ -593,13 +593,13 @@ public class RedCircle extends AppBase {
         fill(colorNum);
         float theX = (x*gridRatio)+xCenter;
         float theY = yCenter-(a*gridRatio+(b*cos(x)*gridRatio));
-        ellipse(theX, theY, 2, 2); // << Graphs well. But does so rectangularly. 
+       ellipse(theX, theY, 2, 2); // << Graphs well. But does so rectangularly. 
         Coordinate c = new Coordinate(theX,theY);
         data.add(c);
-        convertThem();
+     /*   convertThem();
         for(Coordinate thisCor : data){
           ellipse(thisCor.x,thisCor.y,2,2);
-        }
+        }*/
       }
     }
   }
