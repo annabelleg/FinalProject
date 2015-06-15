@@ -88,16 +88,11 @@ Interpreting user input of equations
   - rearranged homepage a little to look nicer/work more intuitively
   - ref displays values too! 
 - 6/9/15
-<<<<<<< HEAD
   - entry of equations works, just math is a little wacky.
-=======
-  - entry of equations works, just math is a little wacky
->>>>>>> blah
 - 6/10/15
   - user entry of matrix values sticks!
   - ref calculates mostly correctly (truncating is a lil off, need to check matrix at the end)
   - the matrix changes when the ref does so need to disconnect those
-<<<<<<< HEAD
   - basic polar graph display
 - 6/11/15
   - disconnected REF of matrix and matrix so they no longer both change
@@ -113,25 +108,15 @@ Interpreting user input of equations
   - trying to make polar work, but something gets lost in translation from rectangular and wacky shapes form.
   - now can input either quadratic, linear, or trig into either of four text boxes and it will know which type to cast it to.
   - can change xMin and xMax values for each of four equations.
-=======
->>>>>>> blah
   
   
 
 
 #### THINGS TO DO
-- entire expression calculator (probably not tho)
 - more matrix functions (inverse, determinant etc)
-<<<<<<< HEAD
 - make "Close" buttons have functionality
 - allow matrix to take doubles and negatives
 - fix all the ref mistakes and stuff
-=======
-- make buttons on homepage do something when clicked
-- make "Close" buttons have functionality
-- allow matrix to take doubles and negatives
-- disconnect matrix from REF so matrix window doesn't change when REF is calculated
->>>>>>> blah
 
 #### THINGS ALREADY DONE
 - display graph, zoom in and out
@@ -157,8 +142,10 @@ Interpreting user input of equations
 https://github.com/annabelleg/FinalProject.git
 
 6/8/15: Demo #2:
-<<<<<<< HEAD
 https://github.com/annabelleg/FinalProject/tree/Demo6/8
+
+6/15/15: FINAL PROJECT:
+https://github.com/annabelleg/FinalProject.git
 
 #### HOW TO USE
 1. Click run. The homepage will open. From there, you can either press the 1 or 2 keys on your keyboard or click the buttons on the screen to get to the various pages. To get back to the homepage from another screen, press 0.
