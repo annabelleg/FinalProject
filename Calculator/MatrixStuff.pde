@@ -114,20 +114,20 @@ public class BlueSquare extends AppBase
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           if (r <= rows/2 && c <= cols/2) {
-            rect( height/2 - c*50, width/2 - r*50,35, 15);
-            valInputs.add(new TextBox(height/2 - c*50 + 15,width/2 - r*50 + 7,  r, c, ""));
+            rect( height/2 - c*50, width/2 - r*50, 35, 15);
+            valInputs.add(new TextBox(height/2 - c*50 + 15, width/2 - r*50 + 7, r, c, ""));
           } 
           if (r > rows/2 && c <= cols/2) {
-            rect(height/2 - c*50,width/2 + (rows-r)*50,  35, 15);
-            valInputs.add(new TextBox( height/2 - c*50 + 15, width/2 + (rows-r)*50 + 7,r, c, ""));
+            rect(height/2 - c*50, width/2 + (rows-r)*50, 35, 15);
+            valInputs.add(new TextBox( height/2 - c*50 + 15, width/2 + (rows-r)*50 + 7, r, c, ""));
           }
           if (r <= rows/2 && c > cols/2) {
-            rect( height/2 + (cols-c)*50,width/2 - r*50, 35, 15);
-            valInputs.add(new TextBox( height/2 + (cols-c)*50 + 15,width/2 - r*50+7, r, c, ""));
+            rect( height/2 + (cols-c)*50, width/2 - r*50, 35, 15);
+            valInputs.add(new TextBox( height/2 + (cols-c)*50 + 15, width/2 - r*50+7, r, c, ""));
           } 
           if (r > rows/2 && c > cols/2) {
             rect(height/2 + (cols-c)*50, width/2 + (rows-r)*50, 35, 15);
-            valInputs.add(new TextBox(height/2 + (cols-c)*50 + 15,width/2 + (rows-r)*50 + 7,  r, c, ""));
+            valInputs.add(new TextBox(height/2 + (cols-c)*50 + 15, width/2 + (rows-r)*50 + 7, r, c, ""));
           }
         }
       }
@@ -170,14 +170,19 @@ public class BlueSquare extends AppBase
               }
             }
             if (enterData ) {
-              current.typeIn(String.valueOf(numbers[i]));
-
-              m.data[current.mR][current.mC] = Double.parseDouble(current.input);
-              //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
-              // println(m.data[current.mR][current.mC]);
-              enterData = false;
-              typeMode = false;
-              current.hasStuff = true;
+              if (key == ENTER) {
+                done = true;
+              } else {
+                while (!done) {
+                  current.typeIn(String.valueOf(numbers[i]));
+                }
+                m.data[current.mR][current.mC] = Double.parseDouble(current.input);
+                //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
+                // println(m.data[current.mR][current.mC]);
+                enterData = false;
+                typeMode = false;
+                current.hasStuff = true;
+              }
             }
           }
         }
@@ -214,13 +219,13 @@ public class BlueSquare extends AppBase
           if (r > rows/2 && c <= cols/2) {
             rect(height/2 - c*50, width/2 + (rows-r)*50, 35, 15);
             fill(0);
-            text(""+m.ref[r][c],  height/2 - c*50+11, width/2 + (rows-r)*50+12);
+            text(""+m.ref[r][c], height/2 - c*50+11, width/2 + (rows-r)*50+12);
             fill(200);
           }
           if (r <= rows/2 && c > cols/2) {
             rect( height/2 + (cols-c)*50, width/2 - r*50, 35, 15);
             fill(0);
-            text(""+m.ref[r][c],  height/2 + (cols-c)*50+11, width/2 - r*50+12);
+            text(""+m.ref[r][c], height/2 + (cols-c)*50+11, width/2 - r*50+12);
             fill(200);
           } 
           if (r > rows/2 && c > cols/2) {
@@ -255,8 +260,6 @@ public class BlueSquare extends AppBase
           matrixWindowOpen = true;
         }
       }
-      // if (matrixWindowOpen && !closePressed) {
-      //   f.hide();
     }
   }
 
@@ -276,7 +279,7 @@ public class BlueSquare extends AppBase
     if (mousePressed) {
       if (mouseX > width/2-width/6 &&  mouseX < width/2 + width/6 && mouseY > height/2 + height/8 && mouseY < 3*height/4) {
         if (!REFWindowOpen && matrixWindowOpen) {
-          NewFrame yo = new NewFrame();
+          yo = new NewFrame();
           REFWindowOpen = true;
         }
       }
