@@ -372,7 +372,6 @@ public class RedCircle extends AppBase {
         findA();
         findB();
         findC();
-        //   makeData();
       }
       catch (IndexOutOfBoundsException e) {
       }
@@ -380,7 +379,7 @@ public class RedCircle extends AppBase {
 
     int getXsquared() {
       for (int i  = 0; i < equation_.length-1; i++) {
-        if (equation_[i].equals("x") && equation_[i+1].equals("^") &&equation_[i+2].equals("2")) {
+        if (equation_[i].equals("x") && equation_[i+1].equals("^") && equation_[i+2].equals("2")) {
           return i;
         }
       }
@@ -419,6 +418,11 @@ public class RedCircle extends AppBase {
 
     void findB() {
       hasFraction = false;
+      if (equation_[equation_.length-1].equals("x")) {
+        b = parseFloat(equation.substring(getXsquared()+3, equation_.length-1));
+        c = 0;
+        return;
+      }
       if (findX() == 0) {
         b = 0;
         return;
@@ -452,7 +456,7 @@ public class RedCircle extends AppBase {
       if (b==0) {
         endX = getXsquared() + 3;
       }
-      if (endX >= equation_.length) {
+      if (endX == equation_.length) {
         c = 0;
         return;
       } else {
@@ -486,6 +490,7 @@ public class RedCircle extends AppBase {
       for (float x = xMin; x <= xMax; x+=step) {
         float tX = x+xCenter;
         float tY = yCenter-(((a*x*x)/gridRatio)+(b*x)+(c*gridRatio));
+        //  print("(" + tX + "," + tY+")");
         Coordinate c = new Coordinate(tX, tY);
         data.add(c);
       }
@@ -805,7 +810,7 @@ public class RedCircle extends AppBase {
           PFrame f = new PFrame(); 
           settingsWindowOpen = true;
         } else {
-        // settingsWindowOpen = false;
+          // settingsWindowOpen = false;
         }
       }
     }
@@ -852,7 +857,7 @@ public class RedCircle extends AppBase {
           inputWindowOpen = true;
           canOpen = true;
         } else {
-          inputWindowOpen = false;
+          //1inputWindowOpen = false;
         }
       }
     }
@@ -879,6 +884,7 @@ public class RedCircle extends AppBase {
   void getInputs() {
     if (isQuadratic(eqInputs.get(0).input)) {
       testEq1 = new QuadraticEquation(eqInputs.get(0).input);
+      print("ITS Quadratic");
     } else if (isTrig(eqInputs.get(0).input)) {
       testEq1 = new PolarEquation(eqInputs.get(0).input);
     } else {
@@ -963,8 +969,6 @@ public class RedCircle extends AppBase {
     current = eqInputs.get(currentBox); 
     if (!done) {  
       getInputs(); 
-      // print(pol.getA());
-      //  print(pol.getB());
       done = true;
     }
     if (drawEquation) {
