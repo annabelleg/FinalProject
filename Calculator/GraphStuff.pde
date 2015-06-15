@@ -25,7 +25,7 @@ public class RedCircle extends AppBase {
   int wait = 2000;
   // 0 = funtion, 1 = polar
   int graphMode = 0;
-  PolarEquation pol;
+  // PolarEquation pol;
 
   public class PFrame extends JFrame {
     public PFrame() {
@@ -52,6 +52,7 @@ public class RedCircle extends AppBase {
 
   public class EquationApplet extends PApplet {
 
+
     public void setup() {
       background(#6FF598);
     }
@@ -64,10 +65,33 @@ public class RedCircle extends AppBase {
 
       rectMode(CENTER);
       fill(255);
+      stroke(255);
       rect(100, 50, 150, 25);
       rect(100, 100, 150, 25);
       rect(100, 150, 150, 25);
       rect(100, 200, 150, 25);
+
+      rect(250, 50, 80, 25);
+      rect(250, 100, 80, 25);
+      rect(250, 150, 80, 25);
+      rect(250, 200, 80, 25);
+
+      rect(350, 50, 80, 25);
+      rect(350, 100, 80, 25);
+      rect(350, 150, 80, 25);
+      rect(350, 200, 80, 25);
+
+      textSize(15);
+      fill(0);
+      text("xMin:", 212, 60);
+      text("xMin:", 212, 110);
+      text("xMin:", 212, 160);
+      text("xMin:", 212, 210);
+      text("xMax:", 312, 60);
+      text("xMax:", 312, 110);
+      text("xMax:", 312, 160);
+      text("xMax:", 312, 210);
+
       if (mousePressed) {
         if (mouseX > 25 && mouseX < 175 && mouseY > 38 && mouseY < 62) {
           typeMode = true;
@@ -92,10 +116,6 @@ public class RedCircle extends AppBase {
       text(eqInputs.get(1).input, 30, 105);
       text(eqInputs.get(2).input, 30, 155);
       text(eqInputs.get(3).input, 30, 205);
-      text("Quadratic", 180, 55);
-      text("Linear", 180, 205);
-      text("Quadratic", 180, 105);
-      text("Linear", 180, 155);
     }
 
     void keyPressed() {
@@ -145,12 +165,15 @@ public class RedCircle extends AppBase {
     boolean parabola = false;
     int indexBar;
     boolean hasFraction = false;
+    float xMin, xMax;
 
     public Equation(String eq) {
       equation = eq;
       equation_ = new String[equation.length()];
       fillEq();
       data = new ArrayList<Coordinate>();
+      xMin = (-1)*(xCenter);
+      xMax = xCenter+100;
     }
 
     void fillEq() {
@@ -253,6 +276,9 @@ public class RedCircle extends AppBase {
       try {
         findM();
         findB();
+        //
+
+        makeData();
       } 
       catch (IndexOutOfBoundsException e) {
       }
@@ -316,15 +342,21 @@ public class RedCircle extends AppBase {
     }
 
     void makeData() {
+      for (float x = xMin; x <= xMax; x+=step) {
+        float tX = x+xCenter;
+        float tY = yCenter-(m*x+(b*gridRatio));
+        Coordinate c = new Coordinate(tX, tY);
+        data.add(c);
+      }
     }
 
     void testEquation(int colorNum) {
+      data.clear();
+      makeData();
       // y = mx + b form
-      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+      for (Coordinate c : data) {
         fill(colorNum);
-        ellipse(x+xCenter, yCenter-(m*x+(b*gridRatio)), 2, 2);
-        Coordinate c = new Coordinate(x, (m*x)+b);
-        data.add(c);
+        ellipse(c.x, c.y, 2, 2);
       }
     }
   }
@@ -347,7 +379,7 @@ public class RedCircle extends AppBase {
 
     int getXsquared() {
       for (int i  = 0; i < equation_.length-1; i++) {
-        if (equation_[i].equals("x") && equation_[i+1].equals("^") &&equation_[i+2].equals("2")) {
+        if (equation_[i].equals("x") && equation_[i+1].equals("^") && equation_[i+2].equals("2")) {
           return i;
         }
       }
@@ -386,6 +418,11 @@ public class RedCircle extends AppBase {
 
     void findB() {
       hasFraction = false;
+      if (equation_[equation_.length-1].equals("x")) {
+        b = parseFloat(equation.substring(getXsquared()+3, equation_.length-1));
+        c = 0;
+        return;
+      }
       if (findX() == 0) {
         b = 0;
         return;
@@ -419,7 +456,7 @@ public class RedCircle extends AppBase {
       if (b==0) {
         endX = getXsquared() + 3;
       }
-      if (endX >= equation_.length) {
+      if (endX == equation_.length) {
         c = 0;
         return;
       } else {
@@ -450,45 +487,141 @@ public class RedCircle extends AppBase {
       return c;
     }
     void makeData() {
+      for (float x = xMin; x <= xMax; x+=step) {
+        float tX = x+xCenter;
+        float tY = yCenter-(((a*x*x)/gridRatio)+(b*x)+(c*gridRatio));
+        //  print("(" + tX + "," + tY+")");
+        Coordinate c = new Coordinate(tX, tY);
+        data.add(c);
+      }
     }
 
     void testEquation(int colorNum) {
       // y = ax^2+bx+c
-      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+      data.clear();
+      makeData();
+      for (Coordinate cor : data) {
         fill(colorNum);
-        ellipse(x+xCenter, yCenter-(((a*x*x)/gridRatio)+(b*x)+(c*gridRatio)), 2, 2);
-        // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
-        //  data.add(c);
+        ellipse(cor.x, cor.y, 2, 2);
       }
     }
   }
   // <<<<<<<<<<<<<<<<<<<<<<<< POLAR EQUATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   public class PolarEquation extends Equation {
-    // y = ax^2 + bx + c
+    // y = a+bsin(x)
     float a, b;
-    float r, theta;
+    String angle;
+    int pr1, pr2; // parenthesis for theta
+    int endA;
+    // 0 = sine , 1 = cosine, 2 = tangent, 3 = csc, 4 = sec, 5 = cot
+    int trigOperation;
+    ArrayList posTrig;
+    ArrayList<Coordinate> PolarCoors;
 
     PolarEquation(String eq) {
       super(eq);
+      xMin = 0;
+      xMax = 2*PI;
+      posTrig = new ArrayList();
+      PolarCoors = new ArrayList<Coordinate>();
       try {
+        findAngle();
+        findA();
+        findB();
+        findTrig();
       }
       catch (IndexOutOfBoundsException e) {
       }
     }
 
+    float convertPolar(float x, float y, boolean ar) { // ar true = return r & ar false = return theta
+      float r = sqrt((x*x)+(y*y));
+      float theta = atan(y/x);
+      if (ar)
+        return r;
+      return theta;
+    }
+    float convertRect(float r, float theta, boolean ex) {
+      float yR = (r*sin(theta));
+      float xR = (r*cos(theta));
+      if (ex)
+        return xR;
+      return yR;
+    }
+
+    void findTrig() {
+      if (equation.substring(pr1-3, pr1).equals("sin") || equation.substring(pr1-4, pr1).equals("sine")) {
+        trigOperation = 0;
+      } else if (equation.substring(pr1-3, pr1).equals("cos") || equation.substring(pr1-6, pr1).equals("cosine")) {
+        trigOperation = 1;
+      } else if (equation.substring(pr1-3, pr1).equals("tan") || equation.substring(pr1-7, pr1).equals("tangent")) {
+        trigOperation = 2;
+      } else if (equation.substring(pr1-3, pr1).equals("csc")) {
+        trigOperation = 3;
+      } else if (equation.substring(pr1-3, pr1).equals("sec")) {
+        trigOperation = 4;
+      } else if (equation.substring(pr1-3, pr1).equals("cot")) {
+        trigOperation = 5;
+      }
+    }
+
+    float trigOperation(float angle) {
+      if (trigOperation == 0) {
+        return sin(angle);
+      } else if (trigOperation == 1) {
+        return cos(angle);
+      } else if (trigOperation == 2) {
+        return tan(angle);
+      } else if (trigOperation == 3) {
+        return 1/( sin(angle) );
+      } else if (trigOperation == 4) {
+        return 1/( cos(angle) );
+      } else {
+        return 1/( tan(angle) );
+      }
+    }
+
+    void findAngle() {
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals("(")) {
+          pr1 = i;
+        }
+      }
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals(")")) {
+          pr2 = i;
+        }
+      }
+      angle = equation.substring(pr1+1, pr2);
+    }
 
     void findA() {
+      for (int i = 0; i < equation_.length; i++) {
+        if (equation_[i].equals("+") || equation_[i].equals("-") && i!=2) {
+          endA = i;
+          break;
+        }
+      }
+      if (equation_[0].equals("y") && equation_[1].equals("=")) {
+        a = parseFloat(equation.substring(2, endA));
+      }
     }
 
     void findB() {
+      b = parseFloat(equation.substring(endA, pr1-3));
     }
 
-    void findC() {
+    void convertThem(ArrayList<Coordinate> lis) {
+      for (Coordinate cor : lis) {
+        float cX = cor.x;
+        cor.x = convertRect(cX, cor.y, true);
+        cor.y = convertPolar(cX, cor.y, false);
+      }
     }
 
     float findY() {
-      return a;
+      return 0.0;
     }
 
     float getA() {
@@ -498,23 +631,37 @@ public class RedCircle extends AppBase {
       return b;
     }
     void makeData() {
+      for (float x = xMin; x <= xMax; x+=step) {
+        float thisR = a + b*cos(x);
+        Coordinate thisCor = new Coordinate(thisR, x);
+        PolarCoors.add(thisCor);
+      }
+      convertThem(PolarCoors);
     }
 
     void testEquation(int colorNum) {
       // r = a + bcos(theta)
-      for (float x = (-1)*(xCenter); x <= xCenter+100; x+=step) {
+      data.clear();
+      makeData();
+      for (float x = (-1)*(2*PI); x <= 2*PI; x+=step) {
         fill(colorNum);
-        ellipse((x*gridRatio)+xCenter, yCenter-(4*cos(x)*gridRatio), 2, 2);
-        // Coordinate c = new Coordinate(x,((a*x*x)+(b*x)+c));
-        //  data.add(c);
+        float theX = (x*gridRatio)+xCenter;
+        float theY = yCenter-(a*gridRatio+(b*trigOperation(x)*gridRatio));
+        ellipse(theX, theY, 2, 2); // << Graphs well. But does so rectangularly. 
+        Coordinate c = new Coordinate(theX, theY);
+        data.add(c);
       }
+      /* for (Coordinate c : PolarCoors) {
+       fill(colorNum);
+       ellipse(xCenter+(c.x*gridRatio), yCenter-(c.y*gridRatio), 2, 2);
+       }*/
     }
   }
-
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SETTINGS APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   public class settingsApplet extends PApplet {
+
 
     public void setup() {
       background(#E8B4FF);
@@ -655,16 +802,15 @@ public class RedCircle extends AppBase {
     p = createFont("Georgia", 15, true); 
     textFont(p, 15); 
     fill(255); 
-    if (!settingsWindowOpen) {    
-      text("Settings", 30, 15);
-    } else {
-      text("Close", 30, 15);
-    }
+    text("Settings", 30, 15);
+
     if (mousePressed) {
       if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
         if (!settingsWindowOpen) {
           PFrame f = new PFrame(); 
           settingsWindowOpen = true;
+        } else {
+          // settingsWindowOpen = false;
         }
       }
     }
@@ -695,22 +841,23 @@ public class RedCircle extends AppBase {
   }
 
   void inputWindow() {
+    boolean canOpen = false;
     rectMode(CENTER); 
     fill(0); 
     rect(100, 10, 60, 20); 
     p = createFont("Georgia", 15, true); 
     textFont(p, 15); 
-    fill(255); 
-    if (!inputWindowOpen) {    
-      text("Input", 100, 15);
-    } else {
-      text("Close", 100, 15);
-    }
+    fill(255);    
+    text("Input", 100, 15); 
+
     if (mousePressed) {
       if (mouseX > 70 && mouseY > 0 && mouseX < 130 && mouseY < 20) {
         if (!inputWindowOpen) {
-          NewFrame yo = new NewFrame(); 
+          NewFrame yo = new NewFrame();
           inputWindowOpen = true;
+          canOpen = true;
+        } else {
+          //1inputWindowOpen = false;
         }
       }
     }
@@ -718,7 +865,16 @@ public class RedCircle extends AppBase {
 
   boolean isQuadratic(String eq) {
     for (int i = 0; i < eq.length ()-2; i++) {
-      if (eq.substring(i, i+3).equals("X^2")) {
+      if (eq.substring(i, i+3).equals("x^2")) {
+        return true;
+      }
+    }
+    return false;
+  }
+  boolean isTrig(String eq) {
+    for (int i = 0; i < eq.length ()-2; i++) {
+      if (eq.substring(i, i+3).equals("cos") || eq.substring(i, i+3).equals("sin") || eq.substring(i, i+3).equals("tan")
+        || eq.substring(i, i+3).equals("csc") || eq.substring(i, i+3).equals("sec") || eq.substring(i, i+3).equals("cot")) {
         return true;
       }
     }
@@ -726,17 +882,41 @@ public class RedCircle extends AppBase {
   }
 
   void getInputs() {
-    testEq1 = new QuadraticEquation(eqInputs.get(0).input); 
-    testEq2 = new QuadraticEquation(eqInputs.get(1).input); 
-    testEq3 = new LinearEquation(eqInputs.get(2).input); 
-    testEq4 = new LinearEquation(eqInputs.get(3).input);
-    pol = new PolarEquation("y=costheta");
+    if (isQuadratic(eqInputs.get(0).input)) {
+      testEq1 = new QuadraticEquation(eqInputs.get(0).input);
+      print("ITS Quadratic");
+    } else if (isTrig(eqInputs.get(0).input)) {
+      testEq1 = new PolarEquation(eqInputs.get(0).input);
+    } else {
+      testEq1 = new LinearEquation(eqInputs.get(0).input);
+    }
+    if (isQuadratic(eqInputs.get(1).input)) {
+      testEq2 = new QuadraticEquation(eqInputs.get(1).input);
+    } else if (isTrig(eqInputs.get(1).input)) {
+      testEq2 = new PolarEquation(eqInputs.get(1).input);
+    } else {
+      testEq2 = new LinearEquation(eqInputs.get(1).input);
+    }
+    if (isQuadratic(eqInputs.get(2).input)) {
+      testEq3 = new QuadraticEquation(eqInputs.get(2).input);
+    } else if (isTrig(eqInputs.get(2).input)) {
+      testEq3 = new PolarEquation(eqInputs.get(2).input);
+    } else {
+      testEq3 = new LinearEquation(eqInputs.get(2).input);
+    }
+    if (isQuadratic(eqInputs.get(3).input)) {
+      testEq4 = new QuadraticEquation(eqInputs.get(3).input);
+    } else if (isTrig(eqInputs.get(3).input)) {
+      testEq4 = new PolarEquation(eqInputs.get(3).input);
+    } else {
+      testEq4 = new LinearEquation(eqInputs.get(3).input);
+    }
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
     if (a) {
       testEq1.testEquation(#F03AB3); 
-      pol.testEquation(#14B71B);
+      //   pol.testEquation(#14B71B);
     }
     if (b)
       testEq2.testEquation(#4BBCF7); 
@@ -787,7 +967,7 @@ public class RedCircle extends AppBase {
       graphPolar(gridRatio);
     }
     current = eqInputs.get(currentBox); 
-    if (!done) {
+    if (!done) {  
       getInputs(); 
       done = true;
     }
@@ -795,8 +975,7 @@ public class RedCircle extends AppBase {
       fill(255, 0, 0); 
       noStroke(); 
       hasInput(); 
-      testInputs(first, second, third, fourth); 
-      //testEq5.testEquation(#EA1837);
+      testInputs(first, second, third, fourth);
     }
     settingsWindow(); 
     inputWindow();

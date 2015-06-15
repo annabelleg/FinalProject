@@ -1,6 +1,5 @@
 public class HomePage extends AppBase
 {
-
   int b1x, b1y;
   int b2x, b2y;
   int b3x, b3y;
