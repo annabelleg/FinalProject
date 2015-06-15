@@ -63,6 +63,13 @@ public class RedCircle extends AppBase {
       textFont(p, 24);                
       fill(255);                  
       text("Input Your Equation", 0, 25);
+      fill(255);
+      stroke(255);
+      rectMode(CENTER);
+      rect(width/2, height-25, width-10, 25);
+      textSize(15);
+      fill(0);
+      text("Inputting Fractions is not advised. Use decimals instead.", 15, height - 20);
 
       rectMode(CENTER);
       fill(255);
@@ -118,49 +125,49 @@ public class RedCircle extends AppBase {
         if (mouseX > 210 && mouseX < 290 && mouseY > 38 && mouseY < 62) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(4).maxChar = 3;
+          eqInputs.get(4).maxChar = 4;
           currentBox = 4;
         }
         if (mouseX > 310 && mouseX < 390 && mouseY > 38 && mouseY < 62) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(5).maxChar = 3;
+          eqInputs.get(5).maxChar = 4;
           currentBox = 5;
         }
         if (mouseX > 210 && mouseX < 290 && mouseY > 88 && mouseY < 112) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(6).maxChar = 3;
+          eqInputs.get(6).maxChar = 4;
           currentBox = 6;
         }
         if (mouseX > 310 && mouseX < 390 && mouseY > 88 && mouseY < 112) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(7).maxChar = 3;
+          eqInputs.get(7).maxChar = 4;
           currentBox = 7;
         }
         if (mouseX > 210 && mouseX < 290 && mouseY > 138 && mouseY < 162) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(8).maxChar = 3;
+          eqInputs.get(8).maxChar = 4;
           currentBox = 8;
         }
         if (mouseX > 310 && mouseX < 390 && mouseY > 138 && mouseY < 162) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(9).maxChar = 3;
+          eqInputs.get(9).maxChar = 4;
           currentBox = 9;
         }
         if (mouseX > 210 && mouseX < 290 && mouseY > 188 && mouseY < 212) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(10).maxChar = 3;
+          eqInputs.get(10).maxChar = 4;
           currentBox = 10;
         }
         if (mouseX > 310 && mouseX < 390 && mouseY > 188 && mouseY < 212) {
           typeMode = true;
           mustBe = true;
-          eqInputs.get(11).maxChar = 3;
+          eqInputs.get(11).maxChar = 4;
           currentBox = 11;
         }
       }
@@ -170,14 +177,14 @@ public class RedCircle extends AppBase {
       text(eqInputs.get(1).input, 30, 105);
       text(eqInputs.get(2).input, 30, 155);
       text(eqInputs.get(3).input, 30, 205);
-      text(eqInputs.get(4).input, 260, 55);
-      text(eqInputs.get(5).input, 360, 55);
-      text(eqInputs.get(6).input, 260, 105);
-      text(eqInputs.get(7).input, 360, 105);
-      text(eqInputs.get(8).input, 260, 155);
-      text(eqInputs.get(9).input, 360, 155);
-      text(eqInputs.get(10).input, 260, 205);
-      text(eqInputs.get(11).input, 360, 205);
+      text(eqInputs.get(4).input, 255, 55);
+      text(eqInputs.get(5).input, 355, 55);
+      text(eqInputs.get(6).input, 255, 105);
+      text(eqInputs.get(7).input, 355, 105);
+      text(eqInputs.get(8).input, 255, 155);
+      text(eqInputs.get(9).input, 355, 155);
+      text(eqInputs.get(10).input, 255, 205);
+      text(eqInputs.get(11).input, 355, 205);
     }
 
     void keyPressed() {
