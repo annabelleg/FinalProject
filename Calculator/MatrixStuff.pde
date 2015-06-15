@@ -267,17 +267,17 @@ public class BlueSquare extends AppBase
     stroke(0);
     rectMode(CENTER);
     fill(200);
-    rect(width/2, height/2 + height/8, width/3, height/8);
+    rect(width/2, height/2 + height/16, width/3, height/8);
     p = createFont("Georgia", 15, true);
     textFont(p, 15);   
     fill(0); 
     if (!REFWindowOpen) {    
-      text("Compute \nReduced Echelon Form", width/3+100, height/2 + height/8);
+      text("Compute \nReduced Echelon Form", width/3+100, height/2 + height/16);
     } else {
       text("Close", width/3+100, height/2 + height/8);
     }
     if (mousePressed) {
-      if (mouseX > width/2-width/6 &&  mouseX < width/2 + width/6 && mouseY > height/2 + height/8 && mouseY < 3*height/4) {
+      if (mouseX > width/2-width/6 &&  mouseX < width/2 + width/6 && mouseY > height/2 + height/16 && mouseY <3*height/4) {
         if (!REFWindowOpen && matrixWindowOpen) {
           yo = new NewFrame();
           REFWindowOpen = true;
