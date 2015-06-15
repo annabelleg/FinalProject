@@ -145,3 +145,13 @@ https://github.com/annabelleg/FinalProject.git
 6/8/15: Demo #2:
 https://github.com/annabelleg/FinalProject/tree/Demo6/8
 
+#### HOW TO USE
+1. Click run. The homepage will open. From there, you can either press the 1 or 2 keys on your keyboard or click the buttons on the screen to get to the various pages. To get back to the homepage from another screen, press 0.
+2. If you to the Matrix screen, there will be a button with the words "Enter Matrix". Click on it. A new window will open up.
+  1. click on the boxes next to "Row:" and "Column:" to enter an integer from 1-9. 
+  2. When both rows and columns are not zero anymore, boxes will appear for you to input specific matrix cell values. To do this, simply click each box and enter the number you want (only keys 0-9 and . will be accepted).
+  3. On the original screen that popped up, click on "Computer Reduced Echelon Form". Click on this. A new window will pop up with your matrix in reduced echelon form!
+3. If you go to the Graph screen, you will see a basic Cartesian plane. 
+  1. On the top bar, click the "Input" button. You will now be able to input equations. To do this, click the box in which you want to enter an equation, type it in, and hit the Enter key. These equations must start with "y=" and must be linear, quadratic, or trigonometric (standard sin, cos, tan, sec, csc, and cot equations are acceptable).
+  2. If you click on the "Settings" button on the graph, a window will pop up that will allow you to zoom in and out on the origin of the graph, as well as change the frequency with which values forming the graph are calculate (scale).
+
