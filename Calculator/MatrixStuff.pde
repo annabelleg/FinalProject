@@ -1,6 +1,7 @@
+import java.util.*;
 public class BlueSquare extends AppBase
 {
-boolean matrixexists = false;
+  boolean matrixexists = false;
   boolean toShowREF = false;
   boolean enterRows = false;
   boolean enterColumns = false;
@@ -51,9 +52,8 @@ boolean matrixexists = false;
   public class MatrixApplet extends PApplet {
     void setup() {
       size(500, 500);
-      
     }
-   
+
     void draw() {
       background(225);
       p = createFont("Georgia", 24);
@@ -81,29 +81,31 @@ boolean matrixexists = false;
       }
       text(rows, 125, 40);
       text(cols, 300, 40);
-      
-     if (!matrixexists && rows!= 0 && cols!= 0){
-       //buildMatrix();
-       m = new Matrix(rows, cols);
-       matrixexists = true;
-     }
-     
-     
+
+      if (!matrixexists && rows!= 0 && cols!= 0) {
+        m = new Matrix(rows, cols);
+        matrixexists = true;
+      }
+
+
       if (rows != 0 && cols != 0) {
         valInputs = new ArrayList<TextBox>(rows*cols);
       }
 
       enterMatrixData();
-  
+
       for (TextBox t : valInputs) {
+        //  try {
         text(""+m.data[t.mR][t.mC], t.xCor-5, t.yCor+6);
         text(""+valInputs.get(t.mR*cols+t.mC).input, t.xCor-5, t.yCor-2);
-        println(m.data[t.mR][t.mC]);
+        // println(m.data[t.mR][t.mC]);
+
+        // catch ( ArrayOutOfBoundsException e) {
       }
     }
-     void buildMatrix(){
-       m = new Matrix(rows, cols);
-       matrixexists = true;
+    void buildMatrix() {
+      m = new Matrix(rows, cols);
+      matrixexists = true;
     }
 
     void enterMatrixData() {
@@ -112,20 +114,20 @@ boolean matrixexists = false;
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           if (r <= rows/2 && c <= cols/2) {
-            rect(width/2 - r*50, height/2 - c*50, 35, 15);
-            valInputs.add(new TextBox(width/2 - r*50 + 15, height/2 - c*50 + 7, r, c, ""));
+            rect( height/2 - c*50, width/2 - r*50, 35, 15);
+            valInputs.add(new TextBox(height/2 - c*50 + 15, width/2 - r*50 + 7, r, c, ""));
           } 
           if (r > rows/2 && c <= cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 - c*50, 35, 15);
-            valInputs.add(new TextBox(width/2 + (rows-r)*50 + 15, height/2 - c*50 + 7, r, c, ""));
+            rect(height/2 - c*50, width/2 + (rows-r)*50, 35, 15);
+            valInputs.add(new TextBox( height/2 - c*50 + 15, width/2 + (rows-r)*50 + 7, r, c, ""));
           }
           if (r <= rows/2 && c > cols/2) {
-            rect(width/2 - r*50, height/2 + (cols-c)*50, 35, 15);
-            valInputs.add(new TextBox(width/2 - r*50+15, height/2 + (cols-c)*50 + 7, r, c, ""));
+            rect( height/2 + (cols-c)*50, width/2 - r*50, 35, 15);
+            valInputs.add(new TextBox( height/2 + (cols-c)*50 + 15, width/2 - r*50+7, r, c, ""));
           } 
           if (r > rows/2 && c > cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 + (cols-c)*50, 35, 15);
-            valInputs.add(new TextBox(width/2 + (rows-r)*50 + 15, height/2 + (cols-c)*50 + 7, r, c, ""));
+            rect(height/2 + (cols-c)*50, width/2 + (rows-r)*50, 35, 15);
+            valInputs.add(new TextBox(height/2 + (cols-c)*50 + 15, width/2 + (rows-r)*50 + 7, r, c, ""));
           }
         }
       }
@@ -142,7 +144,6 @@ boolean matrixexists = false;
           }
         }
       }
-      
     }
     void keyPressed() {
       if (typeMode) {
@@ -150,27 +151,38 @@ boolean matrixexists = false;
           if (key == numbers[i]) {  
             if (enterRows) {
               String r = ""+key;
-              if (r != "0") {
+              // if (r != "0") {
+              try {
                 rows = Integer.parseInt(r);
                 enterRows = false;
+              }
+              finally {
               }
             }
             if (enterColumns) {
               String c = "" + key;
-              if (c != "0") {
+              //if (c != "0") {
+              try {
                 cols = Integer.parseInt(c);
                 enterColumns = false;
               }
+              finally {
+              }
             }
             if (enterData ) {
-              current.typeIn(String.valueOf(numbers[i]));
-
-              m.data[current.mR][current.mC] = Double.parseDouble(current.input);
-              text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
-              println(m.data[current.mR][current.mC]);
-              enterData = false;
-              typeMode = false;
-              current.hasStuff = true;
+              if (key == ENTER) {
+                done = true;
+              } else {
+                while (!done) {
+                  current.typeIn(String.valueOf(numbers[i]));
+                }
+                m.data[current.mR][current.mC] = Double.parseDouble(current.input);
+                //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
+                // println(m.data[current.mR][current.mC]);
+                enterData = false;
+                typeMode = false;
+                current.hasStuff = true;
+              }
             }
           }
         }
@@ -199,27 +211,27 @@ boolean matrixexists = false;
       for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols; c++) {
           if (r <= rows/2 && c <= cols/2) {
-            rect(width/2 - r*50, height/2 - c*50, 35, 15);
+            rect( height/2 - c*50, width/2 - r*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], (width/2 - r*50)+12, (height/2 - c*50)+11);
+            text(""+m.ref[r][c], (height/2 - c*50)+11, (width/2 - r*50)+12);
             fill(200);
           } 
           if (r > rows/2 && c <= cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 - c*50, 35, 15);
+            rect(height/2 - c*50, width/2 + (rows-r)*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], width/2 + (rows-r)*50+12, height/2 - c*50+11);
+            text(""+m.ref[r][c], height/2 - c*50+11, width/2 + (rows-r)*50+12);
             fill(200);
           }
           if (r <= rows/2 && c > cols/2) {
-            rect(width/2 - r*50, height/2 + (cols-c)*50, 35, 15);
+            rect( height/2 + (cols-c)*50, width/2 - r*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], width/2 - r*50+12, height/2 + (cols-c)*50+11);
+            text(""+m.ref[r][c], height/2 + (cols-c)*50+11, width/2 - r*50+12);
             fill(200);
           } 
           if (r > rows/2 && c > cols/2) {
-            rect(width/2 + (rows-r)*50, height/2 + (cols-c)*50, 35, 15);
+            rect( height/2 + (cols-c)*50, width/2 + (rows-r)*50, 35, 15);
             fill(0);
-            text(""+m.data[r][c], width/2 + (rows-r)*50+12, height/2 + (cols-c)*50+11);
+            text(""+m.ref[r][c], height/2 + (cols-c)*50+11, width/2 + (rows-r)*50+12 );
             fill(200);
           }
         }
@@ -244,7 +256,7 @@ boolean matrixexists = false;
     if (mousePressed) {
       if (mouseX > width/2-width/3 &&  mouseX < width/2+width/3 && mouseY > height/2 - height/6 && mouseY < height/2 ) {
         if (!matrixWindowOpen) {
-          PFrame f = new PFrame();
+          f = new PFrame();
           matrixWindowOpen = true;
         }
       }
@@ -255,19 +267,19 @@ boolean matrixexists = false;
     stroke(0);
     rectMode(CENTER);
     fill(200);
-    rect(width/2, height/2 + height/8, width/3, height/8);
+    rect(width/2, height/2 + height/16, width/3, height/8);
     p = createFont("Georgia", 15, true);
     textFont(p, 15);   
     fill(0); 
     if (!REFWindowOpen) {    
-      text("Compute \nReduced Echelon Form", width/3+100, height/2 + height/8);
+      text("Compute \nReduced Echelon Form", width/3+100, height/2 + height/16);
     } else {
       text("Close", width/3+100, height/2 + height/8);
     }
     if (mousePressed) {
-      if (mouseX > width/2-width/6 &&  mouseX < width/2 + width/6 && mouseY > height/2 + height/8 && mouseY < 3*height/4) {
+      if (mouseX > width/2-width/6 &&  mouseX < width/2 + width/6 && mouseY > height/2 + height/16 && mouseY <3*height/4) {
         if (!REFWindowOpen && matrixWindowOpen) {
-          NewFrame yo = new NewFrame();
+          yo = new NewFrame();
           REFWindowOpen = true;
         }
       }
@@ -277,6 +289,7 @@ boolean matrixexists = false;
   public class Matrix {
     double[][] data;
     int rows, cols;
+    double [][] ref;
 
     Matrix(int r, int c) {
       rows = r; 
@@ -290,19 +303,22 @@ boolean matrixexists = false;
         }
       }
     }
-    
-    /*double get(int r, int c){
-      return data[r][c];
-    }*/
 
     void REF() {
-      exchange();
-      dilateAndShear();
-      checkMatrix();
+      ref = new double[rows][cols];
+      for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+          ref[r][c] = data[r][c];
+        }
+      }
+
+      exchange(); 
+      dilateAndShear(); 
+      //  checkMatrix();
     }
     void exchange() {
       for (int r = 0; r < rows; r++) {
-        int k = 1;
+        int k = 1; 
         while (k < rows-r) {
           if (findLeadingEntry(r) > findLeadingEntry(r+k)) {
             switchRows(r, r+k);
@@ -313,47 +329,47 @@ boolean matrixexists = false;
     }
     int findLeadingEntry(int row) {
       for (int c = 0; c < cols; c++) {
-        if (data[row][c] != 0.0)
+        if (ref[row][c] != 0.0)
           return c;
       }
       return -1;
     }
     void switchRows(int a, int b) {
       for (int c = 0; c < cols; c++) {
-        double temp = data[a][c];
-        data[a][c] = data[b][c];
-        data[b][c] = temp;
+        double temp = ref[a][c]; 
+        ref[a][c] = ref[b][c]; 
+        ref[b][c] = temp;
       }
     }
 
     void dilateAndShear() {
-      int r=0;
+      int r=0; 
       while (r < rows) {
-        int c = findLeadingEntry(r);
+        int c = findLeadingEntry(r); 
         if (c >= 0) {
-          dilate(r, c);
+          dilate(r, c); 
           shear(r, c);
         }
         r++;
       }
     }
     void dilate(int r, int c) {
-      if (data[r][c] != 1.0) {
-        double val = 1/data[r][c];
+      if (ref[r][c] != 1.0) {
+        double val = 1/ref[r][c]; 
         for (int i = c; i < cols; i++) {
-          data[r][i] = data[r][i]*val;
+          ref[r][i] = ref[r][i]*val;
         }
       }
     }
 
     void shear(int r, int c) {
-      int tempr = 0;
+      int tempr = 0; 
       while (tempr < rows) {
         if (tempr != r) {
-          double shearval = data[tempr][c];
-          int startval = findLeadingEntry(tempr);
+          double shearval = ref[tempr][c]; 
+          int startval = findLeadingEntry(tempr); 
           for (int i = startval; i < cols; i++) {
-            data[tempr][i] = data[tempr][i] + (-1)*shearval*(data[r][i]);
+            ref[tempr][i] = ref[tempr][i] + (-1)*shearval*(ref[r][i]);
           }
         }
         tempr++;
@@ -364,10 +380,14 @@ boolean matrixexists = false;
         if (findLeadingEntry(r) <= findLeadingEntry(r-1)) {
           switchRows(r, r-1);
         }
+        /* if (r >= cols) {
+         for (int c = 0; c < cols; c++) {
+         ref[r][c] = 0.0;
+         }
+         }*/
       }
     }
   }
-
 
 
   public BlueSquare(PApplet parentApplet) {
@@ -376,15 +396,15 @@ boolean matrixexists = false;
 
   @Override
     public void init() {
-    size(600, 578);
-    setLocation(400, 300);
+    size(600, 578); 
+    setLocation(400, 300); 
     valInputs = new ArrayList<TextBox>();
   }
 
   @Override
     public void display() {
-    background(225);
-    matrixWindow();
+    background(225); 
+    matrixWindow(); 
     //current = new TextBox(50, 50);
     REFWindow();
   }
@@ -393,22 +413,22 @@ boolean matrixexists = false;
    ===========================================================================================*/
   public class TextBox {
 
-    String input = "";
+    String input = ""; 
     int xCor, yCor; //center points
     int mR, mC; //entry in matrix
-    boolean hasStuff;
+    boolean hasStuff; 
 
     TextBox(int x, int y) {
-      input = "";
-      xCor = x;
-      yCor = y;
+      input = ""; 
+      xCor = x; 
+      yCor = y; 
       hasStuff = false;
     }
     TextBox(int x, int y, int r, int c, String i) {
-      input = i;
-      xCor = x;
-      yCor = y;
-      mR = r;
+      input = i; 
+      xCor = x; 
+      yCor = y; 
+      mR = r; 
       mC = c;
     }
 
@@ -432,3 +452,4 @@ boolean matrixexists = false;
     }
   }
 }
+
