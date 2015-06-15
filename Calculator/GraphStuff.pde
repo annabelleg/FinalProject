@@ -52,6 +52,7 @@ public class RedCircle extends AppBase {
 
   public class EquationApplet extends PApplet {
 
+
     public void setup() {
       background(#6FF598);
     }
@@ -64,7 +65,7 @@ public class RedCircle extends AppBase {
 
       rectMode(CENTER);
       fill(255);
-            stroke(255);
+      stroke(255);
       rect(100, 50, 150, 25);
       rect(100, 100, 150, 25);
       rect(100, 150, 150, 25);
@@ -656,6 +657,7 @@ public class RedCircle extends AppBase {
 
   public class settingsApplet extends PApplet {
 
+
     public void setup() {
       background(#E8B4FF);
     }
@@ -795,18 +797,15 @@ public class RedCircle extends AppBase {
     p = createFont("Georgia", 15, true); 
     textFont(p, 15); 
     fill(255); 
-    if (!settingsWindowOpen) {    
-      text("Settings", 30, 15);
-    } else {
-      text("Close", 30, 15);
-    }
+    text("Settings", 30, 15);
+
     if (mousePressed) {
       if (mouseX > 0 && mouseY > 0 && mouseX < 60 && mouseY < 20) {
         if (!settingsWindowOpen) {
           PFrame f = new PFrame(); 
           settingsWindowOpen = true;
         } else {
-          // f.setVisible(false);
+        // settingsWindowOpen = false;
         }
       }
     }
@@ -837,22 +836,23 @@ public class RedCircle extends AppBase {
   }
 
   void inputWindow() {
+    boolean canOpen = false;
     rectMode(CENTER); 
     fill(0); 
     rect(100, 10, 60, 20); 
     p = createFont("Georgia", 15, true); 
     textFont(p, 15); 
-    fill(255); 
-    if (!inputWindowOpen) {    
-      text("Input", 100, 15);
-    } else {
-      text("Close", 100, 15);
-    }
+    fill(255);    
+    text("Input", 100, 15); 
+
     if (mousePressed) {
       if (mouseX > 70 && mouseY > 0 && mouseX < 130 && mouseY < 20) {
         if (!inputWindowOpen) {
-          NewFrame yo = new NewFrame(); 
+          NewFrame yo = new NewFrame();
           inputWindowOpen = true;
+          canOpen = true;
+        } else {
+          inputWindowOpen = false;
         }
       }
     }

@@ -3,6 +3,9 @@ ArrayList<AppBase> apps;
 import javax.swing.JFrame;
 import java.util.*;
 import java.io.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 int selected;
 
