@@ -88,7 +88,7 @@ Interpreting user input of equations
   - rearranged homepage a little to look nicer/work more intuitively
   - ref displays values too! 
 - 6/9/15
-  - entry of equations works, just math is a little wacky
+  - entry of equations works, just math is a little wacky.
 - 6/10/15
   - user entry of matrix values sticks!
   - ref calculates mostly correctly (truncating is a lil off, need to check matrix at the end)
@@ -102,6 +102,12 @@ Interpreting user input of equations
   - working on functionality of close buttons
   - fixing REF
   - fixed bug where column # and row # were switched
+  - evaluating trigonometric expressions works. 
+  - trigonometric functions in the form of y=a+bcos(theta) works.
+- 6/14/15
+  - trying to make polar work, but something gets lost in translation from rectangular and wacky shapes form.
+  - now can input either quadratic, linear, or trig into either of four text boxes and it will know which type to cast it to.
+  - can change xMin and xMax values for each of four equations.
   
   
 
@@ -128,6 +134,8 @@ Interpreting user input of equations
 - polar graphing!!! 
 - buttons on homepage work when clicked
 - matrix and REF of matrix are separate
+- input of trigonometric functions.
+- altering xMin and xMax values.
 
 
 #### WORKING DEMOS
