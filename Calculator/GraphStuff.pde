@@ -22,6 +22,7 @@ public class RedCircle extends AppBase {
   float step = 0.1;
   boolean ther = false;
   int time;
+  boolean mustBe = false;
   int wait = 2000;
   // 0 = funtion, 1 = polar
   int graphMode = 0;
@@ -95,19 +96,72 @@ public class RedCircle extends AppBase {
       if (mousePressed) {
         if (mouseX > 25 && mouseX < 175 && mouseY > 38 && mouseY < 62) {
           typeMode = true;
+          mustBe = false;
           currentBox = 0;
         }
         if (mouseX > 25 && mouseX < 175 && mouseY > 88 && mouseY < 112) {
           typeMode = true;
+          mustBe = false;
           currentBox = 1;
         }
         if (mouseX > 25 && mouseX < 175 && mouseY > 138 && mouseY < 162) {
           typeMode = true;
+          mustBe = false;
           currentBox = 2;
         }
         if (mouseX > 25 && mouseX < 175 && mouseY > 188 && mouseY < 212) {
           typeMode = true;
+          mustBe = false;
           currentBox = 3;
+        }
+        // <<<<<<<<<<<<<< XMIN & XMAX INPUTs
+        if (mouseX > 210 && mouseX < 290 && mouseY > 38 && mouseY < 62) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(4).maxChar = 3;
+          currentBox = 4;
+        }
+        if (mouseX > 310 && mouseX < 390 && mouseY > 38 && mouseY < 62) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(5).maxChar = 3;
+          currentBox = 5;
+        }
+        if (mouseX > 210 && mouseX < 290 && mouseY > 88 && mouseY < 112) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(6).maxChar = 3;
+          currentBox = 6;
+        }
+        if (mouseX > 310 && mouseX < 390 && mouseY > 88 && mouseY < 112) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(7).maxChar = 3;
+          currentBox = 7;
+        }
+        if (mouseX > 210 && mouseX < 290 && mouseY > 138 && mouseY < 162) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(8).maxChar = 3;
+          currentBox = 8;
+        }
+        if (mouseX > 310 && mouseX < 390 && mouseY > 138 && mouseY < 162) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(9).maxChar = 3;
+          currentBox = 9;
+        }
+        if (mouseX > 210 && mouseX < 290 && mouseY > 188 && mouseY < 212) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(10).maxChar = 3;
+          currentBox = 10;
+        }
+        if (mouseX > 310 && mouseX < 390 && mouseY > 188 && mouseY < 212) {
+          typeMode = true;
+          mustBe = true;
+          eqInputs.get(11).maxChar = 3;
+          currentBox = 11;
         }
       }
       textFont(p, 15);                
@@ -116,15 +170,23 @@ public class RedCircle extends AppBase {
       text(eqInputs.get(1).input, 30, 105);
       text(eqInputs.get(2).input, 30, 155);
       text(eqInputs.get(3).input, 30, 205);
+      text(eqInputs.get(4).input, 260, 55);
+      text(eqInputs.get(5).input, 360, 55);
+      text(eqInputs.get(6).input, 260, 105);
+      text(eqInputs.get(7).input, 360, 105);
+      text(eqInputs.get(8).input, 260, 155);
+      text(eqInputs.get(9).input, 360, 155);
+      text(eqInputs.get(10).input, 260, 205);
+      text(eqInputs.get(11).input, 360, 205);
     }
 
     void keyPressed() {
       if (typeMode) {
         for (int i = 0; i < 26; i++) {
-          if (key == alphabetLower[i]) {
+          if (key == alphabetLower[i] && !mustBe) {
             current.typeIn(String.valueOf(alphabetLower[i]));
           }
-          if (key == alphabetUpper[i]) {
+          if (key == alphabetUpper[i] && !mustBe) {
             current.typeIn(String.valueOf(alphabetUpper[i]));
           }
         }
@@ -134,8 +196,16 @@ public class RedCircle extends AppBase {
           }
         }
         for (int i = 0; i < 11; i++) {
-          if (key == operations[i]) {  
+          if (key == operations[i] && !mustBe) {  
             current.typeIn(String.valueOf(operations[i]));
+          }
+        }
+        if (mustBe) {
+          if (key == '-') {
+            current.typeIn("-");
+          }
+          if (key == '.') {
+            current.typeIn(".");
           }
         }
         if (key == ' ') {
@@ -165,6 +235,7 @@ public class RedCircle extends AppBase {
     boolean parabola = false;
     int indexBar;
     boolean hasFraction = false;
+    float defXmin, defXmax;
     float xMin, xMax;
 
     public Equation(String eq) {
@@ -173,7 +244,9 @@ public class RedCircle extends AppBase {
       fillEq();
       data = new ArrayList<Coordinate>();
       xMin = (-1)*(xCenter);
+      defXmin = (-1)*(xCenter);
       xMax = xCenter+100;
+      defXmax = xCenter+100;
     }
 
     void fillEq() {
@@ -522,7 +595,9 @@ public class RedCircle extends AppBase {
     PolarEquation(String eq) {
       super(eq);
       xMin = 0;
-      xMax = 2*PI;
+      defXmin = 0;
+      xMax = 2*PI;   
+      defXmax = 2*PI;
       posTrig = new ArrayList();
       PolarCoors = new ArrayList<Coordinate>();
       try {
@@ -642,8 +717,8 @@ public class RedCircle extends AppBase {
     void testEquation(int colorNum) {
       // r = a + bcos(theta)
       data.clear();
-      makeData();
-      for (float x = (-1)*(2*PI); x <= 2*PI; x+=step) {
+      //makeData();
+      for (float x = xMin; x <= xMax; x+=step) {
         fill(colorNum);
         float theX = (x*gridRatio)+xCenter;
         float theY = yCenter-(a*gridRatio+(b*trigOperation(x)*gridRatio));
@@ -651,10 +726,6 @@ public class RedCircle extends AppBase {
         Coordinate c = new Coordinate(theX, theY);
         data.add(c);
       }
-      /* for (Coordinate c : PolarCoors) {
-       fill(colorNum);
-       ellipse(xCenter+(c.x*gridRatio), yCenter-(c.y*gridRatio), 2, 2);
-       }*/
     }
   }
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SETTINGS APPLET >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -754,15 +825,19 @@ public class RedCircle extends AppBase {
 
     String input = ""; 
     int xCor, yCor; //center points
+    int maxChar;
 
     TextBox(int x, int y) {
       input = ""; 
       xCor = x; 
       yCor = y;
+      maxChar = 18;
     }
 
     void typeIn(String letter) {
-      input += letter;
+      if (input.length() < maxChar) {
+        input += letter;
+      }
     }
     void erase() {
       if (input.length() >= 1)
@@ -884,7 +959,6 @@ public class RedCircle extends AppBase {
   void getInputs() {
     if (isQuadratic(eqInputs.get(0).input)) {
       testEq1 = new QuadraticEquation(eqInputs.get(0).input);
-      print("ITS Quadratic");
     } else if (isTrig(eqInputs.get(0).input)) {
       testEq1 = new PolarEquation(eqInputs.get(0).input);
     } else {
@@ -911,12 +985,44 @@ public class RedCircle extends AppBase {
     } else {
       testEq4 = new LinearEquation(eqInputs.get(3).input);
     }
+    //<<<<<<<<<<<<<<<<<<<  XMIN & XMAX INPUT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    if (!eqInputs.get(4).input.equals("") || !eqInputs.get(5).input.equals("")) {
+      testEq1.xMin = parseFloat(eqInputs.get(4).input);
+      if (testEq1.xMin <= parseFloat(eqInputs.get(5).input)) {
+        testEq1.xMax = parseFloat(eqInputs.get(5).input);
+      } else {
+        testEq1.xMax = testEq1.defXmax;
+      }
+    }
+    if (!eqInputs.get(6).input.equals("") || !eqInputs.get(7).input.equals("")) {
+      testEq2.xMin = parseFloat(eqInputs.get(6).input);
+      if (testEq2.xMin <= parseFloat(eqInputs.get(7).input)) {
+        testEq2.xMax = parseFloat(eqInputs.get(7).input);
+      } else {
+        testEq2.xMax = testEq2.defXmax;
+      }
+    }
+    if (!eqInputs.get(8).input.equals("") || !eqInputs.get(9).input.equals("")) {
+      testEq3.xMin = parseFloat(eqInputs.get(8).input);
+      if (testEq3.xMin <= parseFloat(eqInputs.get(9).input)) {
+        testEq3.xMax = parseFloat(eqInputs.get(9).input);
+      } else {
+        testEq3.xMax = testEq3.defXmax;
+      }
+    }
+    if (!eqInputs.get(10).input.equals("") || !eqInputs.get(11).input.equals("")) {
+      testEq4.xMin = parseFloat(eqInputs.get(10).input);
+      if (testEq4.xMin <= parseFloat(eqInputs.get(11).input)) {
+        testEq4.xMax = parseFloat(eqInputs.get(11).input);
+      } else {
+        testEq4.xMax = testEq4.defXmax;
+      }
+    }
   }
 
   void testInputs(boolean a, boolean b, boolean c, boolean d) {
     if (a) {
-      testEq1.testEquation(#F03AB3); 
-      //   pol.testEquation(#14B71B);
+      testEq1.testEquation(#F03AB3);
     }
     if (b)
       testEq2.testEquation(#4BBCF7); 
@@ -948,13 +1054,29 @@ public class RedCircle extends AppBase {
     setLocation(400, 300); 
     eqInputs = new ArrayList<TextBox>(); 
     TextBox box1 = new TextBox(30, 55); 
+    TextBox box1a = new TextBox(30, 55);
+    TextBox box1b = new TextBox(30, 55);
     TextBox box2 = new TextBox(30, 55); 
+    TextBox box2a = new TextBox(30, 55);
+    TextBox box2b = new TextBox(30, 55);
     TextBox box3 = new TextBox(30, 55); 
+    TextBox box3a = new TextBox(30, 55);
+    TextBox box3b = new TextBox(30, 55);
     TextBox box4 = new TextBox(30, 55); 
+    TextBox box4a = new TextBox(30, 55);
+    TextBox box4b = new TextBox(30, 55);
     eqInputs.add(box1); // index 0
     eqInputs.add(box2); // index 1
     eqInputs.add(box3); // index 2
     eqInputs.add(box4); // index 3
+    eqInputs.add(box1a); // index 4
+    eqInputs.add(box1b); // index 5
+    eqInputs.add(box2a); // index 6
+    eqInputs.add(box2b); // index 7
+    eqInputs.add(box3a); // index 8
+    eqInputs.add(box3b); // index 9
+    eqInputs.add(box4a); // index 10
+    eqInputs.add(box4b); // index 11
     current = new TextBox(50, 50);
   }
   //  @Override
