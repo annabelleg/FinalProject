@@ -600,30 +600,33 @@ public class RedCircle extends AppBase {
       defXmax = 2*PI;
       posTrig = new ArrayList();
       PolarCoors = new ArrayList<Coordinate>();
+      endA = 2; //default
       try {
         findAngle();
-        findA();
         findB();
+        findA();
         findTrig();
       }
       catch (IndexOutOfBoundsException e) {
       }
+      print(a);
+      print("  " + b);
     }
-
+    /*
     float convertPolar(float x, float y, boolean ar) { // ar true = return r & ar false = return theta
-      float r = sqrt((x*x)+(y*y));
-      float theta = atan(y/x);
-      if (ar)
-        return r;
-      return theta;
-    }
-    float convertRect(float r, float theta, boolean ex) {
-      float yR = (r*sin(theta));
-      float xR = (r*cos(theta));
-      if (ex)
-        return xR;
-      return yR;
-    }
+     float r = sqrt((x*x)+(y*y));
+     float theta = atan(y/x);
+     if (ar)
+     return r;
+     return theta;
+     }
+     float convertRect(float r, float theta, boolean ex) {
+     float yR = (r*sin(theta));
+     float xR = (r*cos(theta));
+     if (ex)
+     return xR;
+     return yR;
+     }*/
 
     void findTrig() {
       if (equation.substring(pr1-3, pr1).equals("sin") || equation.substring(pr1-4, pr1).equals("sine")) {
@@ -678,22 +681,34 @@ public class RedCircle extends AppBase {
           break;
         }
       }
+      if (endA == 2) {
+        a = 0;
+        return;
+      }
       if (equation_[0].equals("y") && equation_[1].equals("=")) {
         a = parseFloat(equation.substring(2, endA));
       }
     }
 
     void findB() {
+      if (endA == 2) {
+        b = parseFloat(equation.substring(2, pr1-3));
+        return;
+      }
+      if (endA + 1 == pr1-3) {
+        b = 1;
+        return;
+      }
       b = parseFloat(equation.substring(endA, pr1-3));
     }
 
-    void convertThem(ArrayList<Coordinate> lis) {
-      for (Coordinate cor : lis) {
-        float cX = cor.x;
-        cor.x = convertRect(cX, cor.y, true);
-        cor.y = convertPolar(cX, cor.y, false);
-      }
-    }
+    /*8 void convertThem(ArrayList<Coordinate> lis) {
+     for (Coordinate cor : lis) {
+     float cX = cor.x;
+     cor.x = convertRect(cX, cor.y, true);
+     cor.y = convertPolar(cX, cor.y, false);
+     }
+     }*/
 
     float findY() {
       return 0.0;
@@ -711,7 +726,7 @@ public class RedCircle extends AppBase {
         Coordinate thisCor = new Coordinate(thisR, x);
         PolarCoors.add(thisCor);
       }
-      convertThem(PolarCoors);
+      //convertThem(PolarCoors);
     }
 
     void testEquation(int colorNum) {
