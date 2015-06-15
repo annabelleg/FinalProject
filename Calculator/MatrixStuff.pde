@@ -170,19 +170,15 @@ public class BlueSquare extends AppBase
               }
             }
             if (enterData ) {
-              if (key == ENTER) {
-                done = true;
-              } else {
-                while (!done) {
-                  current.typeIn(String.valueOf(numbers[i]));
-                }
-                m.data[current.mR][current.mC] = Double.parseDouble(current.input);
-                //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
-                // println(m.data[current.mR][current.mC]);
-                enterData = false;
-                typeMode = false;
-                current.hasStuff = true;
-              }
+
+              current.typeIn(String.valueOf(numbers[i]));
+
+              m.data[current.mR][current.mC] = Double.parseDouble(current.input);
+              //   text(""+m.data[current.mR][current.mC], current.xCor-5, current.yCor+6);
+              // println(m.data[current.mR][current.mC]);
+              enterData = false;
+              typeMode = false;
+              current.hasStuff = true;
             }
           }
         }
